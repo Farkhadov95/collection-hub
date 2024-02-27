@@ -6,14 +6,16 @@ import NavLinks from "./NavLinks";
 
 const Navbar = () => {
   return (
-    <Flex justifyContent={"space-between"} marginBottom={5}>
-      <Logo />
-      <HStack spacing={5}>
-        <ColorModeSwitch />
-        <SearchBar />
-      </HStack>
-      <NavLinks />
-    </Flex>
+    <>
+      <Flex justifyContent={"space-between"} marginBottom={5}>
+        <Logo />
+        <HStack spacing={5}>
+          <ColorModeSwitch />
+          <SearchBar />
+        </HStack>
+        <NavLinks />
+      </Flex>
+    </>
   );
 };
 

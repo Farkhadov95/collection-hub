@@ -1,12 +1,12 @@
-import { Box, Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 
 const Logo = () => {
   return (
-    <Box>
+    <HStack>
       <Text fontSize={"large"} fontWeight={"bold"}>
         CollectionHub
       </Text>
-    </Box>
+    </HStack>
   );
 };
 

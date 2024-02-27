@@ -1,30 +1,10 @@
-import { HStack, Button, Icon, Text, Select } from "@chakra-ui/react";
+import { HStack, Button, Icon, Text } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
-import {
-  MdDeleteForever,
-  MdBlockFlipped,
-  MdOutlineSelectAll,
-} from "react-icons/md";
+import { MdDeleteForever, MdBlockFlipped } from "react-icons/md";
 
 const AdminTools = () => {
   return (
     <>
-      <HStack spacing={2}>
-        <Button variant="outline" width={"250px"}>
-          <Icon as={MdOutlineSelectAll} />
-          <Text paddingLeft={1}>Select All</Text>
-        </Button>
-        <Select placeholder="Sort by:">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </Select>
-        <Select placeholder="Filter by:">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </Select>
-      </HStack>
       <HStack spacing={2}>
         <Button variant="outline" colorScheme="green">
           <Icon as={IoMdAdd} />

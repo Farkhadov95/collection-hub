@@ -9,6 +9,8 @@ import {
   Heading,
   Box,
   HStack,
+  Text,
+  Checkbox,
 } from "@chakra-ui/react";
 import AdminTableItem from "./AdminTableItem";
 import AdminTools from "./AdminTools";
@@ -24,7 +26,11 @@ const AdminsTable = () => {
         <Table variant="striped" colorScheme={"teal.200"}>
           <Thead>
             <Tr>
-              <Th>Select</Th>
+              <Th>
+                <Checkbox>
+                  <Text fontSize={"12px"}>Select all</Text>
+                </Checkbox>
+              </Th>
               <Th>ID</Th>
               <Th>Name</Th>
               <Th>Email</Th>

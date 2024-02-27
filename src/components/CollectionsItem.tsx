@@ -1,4 +1,11 @@
-import { Card, CardBody, Heading, Button, Image } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Heading,
+  Button,
+  Image,
+  HStack,
+} from "@chakra-ui/react";
 
 const CollectionsItem = () => {
   return (
@@ -9,12 +16,12 @@ const CollectionsItem = () => {
           alt="Green double couch with wooden legs"
           borderRadius="lg"
         />
-        <Heading size="md" paddingY={5}>
-          Movies
-        </Heading>
-        <Button size="sm" variant="solid" colorScheme="blue">
-          Open
-        </Button>
+        <HStack justifyContent={"space-between"} marginTop={5}>
+          <Heading size="md">Movies</Heading>
+          <Button size="sm" variant="outline" colorScheme="teal">
+            Open
+          </Button>
+        </HStack>
       </CardBody>
     </Card>
   );

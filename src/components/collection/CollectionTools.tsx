@@ -1,5 +1,5 @@
-import { Button, HStack, Icon, Select, Text } from "@chakra-ui/react";
-import { IoMdAdd } from "react-icons/io";
+import { HStack, Select } from "@chakra-ui/react";
+import CollectionItemCreate from "./CollectionItemCreate";
 
 const CollectionTools = () => {
   return (
@@ -16,10 +16,7 @@ const CollectionTools = () => {
           <option value="option3">Option 3</option>
         </Select>
       </HStack>
-      <Button variant="outline">
-        <Icon as={IoMdAdd} />
-        <Text paddingLeft={1}>Create</Text>
-      </Button>
+      <CollectionItemCreate />
     </HStack>
   );
 };

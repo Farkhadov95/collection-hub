@@ -1,5 +1,5 @@
 import { Divider } from "@chakra-ui/react";
-import AdminTable from "../components/AdminTable";
+import AdminTable from "../components/admin/AdminTable";
 import Navbar from "../components/Navbar";
 
 const Admin = () => {

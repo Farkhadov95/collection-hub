@@ -3,11 +3,8 @@ import { IoSearch } from "react-icons/io5";
 
 const SearchBar = () => {
   return (
-    <HStack spacing={2}>
-      <Input
-        placeholder="Search"
-        width={{ md: "200px", lg: "300px", xl: "400px" }}
-      />
+    <HStack spacing={2} flexGrow={"1"}>
+      <Input placeholder="Search" width={"100%"} />
       <IconButton variant="outline" aria-label="search" icon={<IoSearch />} />
     </HStack>
   );

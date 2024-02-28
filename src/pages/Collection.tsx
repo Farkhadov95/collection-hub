@@ -1,7 +1,7 @@
 import { Divider } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
-import CollectionContent from "../components/CollectionContent";
-import CollectionAbout from "../components/CollectionAbout";
+import CollectionContent from "../components/collection/CollectionContent";
+import CollectionAbout from "../components/collection/CollectionAbout";
 
 const Collection = () => {
   return (

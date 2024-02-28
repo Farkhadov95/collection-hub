@@ -1,5 +1,4 @@
 import {
-  ListItem,
   Card,
   Stack,
   CardBody,
@@ -15,7 +14,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
 const CollectionContentItem = () => {
   return (
-    <ListItem marginY={5}>
+    <Box>
       <Card
         direction={{ base: "column", sm: "row" }}
         overflow="hidden"
@@ -55,7 +54,7 @@ const CollectionContentItem = () => {
                 />
               </Box>
             </HStack>
-            <Text py="2">
+            <Text py="2" textAlign={"justify"}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
               minus ullam molestiae quos perspiciatis veniam quibusdam
               perferendis ducimus inventore debitis culpa earum, cumque labore
@@ -64,7 +63,7 @@ const CollectionContentItem = () => {
           </CardBody>
         </Stack>
       </Card>
-    </ListItem>
+    </Box>
   );
 };
 

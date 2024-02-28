@@ -51,15 +51,10 @@ const SignUp = () => {
           <Input border={"1px solid"} placeholder="First name" />
         </FormControl>
         <HStack justifyContent={"space-between"} marginTop={5}>
-          <Button as={NavLink} to={"/"} variant={"outline"}>
+          <Button as={NavLink} to={"/login"} variant={"outline"}>
             or Sign In
           </Button>
-          <Button
-            as={NavLink}
-            to={"/user"}
-            variant={"outline"}
-            colorScheme="green"
-          >
+          <Button as={NavLink} to={"/"} variant={"outline"} colorScheme="green">
             Sign Up
           </Button>
         </HStack>

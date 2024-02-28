@@ -8,7 +8,7 @@ import SignUp from "../pages/SignUp";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
     errorElement: <Error />,
   },
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/user",
+    path: "/",
     element: <User />,
     errorElement: <Error />,
   },

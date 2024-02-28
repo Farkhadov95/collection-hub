@@ -47,12 +47,7 @@ const Login = () => {
           <Button as={NavLink} to={"/signup"} variant={"outline"}>
             Sign Up
           </Button>
-          <Button
-            as={NavLink}
-            to={"/user"}
-            variant={"outline"}
-            colorScheme="green"
-          >
+          <Button as={NavLink} to={"/"} variant={"outline"} colorScheme="green">
             Sign In
           </Button>
         </HStack>

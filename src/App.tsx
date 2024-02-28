@@ -1,11 +1,12 @@
 import { Box } from "@chakra-ui/react";
-import Admin from "./pages/Admin";
+import Collection from "./pages/Collection";
 
 function App() {
   return (
     <Box padding={5}>
       {/* <User /> */}
-      <Admin />
+      {/* <Admin /> */}
+      <Collection />
     </Box>
   );
 }

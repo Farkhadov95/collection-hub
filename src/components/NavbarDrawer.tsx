@@ -27,7 +27,6 @@ const NavbarDrawer = () => {
         variant={"outline"}
         aria-label="Menu"
         icon={<GiHamburgerMenu />}
-        colorScheme="teal"
         onClick={onOpen}
       />
       <Drawer

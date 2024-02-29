@@ -2,11 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../pages/Main";
 import User from "../pages/User";
 import Collection from "../pages/Collection";
-import CreateCollectable from "../components/collection/CreateCollectable";
-import Layout from "./layout";
+import CreateItem from "../components/collection/CreateItem";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import Layout from "./Layout";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "create",
-        element: <CreateCollectable />,
+        element: <CreateItem />,
       },
       {
         path: "login",

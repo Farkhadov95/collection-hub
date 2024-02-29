@@ -4,7 +4,6 @@ import MainCollectionItem from "./MainCollectionItem";
 const MainContent = () => {
   return (
     <Stack
-      //   border={"1px solid"}
       borderRadius={10}
       boxSizing={"border-box"}
       padding={{ base: 0, md: 5 }}
@@ -28,7 +27,7 @@ const MainContent = () => {
         </Heading>
         <SimpleGrid
           marginY={{ base: 2, md: 5 }}
-          columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 5 }}
+          columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
           spacing={5}
         >
           <MainCollectionItem />
@@ -43,8 +42,8 @@ const MainContent = () => {
           Latest Collections:
         </Heading>
         <SimpleGrid
-          marginY={5}
-          columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
+          marginY={{ base: 2, md: 5 }}
+          columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
           spacing={5}
         >
           <MainCollectionItem />

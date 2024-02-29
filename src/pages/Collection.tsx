@@ -1,13 +1,13 @@
 import { Divider, Box } from "@chakra-ui/react";
-import CollectionContent from "../components/collection/CollectionContent";
-import CollectionAbout from "../components/collection/CollectionAbout";
+import ItemsContainer from "../components/collection/ItemsContainer";
+import About from "../components/collection/About";
 
 const Collection = () => {
   return (
     <Box padding={5}>
-      <CollectionAbout />
+      <About />
       <Divider marginY={5} />
-      <CollectionContent />
+      <ItemsContainer />
     </Box>
   );
 };

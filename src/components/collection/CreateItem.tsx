@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 
-const CreateCollectable = () => {
+const CreateItem = () => {
   return <Box>Create</Box>;
 };
 
-export default CreateCollectable;
+export default CreateItem;

@@ -1,10 +1,10 @@
 import { HStack, Text } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Logo = () => {
   return (
     <HStack>
-      <Text as={NavLink} to={"/"} fontSize={20} fontWeight={"bold"}>
+      <Text as={Link} to={"/"} fontSize={20} fontWeight={"bold"}>
         CollectionHub
       </Text>
     </HStack>

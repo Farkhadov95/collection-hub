@@ -12,7 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
-const CollectionContentItem = () => {
+
+const Item = () => {
   return (
     <Box>
       <Card
@@ -67,4 +68,4 @@ const CollectionContentItem = () => {
   );
 };
 
-export default CollectionContentItem;
+export default Item;

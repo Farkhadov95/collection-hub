@@ -1,46 +1,37 @@
 import {
   Card,
-  Stack,
   CardBody,
   HStack,
   Heading,
-  Tag,
   Box,
   Image,
-  Text,
+  Button,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const MainCollectionItem = () => {
   return (
     <Box>
-      <Card direction={"column"} overflow="hidden" variant="outline">
-        <Image
-          objectFit="cover"
-          maxW={{ base: "100%" }}
-          src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-          alt="Caffe Latte"
-        />
-
-        <Stack>
-          <CardBody>
-            <HStack justifyContent={"space-between"} alignItems={"none"}>
-              <Box>
-                <Heading size={{ base: "sm", md: "md" }}>Terminator 2</Heading>
-
-                <HStack py={2}>
-                  <Tag>Action</Tag>
-                  <Tag>Sci-fi</Tag>
-                </HStack>
-              </Box>
-            </HStack>
-            <Text textAlign={"justify"} fontSize={{ base: "small" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-              minus ullam molestiae quos perspiciatis veniam quibusdam
-              perferendis ducimus inventore debitis culpa earum, cumque labore
-              illo velit quisquam laudantium numquam ipsam.
-            </Text>
-          </CardBody>
-        </Stack>
+      <Card width={"100%"}>
+        <CardBody>
+          <Image
+            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            alt="Green double couch with wooden legs"
+            borderRadius="lg"
+          />
+          <HStack justifyContent={"space-between"} marginTop={5}>
+            <Heading size={{ base: "sm", md: "md" }}>Movies</Heading>
+            <Button
+              as={Link}
+              to={"/collection"}
+              size="sm"
+              variant="outline"
+              colorScheme="teal"
+            >
+              Open
+            </Button>
+          </HStack>
+        </CardBody>
       </Card>
     </Box>
   );

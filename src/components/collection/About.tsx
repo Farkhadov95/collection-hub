@@ -1,6 +1,6 @@
 import { Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
 
-const CollectionAbout = () => {
+const About = () => {
   return (
     <Flex
       height={{ base: "400px", sm: "350px", md: "200px" }}
@@ -42,4 +42,4 @@ const CollectionAbout = () => {
   );
 };
 
-export default CollectionAbout;
+export default About;

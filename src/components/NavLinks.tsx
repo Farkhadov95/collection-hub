@@ -1,5 +1,5 @@
-import { HStack, Link } from "@chakra-ui/react";
-import { NavLink, useLocation } from "react-router-dom";
+import { HStack, Text } from "@chakra-ui/react";
+import { Link, useLocation } from "react-router-dom";
 
 const NavLinks = () => {
   const location = useLocation();
@@ -8,13 +8,13 @@ const NavLinks = () => {
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
       {pathname === "/" ? null : (
-        <Link as={NavLink} to={"/"} fontWeight={"bold"}>
+        <Text as={Link} to={"/user"} fontWeight={"bold"}>
           My Collections
-        </Link>
+        </Text>
       )}
-      <Link as={NavLink} to={"/login"} fontWeight={"bold"}>
+      <Text as={Link} to={"/login"} fontWeight={"bold"}>
         Sign out
-      </Link>
+      </Text>
     </HStack>
   );
 };

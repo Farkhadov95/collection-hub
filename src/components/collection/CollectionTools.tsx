@@ -3,6 +3,7 @@ import { IoMdAdd } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 
 const CollectionTools = () => {
+  // const id = 1;
   return (
     <HStack justifyContent={"space-between"}>
       <HStack>
@@ -17,7 +18,7 @@ const CollectionTools = () => {
           <option value="option3">Option 3</option>
         </Select>
       </HStack>
-      <Button as={NavLink} to={"/collection/add"} variant="outline">
+      <Button as={NavLink} to={`/create`} variant="outline">
         <Icon as={IoMdAdd} />
         <Text paddingLeft={1}>Create</Text>
       </Button>

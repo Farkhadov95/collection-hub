@@ -17,7 +17,7 @@ import { useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchBar from "./SearchBar";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavbarDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,7 +48,7 @@ const NavbarDrawer = () => {
               </Box>
 
               <Box display={"flex"} justifyContent={"end"}>
-                <Text as={NavLink} to={"/user"} fontWeight={"bold"}>
+                <Text as={Link} to={"/user"} fontWeight={"bold"}>
                   My Collections
                 </Text>
               </Box>

@@ -6,7 +6,7 @@ import {
   Image,
   HStack,
 } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CollectionsItem = () => {
   return (
@@ -20,8 +20,8 @@ const CollectionsItem = () => {
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Heading size="md">Movies</Heading>
           <Button
-            as={NavLink}
-            to={"/collection/1"}
+            as={Link}
+            to={"/collection"}
             size="sm"
             variant="outline"
             colorScheme="teal"

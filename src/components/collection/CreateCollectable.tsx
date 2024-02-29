@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 
 const CreateCollectable = () => {
-  return <Box>Create Pa</Box>;
+  return <Box>Create</Box>;
 };
 
 export default CreateCollectable;

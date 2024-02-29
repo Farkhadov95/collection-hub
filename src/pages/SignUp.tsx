@@ -36,19 +36,27 @@ const SignUp = () => {
         </Heading>
         <FormControl isRequired>
           <FormLabel>Name</FormLabel>
-          <Input border={"1px solid"} placeholder="First name" />
+          <Input type={"text"} border={"1px solid"} placeholder="First name" />
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Email</FormLabel>
-          <Input border={"1px solid"} placeholder="First name" />
+          <Input type={"email"} border={"1px solid"} placeholder="Email" />
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Password</FormLabel>
-          <Input border={"1px solid"} placeholder="First name" />
+          <Input
+            type={"password"}
+            border={"1px solid"}
+            placeholder="Password"
+          />
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Confirm Password</FormLabel>
-          <Input border={"1px solid"} placeholder="First name" />
+          <Input
+            type={"password"}
+            border={"1px solid"}
+            placeholder="Confirm Password"
+          />
         </FormControl>
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Button as={NavLink} to={"/login"} variant={"outline"}>

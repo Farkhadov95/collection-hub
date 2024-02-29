@@ -21,7 +21,7 @@ const CollectionsItem = () => {
           <Heading size="md">Movies</Heading>
           <Button
             as={NavLink}
-            to={"/collection"}
+            to={"/collection/1"}
             size="sm"
             variant="outline"
             colorScheme="teal"

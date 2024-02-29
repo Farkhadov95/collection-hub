@@ -21,7 +21,7 @@ import {
 import { useRef } from "react";
 import { IoMdAdd } from "react-icons/io";
 
-const CollectionItemCreate = () => {
+const CollectionsItemCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
   return (
@@ -40,7 +40,7 @@ const CollectionItemCreate = () => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">
-            Create a new collectable
+            Create a new collection
           </DrawerHeader>
 
           <DrawerBody>
@@ -63,13 +63,8 @@ const CollectionItemCreate = () => {
                 <FormLabel htmlFor="img">Image URL</FormLabel>
                 <InputGroup>
                   <InputLeftAddon>http://</InputLeftAddon>
-                  <Input type="url" id="img" placeholder="Please enter" />
+                  <Input type="url" id="img" placeholder="example.com/img" />
                 </InputGroup>
-              </Box>
-
-              <Box>
-                <FormLabel htmlFor="tags">Tags</FormLabel>
-                <Textarea id="desc" />
               </Box>
             </Stack>
           </DrawerBody>
@@ -86,4 +81,4 @@ const CollectionItemCreate = () => {
   );
 };
 
-export default CollectionItemCreate;
+export default CollectionsItemCreate;

@@ -9,7 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   IconButton,
-  Link,
+  Text,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -17,6 +17,7 @@ import { useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchBar from "./SearchBar";
+import { NavLink } from "react-router-dom";
 
 const NavbarDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,7 +48,9 @@ const NavbarDrawer = () => {
               </Box>
 
               <Box display={"flex"} justifyContent={"end"}>
-                <Link fontWeight={"bold"}>My Collections</Link>
+                <Text as={NavLink} to={"/user"} fontWeight={"bold"}>
+                  My Collections
+                </Text>
               </Box>
               <Box position={"absolute"} bottom={5} right={5}>
                 <ColorModeSwitch />

@@ -23,7 +23,6 @@ const Login = () => {
         margin={"auto"}
         marginTop={"10vh"}
         display={"flex"}
-        // display={{ base: "none", md: "flex" }}
         height={"auto"}
         width={{ base: "90vw", sm: "50vw", md: "50vw", lg: "40vw", xl: "30vw" }}
         boxSizing={"border-box"}
@@ -41,7 +40,7 @@ const Login = () => {
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Password</FormLabel>
-          <Input border={"1px solid"} placeholder="First name" />
+          <Input border={"1px solid"} placeholder="Password" />
         </FormControl>
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Button as={NavLink} to={"/signup"} variant={"outline"}>

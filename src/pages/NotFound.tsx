@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/react";
 
-const Error = () => {
+const NotFound = () => {
   return (
     <Box padding={5}>
-      <div>Error</div>
+      <div>404: Not Found</div>
     </Box>
   );
 };
 
-export default Error;
+export default NotFound;

@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../pages/Main";
 import User from "../pages/User";
 import Collection from "../pages/Collection";
-import CreateItem from "../components/collection/CreateItem";
+import AddItem from "../components/collection/AddItem";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "create",
-        element: <CreateItem />,
+        element: <AddItem />,
       },
       {
         path: "login",

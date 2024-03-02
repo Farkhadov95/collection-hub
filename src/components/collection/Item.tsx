@@ -1,68 +1,71 @@
 import {
   Card,
-  Stack,
   CardBody,
   Heading,
   Image,
   Text,
-  HStack,
-  Tag,
   Box,
   IconButton,
+  Button,
+  CardFooter,
+  CardHeader,
+  Flex,
+  Tag,
+  HStack,
 } from "@chakra-ui/react";
-import { FiEdit } from "react-icons/fi";
-import { MdDeleteForever } from "react-icons/md";
+import { BiLike, BiChat } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const Item = () => {
   return (
     <Box>
-      <Card
-        direction={{ base: "column", sm: "row" }}
-        overflow="hidden"
-        variant="outline"
-      >
+      <Card maxW="md">
+        <CardHeader>
+          <Flex justifyContent={"space-between"}>
+            <Box>
+              <Heading size="sm">Terminator 2</Heading>
+              <HStack mt={2} spacing={1}>
+                <Tag>Sci-fi</Tag>
+                <Tag>Action</Tag>
+              </HStack>
+            </Box>
+            <IconButton
+              variant="ghost"
+              colorScheme="gray"
+              aria-label="See menu"
+              icon={<BsThreeDotsVertical />}
+            />
+          </Flex>
+        </CardHeader>
+        <CardBody>
+          <Text>
+            With Chakra UI, I wanted to sync the speed of development with the
+            speed of design. I wanted the developer to be just as excited as the
+            designer to create a screen.
+          </Text>
+        </CardBody>
         <Image
           objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
-          src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-          alt="Caffe Latte"
+          src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          alt="Chakra UI"
         />
 
-        <Stack>
-          <CardBody>
-            <HStack justifyContent={"space-between"} alignItems={"none"}>
-              <Box>
-                <Heading size="md">Terminator 2</Heading>
-
-                <HStack py={2}>
-                  <Tag>Action</Tag>
-                  <Tag>Sci-fi</Tag>
-                </HStack>
-              </Box>
-
-              <Box display={"flex"} justifyContent={"right"}>
-                <IconButton
-                  variant="ghost"
-                  aria-label="Edit"
-                  fontSize="20px"
-                  icon={<FiEdit />}
-                />
-                <IconButton
-                  variant="ghost"
-                  aria-label="Delete"
-                  fontSize="20px"
-                  icon={<MdDeleteForever />}
-                />
-              </Box>
-            </HStack>
-            <Text py="2" textAlign={"justify"}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-              minus ullam molestiae quos perspiciatis veniam quibusdam
-              perferendis ducimus inventore debitis culpa earum, cumque labore
-              illo velit quisquam laudantium numquam ipsam.
-            </Text>
-          </CardBody>
-        </Stack>
+        <CardFooter
+          justify="space-between"
+          flexWrap="wrap"
+          sx={{
+            "& > button": {
+              minW: "136px",
+            },
+          }}
+        >
+          <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
+            Like
+          </Button>
+          <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
+            Comment
+          </Button>
+        </CardFooter>
       </Card>
     </Box>
   );

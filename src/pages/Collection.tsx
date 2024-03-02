@@ -4,7 +4,7 @@ import About from "../components/collection/About";
 
 const Collection = () => {
   return (
-    <Box padding={5}>
+    <Box padding={{ base: 1, md: 5 }}>
       <About />
       <Divider marginY={5} />
       <ItemsContainer />

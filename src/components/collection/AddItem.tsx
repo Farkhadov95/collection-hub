@@ -18,7 +18,7 @@ import ImageUpload from "./ImageUpload";
 
 const AddItem = () => {
   return (
-    <Box padding={5}>
+    <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <HStack justifyContent={"space-between"}>
         <Heading size="lg">Add New Collectable</Heading>
         <Button type="submit" variant={"outline"} colorScheme="green">
@@ -43,7 +43,7 @@ const AddItem = () => {
               </FormControl>
 
               <FormControl isRequired>
-                <FormLabel>First name</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <Input placeholder="First name" />
               </FormControl>
               <FormControl isRequired>
@@ -106,7 +106,7 @@ const AddItem = () => {
             </VStack>
 
             <Box>
-              <SimpleGrid columns={2} spacing={5}>
+              <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={2}>
                 <VStack>
                   <FormControl>
                     <FormLabel>Page Count:</FormLabel>
@@ -128,11 +128,11 @@ const AddItem = () => {
                     <Input type="date" placeholder="YYYY" />
                   </FormControl>
                   <FormControl>
-                    <FormLabel>Publication Year:</FormLabel>
+                    <FormLabel>Publication Date:</FormLabel>
                     <Input type="date" placeholder="YYYY" />
                   </FormControl>
                   <FormControl>
-                    <FormLabel>Acquisition Year:</FormLabel>
+                    <FormLabel>Acquisition Date:</FormLabel>
                     <Input type="date" placeholder="YYYY" />
                   </FormControl>
                 </VStack>

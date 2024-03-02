@@ -8,7 +8,7 @@ import NavbarDrawer from "./NavbarDrawer";
 const Navbar = () => {
   return (
     <>
-      <Flex justifyContent={"space-between"} marginBottom={5}>
+      <Flex justifyContent={"space-between"} marginBottom={{ base: 2, md: 5 }}>
         <Logo />
         <HStack
           spacing={5}

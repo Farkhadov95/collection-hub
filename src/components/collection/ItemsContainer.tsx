@@ -6,7 +6,11 @@ const ItemsContainer = () => {
   return (
     <Box marginTop={5}>
       <CollectionTools />
-      <SimpleGrid marginY={5} columns={{ base: 1, md: 1, xl: 2 }} spacing={5}>
+      <SimpleGrid
+        marginY={5}
+        columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
+        spacing={5}
+      >
         <Item />
         <Item />
         <Item />

@@ -50,15 +50,7 @@ const Item = () => {
           alt="Chakra UI"
         />
 
-        <CardFooter
-          justify="space-between"
-          flexWrap="wrap"
-          sx={{
-            "& > button": {
-              minW: "136px",
-            },
-          }}
-        >
+        <CardFooter justify="space-between">
           <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
             Like
           </Button>

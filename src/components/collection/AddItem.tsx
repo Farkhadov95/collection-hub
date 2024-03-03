@@ -20,7 +20,7 @@ const AddItem = () => {
   return (
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <HStack justifyContent={"space-between"}>
-        <Heading size="lg">Add New Collectable</Heading>
+        <Heading size="lg">Add New Item</Heading>
         <Button type="submit" variant={"outline"} colorScheme="green">
           Save
         </Button>

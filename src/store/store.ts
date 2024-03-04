@@ -3,6 +3,7 @@ import { create } from "zustand";
 export type Feature = {
     fieldName: string;
     fieldType: string;
+    _id?: string;
 }
 
 export type Collection = {
@@ -18,16 +19,16 @@ export type Collection = {
 
 
 type CollectionType = {
-    collection: Collection | null,
+    currentCollection: Collection | null,
     features: Feature[],
-    setCollection: (collection: Collection) => void,
+    setCurrentCollection: (collection: Collection) => void,
     setFeatures: (features: Feature[]) => void,
 }
 
 export const useCollectionStore = create<CollectionType>((set) => ({
-    collection: null, 
+    currentCollection: null, 
     features: [],
-    setCollection: (collection: Collection) => set({ collection }),
+    setCurrentCollection: (currentCollection: Collection) => set({ currentCollection }),
     setFeatures: (features: Feature[]) => set({ features })
 }));
 

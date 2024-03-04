@@ -2,28 +2,29 @@ import { HStack, Select, Input, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Collection, useCollectionStore } from "../../../store/store";
+import { postUpdate } from "../../../service/service";
 
 const PropertiesForm = () => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const currentCollection = useCollectionStore((state) => state.collection);
+
+  const currentCollection = useCollectionStore(
+    (state) => state.currentCollection
+  );
+
+  const setCollection = useCollectionStore(
+    (state) => state.setCurrentCollection
+  );
 
   const URL = "http://localhost:3000/collection/";
 
-  const postUpdate = async (collection: Collection) => {
-    const res = await fetch(`${URL}${collection._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(collection),
-    });
-    const data = await res.json();
-    console.log(data);
+  const clearForm = () => {
+    setSelectedType("");
+    setName("");
   };
 
   const handleAdd = async () => {
-    if (currentCollection) {
+    if (currentCollection && selectedType !== "" && name !== "") {
       const updatedCollection: Collection = {
         ...currentCollection,
         itemFields: [
@@ -33,11 +34,9 @@ const PropertiesForm = () => {
       };
 
       try {
-        await postUpdate(updatedCollection);
-
-        // Optionally, update the local state with the updated collection
-        useCollectionStore.setState({ collection: updatedCollection });
-
+        const res = await postUpdate(URL, updatedCollection);
+        setCollection(res);
+        clearForm();
         console.log("Collection updated successfully");
       } catch (error) {
         console.error("Failed to update collection:", error);
@@ -70,9 +69,8 @@ const PropertiesForm = () => {
         aria-label={"Add features"}
         icon={<IoMdAdd />}
         onClick={handleAdd}
-      >
-        Add
-      </IconButton>
+        disabled={!selectedType || !name}
+      />
     </HStack>
   );
 };

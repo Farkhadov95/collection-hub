@@ -32,7 +32,7 @@ const Properties = () => {
         justifyContent={"space-between"}
         width={"100%"}
         flexDirection={{ base: "column", sm: "row" }}
-        alignItems={"flex-start"}
+        alignItems={{ base: "flex-start", md: "center" }}
       >
         <Heading fontSize={"medium"}>Custom Fields: </Heading>
         <PropertiesForm />

@@ -41,7 +41,7 @@ const PropertiesItem = ({ feature }: PropertiesItemProp) => {
       border={"1px solid"}
       boxSizing={"border-box"}
       borderRadius={10}
-      padding={2}
+      padding={{ base: 1, md: 2 }}
     >
       <HStack position={"relative"}>
         <Badge colorScheme="green" fontSize={"2xs"}>

@@ -1,25 +1,34 @@
 import { create } from "zustand";
 
 export type Feature = {
-    type: string,
+    fieldName: string;
+    fieldType: string;
+}
+
+export type Collection = {
+    _id: string,
+    userID: string,
     name: string,
+    description: string,
+    tags: string[],
+    image: string,
+    itemFields: Feature[],
+    date: Date
 }
 
-type ItemFeatures = {
+
+type CollectionType = {
+    collection: Collection | null,
     features: Feature[],
-    addFeature: (feature: Feature) => void,
-    removeFeature: (feature: Feature) => void,
+    setCollection: (collection: Collection) => void,
+    setFeatures: (features: Feature[]) => void,
 }
 
-export const useAppStore = create<ItemFeatures>((set) => ({
+export const useCollectionStore = create<CollectionType>((set) => ({
+    collection: null, 
     features: [],
-    addFeature: (feature: Feature) => {
-        set((state) => ({features: [...state.features, feature]}))
-    },
-    removeFeature: (feature: Feature) => {
-        set((state) => ({features: state.features.filter(f => f.name !== feature.name)}))
-    }
-
+    setCollection: (collection: Collection) => set({ collection }),
+    setFeatures: (features: Feature[]) => set({ features })
 }));
 
 

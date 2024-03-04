@@ -1,15 +1,48 @@
 import { HStack, Select, Input, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { useAppStore } from "../../../store/store";
+import { Collection, useCollectionStore } from "../../../store/store";
 
 const PropertiesForm = () => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const addFeature = useAppStore((state) => state.addFeature);
+  const currentCollection = useCollectionStore((state) => state.collection);
 
-  const handleClick = () => {
-    addFeature({ type: selectedType, name: name });
+  const URL = "http://localhost:3000/collection/";
+
+  const postUpdate = async (collection: Collection) => {
+    const res = await fetch(`${URL}${collection._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(collection),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
+  const handleAdd = async () => {
+    if (currentCollection) {
+      const updatedCollection: Collection = {
+        ...currentCollection,
+        itemFields: [
+          ...currentCollection.itemFields,
+          { fieldName: name, fieldType: selectedType },
+        ],
+      };
+
+      try {
+        await postUpdate(updatedCollection);
+
+        // Optionally, update the local state with the updated collection
+        useCollectionStore.setState({ collection: updatedCollection });
+
+        console.log("Collection updated successfully");
+      } catch (error) {
+        console.error("Failed to update collection:", error);
+      }
+    }
   };
 
   return (
@@ -28,6 +61,7 @@ const PropertiesForm = () => {
       <Input
         type="text"
         placeholder="Name"
+        required
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
@@ -35,7 +69,7 @@ const PropertiesForm = () => {
         variant={"outline"}
         aria-label={"Add features"}
         icon={<IoMdAdd />}
-        onClick={handleClick}
+        onClick={handleAdd}
       >
         Add
       </IconButton>

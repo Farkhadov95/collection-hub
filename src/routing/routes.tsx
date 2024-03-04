@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../pages/Main";
 import User from "../pages/User";
 import Collection from "../pages/Collection";
-import AddItem from "../components/collection/AddItem";
+import AddItem from "../pages/AddItem";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";

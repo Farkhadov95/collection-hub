@@ -1,5 +1,5 @@
 import { Divider, Box } from "@chakra-ui/react";
-import ItemsContainer from "../components/collection/ItemsContainer";
+import ItemsContainer from "../components/collection/item/ItemsContainer";
 import About from "../components/collection/About";
 import Properties from "../components/collection/properties/Properties";
 

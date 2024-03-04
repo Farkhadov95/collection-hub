@@ -1,5 +1,5 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import CollectionTools from "./CollectionTools";
+import CollectionTools from "../CollectionTools";
 import Item from "./Item";
 
 const ItemsContainer = () => {

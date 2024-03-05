@@ -14,6 +14,7 @@ import {
   Menu,
   MenuItem,
   MenuList,
+  Badge,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Collection, useCollectionStore } from "../../store/store";
@@ -41,7 +42,12 @@ const CollectionsItem = ({ collection }: CollectionsItemProp) => {
         <Flex justifyContent={"space-between"}>
           <Box>
             <Heading size="sm">{collection.name}</Heading>
-            <Text>Created: {collection.name}</Text>
+            <Text fontWeight={"bold"} fontSize={"small"}>
+              Created by: {collection.name}
+            </Text>
+            <Badge colorScheme="green" fontSize={"2xs"}>
+              {collection.topic}
+            </Badge>
           </Box>
           <Menu>
             {({ isOpen }) => (

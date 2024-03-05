@@ -19,6 +19,8 @@ const Collections = () => {
       });
   }, [setCollections]);
 
+  console.log(collections);
+
   return collections ? (
     <>
       <Box paddingX={5} paddingY={5}>

@@ -14,6 +14,8 @@ const Collection = () => {
     return <Heading>Empty collection</Heading>;
   }
 
+  console.log(currentCollection);
+
   return (
     <Box padding={{ base: 1, md: 5 }}>
       <About currentCollection={currentCollection} />

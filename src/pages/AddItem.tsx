@@ -16,20 +16,26 @@ import {
 } from "@chakra-ui/react";
 import ImageUpload from "../components/collection/ImageUpload";
 import { useCollectionStore } from "../store/store";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const AddItem = () => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
   const collection = collections.find((c) => c._id === collectionID);
+  const navigate = useNavigate();
 
   return (
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <HStack justifyContent={"space-between"}>
         <Heading size="lg">Add New Item</Heading>
-        <Button type="submit" variant={"outline"} colorScheme="green">
-          Save
-        </Button>
+        <HStack spacing={3}>
+          <Button onClick={() => navigate(-1)} variant={"outline"}>
+            Back
+          </Button>
+          <Button type="submit" variant={"outline"} colorScheme="green">
+            Save
+          </Button>
+        </HStack>
       </HStack>
       <Box>
         <Stack spacing={5} mt={5}>

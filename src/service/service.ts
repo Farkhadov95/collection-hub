@@ -41,3 +41,9 @@ export const deleteCollection = async (id: string) => {
   const data = await res.json();
   return data;
 }
+
+export const fetchFeatures = async (collectionID: string) => {
+  const res = await fetch(URL + collectionID);
+  const data = await res.json();
+  return data;
+};

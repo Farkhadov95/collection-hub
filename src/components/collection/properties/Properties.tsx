@@ -1,30 +1,19 @@
 import { HStack, Heading, VStack } from "@chakra-ui/react";
 import PropertiesForm from "./PropertiesForm";
 import { useCollectionStore } from "../../../store/store";
-import { useEffect } from "react";
 import PropertiesItem from "./PropertiesItem";
+import { useParams } from "react-router-dom";
 
 const Properties = () => {
-  const collectionID = "65e5829097d965a2bcb2e328";
-  const URL = "http://localhost:3000/collection/";
-  const setCollection = useCollectionStore(
-    (state) => state.setCurrentCollection
-  );
+  const collectionID = useParams().id;
+  const collections = useCollectionStore((state) => state.collections);
 
-  useEffect(() => {
-    const fetchFeatures = async () => {
-      const res = await fetch(URL + collectionID);
-      const data = await res.json();
-      setCollection(data);
-    };
-    fetchFeatures();
-  }, [setCollection]);
-
-  const features = useCollectionStore(
-    (state) => state.currentCollection?.itemFields
-  );
-
-  console.log(features);
+  const currentCollection = collections.find((c) => c._id === collectionID);
+  if (!currentCollection) {
+    return <Heading>Empty collection</Heading>;
+  }
+  console.log(currentCollection);
+  const features = currentCollection?.itemFields;
 
   return (
     <VStack justifyContent={"space-between"}>
@@ -35,7 +24,7 @@ const Properties = () => {
         alignItems={{ base: "flex-start", md: "center" }}
       >
         <Heading fontSize={"medium"}>Custom Fields: </Heading>
-        <PropertiesForm />
+        <PropertiesForm currentCollection={currentCollection} />
       </HStack>
       {features && (
         <HStack wrap={"wrap"} marginTop={2} width={"100%"}>

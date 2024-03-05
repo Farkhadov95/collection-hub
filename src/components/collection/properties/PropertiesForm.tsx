@@ -4,17 +4,15 @@ import { IoMdAdd } from "react-icons/io";
 import { Collection, useCollectionStore } from "../../../store/store";
 import { updateCollection } from "../../../service/service";
 
-const PropertiesForm = () => {
+type PropertiesFormProps = {
+  currentCollection: Collection;
+};
+
+const PropertiesForm = ({ currentCollection }: PropertiesFormProps) => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
-
-  const currentCollection = useCollectionStore(
-    (state) => state.currentCollection
-  );
-
-  const setCollection = useCollectionStore(
-    (state) => state.setCurrentCollection
-  );
+  const collections = useCollectionStore((state) => state.collections);
+  const setCollections = useCollectionStore((state) => state.setCollections);
 
   const clearForm = () => {
     setSelectedType("");
@@ -31,14 +29,17 @@ const PropertiesForm = () => {
         ],
       };
 
-      try {
-        const res = await updateCollection(updatedCollection);
-        setCollection(res);
-        clearForm();
-        console.log("Collection updated successfully");
-      } catch (error) {
-        console.error("Failed to update collection:", error);
-      }
+      await updateCollection(updatedCollection)
+        .then((data) => {
+          clearForm();
+          console.log("Collection updated successfully");
+          setCollections(
+            collections.map((c) => (c._id === data._id ? data : c))
+          );
+        })
+        .catch((err) => {
+          console.error("Failed to update collection:", err);
+        });
     }
   };
 
@@ -61,11 +62,8 @@ const PropertiesForm = () => {
       (type) => typeCounts[type] < MAX_COUNT
     );
 
-    console.log(availableTypes);
     return availableTypes;
   };
-
-  availableTypes();
 
   return (
     availableTypes().length > 0 && (

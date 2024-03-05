@@ -78,15 +78,7 @@ const CollectionsItem = ({ collection }: CollectionsItemProp) => {
         alt="Chakra UI"
       />
 
-      <CardFooter
-        justify="space-between"
-        flexWrap="wrap"
-        sx={{
-          "& > button": {
-            minW: "136px",
-          },
-        }}
-      >
+      <CardFooter padding={2}>
         <Button
           as={Link}
           to={`/collection/${collection._id}`}

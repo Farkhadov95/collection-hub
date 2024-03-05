@@ -1,4 +1,7 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+
 
 export type Feature = {
     fieldName: string;
@@ -25,14 +28,21 @@ export type newCollection = {
 }
 
 
-type CollectionType = {
+type CollectionStore = {
     collections: Collection[],
     setCollections: (collections: Collection[]) => void,
 }
 
-export const useCollectionStore = create<CollectionType>((set) => ({
-    collections: [],
-    setCollections: (collections: Collection[]) => set({ collections }),
-}));
+export const useCollectionStore = create<CollectionStore>()(
+    persist(
+      (set) => ({
+        collections: [],
+        setCollections: (collections: Collection[]) => set({ collections }),
+      }),
+      {
+        name: 'collections-storage',
+      }
+    )
+  );
 
 

@@ -1,22 +1,23 @@
 import { Box, HStack, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import CollectionsItem from "./CollectionsItem";
 import CollectionsItemCreate from "./CollectionsItemCreate";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getCollections } from "../../service/service";
-import { Collection } from "../../store/store";
+import { useCollectionStore } from "../../store/store";
 
 const Collections = () => {
-  const [collections, setCollection] = useState<Collection[]>([]);
+  const collections = useCollectionStore((state) => state.collections);
+  const setCollections = useCollectionStore((state) => state.setCollections);
 
   useEffect(() => {
     getCollections()
       .then((res) => {
-        setCollection(res);
+        setCollections(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [setCollections]);
 
   return collections ? (
     <>
@@ -26,7 +27,7 @@ const Collections = () => {
           <CollectionsItemCreate />
         </HStack>
         <SimpleGrid
-          columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+          columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
           spacing={5}
         >
           {collections.map((collection) => (

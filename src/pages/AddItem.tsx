@@ -5,7 +5,6 @@ import {
   Input,
   Textarea,
   Stack,
-  Select,
   SimpleGrid,
   FormControl,
   VStack,
@@ -52,17 +51,6 @@ const AddItem = () => {
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
             <VStack spacing={2}>
               <FormControl isRequired>
-                <FormLabel>Topic</FormLabel>
-                <Select placeholder="Select topic">
-                  <option value="option1">Books</option>
-                  <option value="option2">Movies</option>
-                  <option value="option3">Coins</option>
-                  <option value="option3">Music</option>
-                  <option value="option3">Games</option>
-                </Select>
-              </FormControl>
-
-              <FormControl isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input placeholder="First name" />
               </FormControl>
@@ -77,7 +65,7 @@ const AddItem = () => {
                 <FormLabel htmlFor="desc">Description</FormLabel>
                 <Textarea
                   display={"block"}
-                  height={"200px"}
+                  height={"120px"}
                   width={"100%"}
                   verticalAlign={"top"}
                   id="desc"
@@ -92,14 +80,12 @@ const AddItem = () => {
         <Stack spacing={5}>
           <Heading fontSize={"large"}>Optional fields:</Heading>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-            <Box width={"100%"} mb={10}>
-              <ImageUpload />
-            </Box>
+            <ImageUpload />
             {collection?.itemFields.map((item) => {
               return (
                 <FormControl key={item._id}>
                   {item.fieldType === "checkbox" ? (
-                    <Checkbox padding={2} borderRadius={10} width={"100%"}>
+                    <Checkbox padding={2} width={"100%"}>
                       {item.fieldName}
                     </Checkbox>
                   ) : (

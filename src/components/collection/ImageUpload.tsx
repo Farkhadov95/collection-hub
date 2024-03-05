@@ -1,10 +1,16 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Badge, FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 const ImageUpload = () => {
   return (
     <FormControl>
-      <FormLabel>Upload Image</FormLabel>
-      <Input type="file" padding={1} />
+      <FormLabel>
+        <Badge colorScheme="green" fontSize={"2xs"} mr={1}>
+          link
+        </Badge>
+        Image URL
+      </FormLabel>
+
+      <Input type={"url"} padding={1} placeholder="http://www.example.com/" />
     </FormControl>
   );
 };

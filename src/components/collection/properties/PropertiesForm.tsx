@@ -2,11 +2,9 @@ import { HStack, Select, Input, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Collection, useCollectionStore } from "../../../store/store";
-import { postUpdate } from "../../../service/service";
+import { updateCollection } from "../../../service/service";
 
 const PropertiesForm = () => {
-  const URL = "http://localhost:3000/collection/";
-
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
 
@@ -34,7 +32,7 @@ const PropertiesForm = () => {
       };
 
       try {
-        const res = await postUpdate(URL, updatedCollection);
+        const res = await updateCollection(updatedCollection);
         setCollection(res);
         clearForm();
         console.log("Collection updated successfully");

@@ -7,7 +7,7 @@ const NavLinks = () => {
   console.log(pathname);
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
-      {pathname === "/" ? null : (
+      {pathname === "/login" ? null : (
         <Text as={Link} to={"/user"} fontWeight={"bold"}>
           My Collections
         </Text>

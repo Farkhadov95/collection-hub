@@ -1,14 +1,13 @@
 import { HStack, Box, Badge, IconButton, Text } from "@chakra-ui/react";
 import { IoMdClose } from "react-icons/io";
 import { Collection, Feature, useCollectionStore } from "../../../store/store";
-import { postUpdate } from "../../../service/service";
+import { updateCollection } from "../../../service/service";
 
 type PropertiesItemProp = {
   feature: Feature;
 };
 
 const PropertiesItem = ({ feature }: PropertiesItemProp) => {
-  const URL = "http://localhost:3000/collection/";
   const currentCollection = useCollectionStore(
     (state) => state.currentCollection
   );
@@ -27,7 +26,7 @@ const PropertiesItem = ({ feature }: PropertiesItemProp) => {
       };
 
       try {
-        const res = await postUpdate(URL, updatedCollection);
+        const res = await updateCollection(updatedCollection);
         setCollection(res);
         console.log("Collection updated successfully");
       } catch (error) {

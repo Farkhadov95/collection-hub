@@ -11,10 +11,17 @@ export type Collection = {
     userID: string,
     name: string,
     description: string,
-    tags: string[],
     image: string,
     itemFields: Feature[],
     date: Date
+}
+
+export type newCollection = {
+    userID: string,
+    topic: string,
+    name: string,
+    description: string
+    image: string,
 }
 
 

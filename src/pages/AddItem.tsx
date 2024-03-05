@@ -16,25 +16,12 @@ import {
 } from "@chakra-ui/react";
 import ImageUpload from "../components/collection/ImageUpload";
 import { useCollectionStore } from "../store/store";
-import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const AddItem = () => {
-  const collectionID = "65e5829097d965a2bcb2e328";
-  const URL = "http://localhost:3000/collection/";
-  const setCollection = useCollectionStore(
-    (state) => state.setCurrentCollection
-  );
-
-  useEffect(() => {
-    const fetchFeatures = async () => {
-      const res = await fetch(URL + collectionID);
-      const data = await res.json();
-      setCollection(data);
-    };
-    fetchFeatures();
-  }, [setCollection]);
-
-  const collection = useCollectionStore((state) => state.currentCollection);
+  const collectionID = useParams().id;
+  const collections = useCollectionStore((state) => state.collections);
+  const collection = collections.find((c) => c._id === collectionID);
 
   return (
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>

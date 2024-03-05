@@ -81,7 +81,7 @@ const CollectionsItem = ({ collection }: CollectionsItemProp) => {
       <CardFooter padding={2}>
         <Button
           as={Link}
-          to={`/collection/${collection._id}`}
+          to={`/collections/${collection._id}`}
           flex="1"
           variant="ghost"
         >

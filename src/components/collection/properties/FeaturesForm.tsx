@@ -8,7 +8,7 @@ type PropertiesFormProps = {
   currentCollection: Collection;
 };
 
-const PropertiesForm = ({ currentCollection }: PropertiesFormProps) => {
+const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
   const collections = useCollectionStore((state) => state.collections);
@@ -99,4 +99,4 @@ const PropertiesForm = ({ currentCollection }: PropertiesFormProps) => {
   );
 };
 
-export default PropertiesForm;
+export default FeaturesForm;

@@ -1,18 +1,17 @@
 import { HStack, Heading, VStack } from "@chakra-ui/react";
-import PropertiesForm from "./PropertiesForm";
-import { useCollectionStore } from "../../../store/store";
-import PropertiesItem from "./PropertiesItem";
-import { useParams } from "react-router-dom";
+import PropertiesForm from "./FeaturesForm";
+import { Collection } from "../../../store/store";
+import FeaturesItem from "./FeaturesItem";
 
-const Properties = () => {
-  const collectionID = useParams().id;
-  const collections = useCollectionStore((state) => state.collections);
+type FeaturesProp = {
+  currentCollection: Collection;
+};
 
-  const currentCollection = collections.find((c) => c._id === collectionID);
+const Features = ({ currentCollection }: FeaturesProp) => {
   if (!currentCollection) {
     return <Heading>Empty collection</Heading>;
   }
-  console.log(currentCollection);
+
   const features = currentCollection?.itemFields;
 
   return (
@@ -29,7 +28,7 @@ const Properties = () => {
       {features && (
         <HStack wrap={"wrap"} marginTop={2} width={"100%"}>
           {features.map((feature, index) => (
-            <PropertiesItem key={index} feature={feature} />
+            <FeaturesItem key={index} feature={feature} />
           ))}
         </HStack>
       )}
@@ -37,4 +36,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;
+export default Features;

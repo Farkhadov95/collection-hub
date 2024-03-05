@@ -1,17 +1,24 @@
-import { Divider, Box } from "@chakra-ui/react";
+import { Divider, Box, Heading } from "@chakra-ui/react";
 import ItemsContainer from "../components/collection/item/ItemsContainer";
 import About from "../components/collection/About";
-import Properties from "../components/collection/properties/Properties";
+import Properties from "../components/collection/properties/Features";
 import { useParams } from "react-router-dom";
+import { useCollectionStore } from "../store/store";
 
 const Collection = () => {
-  const id = useParams().id;
-  console.log(id);
+  const collectionID = useParams().id;
+  const collections = useCollectionStore((state) => state.collections);
+  const currentCollection = collections?.find((c) => c._id === collectionID);
+
+  if (!currentCollection) {
+    return <Heading>Empty collection</Heading>;
+  }
+
   return (
     <Box padding={{ base: 1, md: 5 }}>
-      <About />
+      <About currentCollection={currentCollection} />
       <Divider marginY={5} />
-      <Properties />
+      <Properties currentCollection={currentCollection} />
       <Divider marginY={5} />
       <ItemsContainer />
     </Box>

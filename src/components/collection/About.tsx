@@ -1,6 +1,11 @@
 import { Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
+import { Collection } from "../../store/store";
 
-const About = () => {
+type AboutProp = {
+  currentCollection: Collection;
+};
+
+const About = ({ currentCollection }: AboutProp) => {
   return (
     <Flex
       height={{ base: "400px", sm: "350px", md: "200px" }}
@@ -14,17 +19,14 @@ const About = () => {
         boxSizing={"border-box"}
         paddingRight={{ md: 10 }}
       >
-        <Heading size={"lg"}>Movies</Heading>
+        <Heading size={"lg"}>{currentCollection.name}</Heading>
         <Text
           width={"100%"}
           textAlign={"justify"}
           marginTop={{ base: 2, md: "none" }}
           marginBottom={{ base: 5, md: "none" }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-          quas delectus optio quis, incidunt deserunt excepturi eos dolores rem
-          quidem eius sapiente voluptatibus maiores ipsum earum? Facilis at
-          minima suscipit.
+          {currentCollection.description}
         </Text>
       </Flex>
       <Box>

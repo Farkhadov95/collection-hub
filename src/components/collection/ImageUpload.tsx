@@ -10,7 +10,7 @@ const ImageUpload = () => {
         Image URL
       </FormLabel>
 
-      <Input type={"url"} padding={1} placeholder="http://www.example.com/" />
+      <Input type={"url"} placeholder="http://www.example.com/" />
     </FormControl>
   );
 };

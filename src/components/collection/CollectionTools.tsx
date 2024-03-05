@@ -1,9 +1,10 @@
 import { Button, HStack, Icon, Select, Text } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const CollectionTools = () => {
-  // const id = 1;
+  const collectionID = useParams().id;
+
   return (
     <HStack justifyContent={"space-between"}>
       <HStack>
@@ -18,7 +19,11 @@ const CollectionTools = () => {
           <option value="option3">Option 3</option>
         </Select>
       </HStack>
-      <Button as={NavLink} to={`/create`} variant="outline">
+      <Button
+        as={NavLink}
+        to={`/collections/${collectionID}/create`}
+        variant="outline"
+      >
         <Icon as={IoMdAdd} />
         <Text paddingLeft={1}>Create</Text>
       </Button>

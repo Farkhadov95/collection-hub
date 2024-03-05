@@ -22,11 +22,11 @@ const router = createBrowserRouter([
         element: <User />,
       },
       {
-        path: "collection/:id",
+        path: "collections/:id",
         element: <Collection />,
       },
       {
-        path: "collection/:id/create",
+        path: "collections/:id/create",
         element: <AddItem />,
       },
       {

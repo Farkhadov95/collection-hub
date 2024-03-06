@@ -13,18 +13,21 @@ import {
   Tag,
   HStack,
 } from "@chakra-ui/react";
-import { BiLike, BiChat } from "react-icons/bi";
+import { BiLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../../store/store";
+import { Link } from "react-router-dom";
 
 type ItemProps = {
   item: ItemType;
 };
 
-const Item = ({ item }: ItemProps) => {
+const ItemCard = ({ item }: ItemProps) => {
   if (!item) {
     return <div>Loading...</div>;
   }
+
+  console.log(item);
 
   const tagsToArray = item.tags.split(" ");
   return (
@@ -61,8 +64,14 @@ const Item = ({ item }: ItemProps) => {
           <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
             Like
           </Button>
-          <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
-            Comment
+          <Button
+            as={Link}
+            to={`/item/${item._id}`}
+            flex="1"
+            variant="outline"
+            colorScheme="green"
+          >
+            Open
           </Button>
         </CardFooter>
       </Card>
@@ -70,4 +79,4 @@ const Item = ({ item }: ItemProps) => {
   );
 };
 
-export default Item;
+export default ItemCard;

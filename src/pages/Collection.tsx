@@ -1,7 +1,7 @@
 import { Divider, Box, Heading } from "@chakra-ui/react";
-import ItemsContainer from "../components/collection/item/ItemsContainer";
+import ItemsContainer from "../components/collection/item-cards/ItemContainer";
 import About from "../components/collection/About";
-import Properties from "../components/collection/Features/Features";
+import Properties from "../components/collection/features/Features";
 import { useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
 

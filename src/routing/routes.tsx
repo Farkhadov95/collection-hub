@@ -7,6 +7,7 @@ import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Layout from "./Layout";
+import Item from "../pages/Item";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "collections/:id",
         element: <Collection />,
+      },
+      {
+        path: "item/:id",
+        element: <Item />,
       },
       {
         path: "collections/:id/create",

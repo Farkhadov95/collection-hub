@@ -1,12 +1,12 @@
 import { Box, HStack, Heading, SimpleGrid } from "@chakra-ui/react";
 import CollectionTools from "../CollectionTools";
-import Item from "./Item";
+import Item from "./ItemCard";
 import { useCollectionStore } from "../../../store/store";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getItems } from "../../../service/service";
 
-const ItemsContainer = () => {
+const ItemContainer = () => {
   const collectionID = useParams().id || "";
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
@@ -42,4 +42,4 @@ const ItemsContainer = () => {
   );
 };
 
-export default ItemsContainer;
+export default ItemContainer;

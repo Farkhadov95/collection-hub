@@ -1,7 +1,7 @@
 import { Collection, newCollection, newItem } from "../store/store";
 
 const URL = "http://localhost:3000/collections/";
-const ITEM_URL = 'http://localhost:3000/item/'
+const ITEM_URL = 'http://localhost:3000/items/'
 
 export const updateCollection = async (collection: Collection) => {
     const res = await fetch(`${URL}${collection._id}`, {
@@ -44,6 +44,12 @@ export const createItem = async (newItem: newItem) => {
 
 export const getCollections = async () => {
   const res = await fetch(URL);
+  const data = await res.json();
+  return data;
+}
+
+export const getItems = async (id: string) => {
+  const res = await fetch(`${ITEM_URL}${id}`);
   const data = await res.json();
   return data;
 }

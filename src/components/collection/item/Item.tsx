@@ -15,18 +15,29 @@ import {
 } from "@chakra-ui/react";
 import { BiLike, BiChat } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { ItemType } from "../../../store/store";
 
-const Item = () => {
+type ItemProps = {
+  item: ItemType;
+};
+
+const Item = ({ item }: ItemProps) => {
+  if (!item) {
+    return <div>Loading...</div>;
+  }
+
+  const tagsToArray = item.tags.split(" ");
   return (
     <Box>
       <Card maxW="md">
         <CardHeader>
           <Flex justifyContent={"space-between"}>
             <Box>
-              <Heading size="sm">Terminator 2</Heading>
-              <HStack mt={2} spacing={1}>
-                <Tag>Sci-fi</Tag>
-                <Tag>Action</Tag>
+              <Heading size="sm">{item.name}</Heading>
+              <HStack mt={2} spacing={1} flexWrap={"wrap"}>
+                {tagsToArray.map((tag: string, index) => (
+                  <Tag key={index}>{tag}</Tag>
+                ))}
               </HStack>
             </Box>
             <IconButton
@@ -38,11 +49,7 @@ const Item = () => {
           </Flex>
         </CardHeader>
         <CardBody>
-          <Text>
-            With Chakra UI, I wanted to sync the speed of development with the
-            speed of design. I wanted the developer to be just as excited as the
-            designer to create a screen.
-          </Text>
+          <Text>{item.description}</Text>
         </CardBody>
         <Image
           objectFit="cover"

@@ -18,11 +18,14 @@ import { FieldExeType, newItem, useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createItem } from "../service/service";
+import { IoIosArrowBack } from "react-icons/io";
 
 const AddItem = () => {
   const collectionID = useParams().id || "";
   const collections = useCollectionStore((state) => state.collections);
   const collection = collections.find((c) => c._id === collectionID);
+  const items = useCollectionStore((state) => state.items);
+  const setItems = useCollectionStore((state) => state.setItems);
   const navigate = useNavigate();
 
   type AddItemForm = {
@@ -101,10 +104,12 @@ const AddItem = () => {
 
   const handleSubmit = () => {
     const result: newItem = createData(formData);
-    createItem(result).then((data) => {
-      console.log(data);
-    });
-    // console.log(result);
+    createItem(result)
+      .then((data) => {
+        setItems([...items, data]);
+        navigate(-1);
+      })
+      .catch((error) => console.error("Could not save data: ", error));
 
     setFormData({
       ...formData,
@@ -121,7 +126,11 @@ const AddItem = () => {
       <HStack justifyContent={"space-between"}>
         <Heading size="lg">Add New Item</Heading>
         <HStack spacing={3}>
-          <Button onClick={() => navigate(-1)} variant={"outline"}>
+          <Button
+            onClick={() => navigate(-1)}
+            variant={"outline"}
+            leftIcon={<IoIosArrowBack />}
+          >
             Back
           </Button>
           <Button
@@ -143,8 +152,10 @@ const AddItem = () => {
               <FormControl isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input
+                  required={true}
+                  type={"text"}
                   name="name"
-                  placeholder="First name"
+                  placeholder="Name"
                   value={formData.name}
                   onChange={handleInputChange}
                 />
@@ -152,6 +163,8 @@ const AddItem = () => {
               <FormControl isRequired>
                 <FormLabel htmlFor="tags">Tags</FormLabel>
                 <Input
+                  required={true}
+                  type={"text"}
                   name="tags"
                   id="tags"
                   placeholder="Please enter your tags"
@@ -166,6 +179,7 @@ const AddItem = () => {
                 <FormLabel htmlFor="desc">Description</FormLabel>
                 <Textarea
                   id="desc"
+                  required={true}
                   name="description"
                   display={"block"}
                   height={"120px"}

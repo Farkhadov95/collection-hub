@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, HStack, Heading, SimpleGrid } from "@chakra-ui/react";
 import CollectionTools from "../CollectionTools";
 import Item from "./Item";
 import { useCollectionStore } from "../../../store/store";
@@ -21,11 +21,16 @@ const ItemsContainer = () => {
       });
   }, [collectionID, setItems]);
 
-  console.log(items);
-
   return (
     <Box marginTop={5}>
       <CollectionTools />
+      {items.length === 0 && (
+        <HStack justifyContent={"center"} paddingTop={"100px"}>
+          <Heading fontSize={"large"}>
+            No Items in this collection yet! Add some!
+          </Heading>
+        </HStack>
+      )}
       <SimpleGrid
         marginY={5}
         columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}

@@ -3,11 +3,16 @@ import { persist } from "zustand/middleware";
 
 
 
-export type Feature = {
+export type FieldType = {
     fieldName: string;
     fieldType: string;
     _id?: string;
 }
+
+export type FieldExeType = {
+    fieldName: string;
+    fieldValue: string;
+  };
 
 export type Collection = {
     _id: string,
@@ -16,8 +21,20 @@ export type Collection = {
     name: string,
     description: string,
     image: string,
-    itemFields: Feature[],
+    itemFields: FieldType[],
     date: Date
+}
+
+export type Item = {
+    _id: string,
+    collectionID: string,
+    name: string,
+    tags: string,
+    description: string,
+    fields: FieldExeType[],
+    image: string,
+    likeIDs: string[],
+    commentIDs: string[],
 }
 
 export type newCollection = {
@@ -28,6 +45,14 @@ export type newCollection = {
     image: string,
 }
 
+export type newItem = {
+    collectionID: string,
+    name: string,
+    description: string,
+    tags: string,
+    image: string,
+    fields: FieldExeType[] | [],
+}
 
 type CollectionStore = {
     collections: Collection[],

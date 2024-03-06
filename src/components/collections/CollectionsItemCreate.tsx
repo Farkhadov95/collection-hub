@@ -37,7 +37,7 @@ const CollectionsItemCreate = () => {
     image: string;
   };
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<formData>({
     topic: "",
     name: "",
     description: "",

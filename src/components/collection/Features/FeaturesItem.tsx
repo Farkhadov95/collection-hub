@@ -1,11 +1,11 @@
 import { HStack, Box, Badge, IconButton, Text } from "@chakra-ui/react";
 import { IoMdClose } from "react-icons/io";
-import { Feature, useCollectionStore } from "../../../store/store";
+import { FieldType, useCollectionStore } from "../../../store/store";
 import { deleteCollectionFeature } from "../../../service/service";
 import { useParams } from "react-router-dom";
 
 type PropertiesItemProp = {
-  feature: Feature;
+  feature: FieldType;
 };
 
 const FeaturesItem = ({ feature }: PropertiesItemProp) => {

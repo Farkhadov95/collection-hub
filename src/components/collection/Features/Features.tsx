@@ -1,6 +1,6 @@
 import { HStack, Heading, VStack } from "@chakra-ui/react";
 import PropertiesForm from "./FeaturesForm";
-import { Collection } from "../../../store/store";
+import { Collection } from "../../../types/types";
 import FeaturesItem from "./FeaturesItem";
 
 type FeaturesProp = {

@@ -1,5 +1,5 @@
 import { Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
-import { Collection } from "../../store/store";
+import { Collection } from "../../types/types";
 
 type AboutProp = {
   currentCollection: Collection;

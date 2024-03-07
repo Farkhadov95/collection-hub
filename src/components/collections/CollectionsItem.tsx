@@ -17,9 +17,10 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Collection, useCollectionStore } from "../../store/store";
+import { useCollectionStore } from "../../store/store";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteCollection } from "../../service/service";
+import { Collection } from "../../types/types";
 
 type CollectionsItemProp = {
   collection: Collection;

@@ -1,5 +1,5 @@
 import { Box, Heading, HStack, Tag, Text, VStack } from "@chakra-ui/react";
-import { ItemType } from "../../store/store";
+import { ItemType } from "../../types/types";
 
 type ItemAboutProp = {
   item: ItemType;

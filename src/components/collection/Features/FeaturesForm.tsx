@@ -1,8 +1,9 @@
 import { HStack, Select, Input, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { Collection, useCollectionStore } from "../../../store/store";
+import { useCollectionStore } from "../../../store/store";
 import { updateCollection } from "../../../service/service";
+import { Collection } from "../../../types/types";
 
 type PropertiesFormProps = {
   currentCollection: Collection;

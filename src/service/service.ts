@@ -1,4 +1,4 @@
-import { Collection, newCollection, newItem } from "../store/store";
+import { Collection, newCollection, newItem } from "../types/types";
 
 const URL = "http://localhost:3000/collections/";
 const ITEM_URL = 'http://localhost:3000/items/'

@@ -48,3 +48,15 @@ export type newItem = {
     image: string,
     fields: FieldExeType[] | [],
 }
+
+export type newUser = {
+    username: string,
+    email: string,
+    password: string,
+    conf_password: string,
+}
+
+export type user = {
+    email: string,
+    password: string,
+}

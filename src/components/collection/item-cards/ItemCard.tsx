@@ -38,7 +38,7 @@ const ItemCard = ({ item }: ItemProps) => {
             <Box>
               <Heading size="sm">{item.name}</Heading>
               <HStack mt={2} spacing={1} flexWrap={"wrap"}>
-                {tagsToArray.map((tag: string, index) => (
+                {tagsToArray.slice(0, 3).map((tag: string, index) => (
                   <Tag key={index}>{tag}</Tag>
                 ))}
               </HStack>
@@ -51,8 +51,10 @@ const ItemCard = ({ item }: ItemProps) => {
             />
           </Flex>
         </CardHeader>
-        <CardBody>
-          <Text>{item.description}</Text>
+        <CardBody paddingTop={0}>
+          <Text height={"80px"} overflow={"hidden"}>
+            {item.description}
+          </Text>
         </CardBody>
         <Image
           objectFit="cover"

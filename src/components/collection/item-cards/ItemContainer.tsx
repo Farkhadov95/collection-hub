@@ -4,7 +4,7 @@ import Item from "./ItemCard";
 import { useCollectionStore } from "../../../store/store";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getItems } from "../../../service/service";
+import { getItems } from "../../../services/service";
 
 const ItemContainer = () => {
   const collectionID = useParams().id || "";

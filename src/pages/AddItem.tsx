@@ -17,7 +17,7 @@ import {
 import { FieldExeType, newItem, useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { createItem } from "../service/service";
+import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
 
 const AddItem = () => {

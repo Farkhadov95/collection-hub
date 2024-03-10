@@ -49,11 +49,17 @@ export type newItem = {
     fields: FieldExeType[] | [],
 }
 
-export type newUser = {
+export type newUserForm = {
     username: string,
     email: string,
     password: string,
     conf_password: string,
+}
+
+export type newUser = {
+    username: string,
+    email: string,
+    password: string,
 }
 
 export type user = {

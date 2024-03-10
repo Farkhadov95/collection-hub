@@ -2,7 +2,7 @@ import { Box, HStack, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import CollectionsItem from "./CollectionsItem";
 import CollectionsItemCreate from "./CollectionsItemCreate";
 import { useEffect } from "react";
-import { getCollections } from "../../service/service";
+import { getCollections } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 
 const Collections = () => {

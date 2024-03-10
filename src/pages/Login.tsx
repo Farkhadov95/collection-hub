@@ -9,17 +9,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { user } from "../types/types";
 import { DevTool } from "@hookform/devtools";
+import { loginUser } from "../services/user";
 
 const Login = () => {
   const form = useForm<user>();
   const { register, handleSubmit, control, formState } = form;
   const { errors } = formState;
+  const navigate = useNavigate();
+
+  const handleSuccess = () => navigate("/");
 
   const onSubmit = (data: user) => {
     console.log("Form Submitted", data);
+    loginUser(data, handleSuccess);
   };
 
   return (

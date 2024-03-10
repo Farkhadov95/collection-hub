@@ -10,20 +10,30 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import { NavLink } from "react-router-dom";
-import { newUser } from "../types/types";
+import { NavLink, useNavigate } from "react-router-dom";
+import { newUserForm } from "../types/types";
 import { useState } from "react";
+import { registerUser } from "../services/user";
 
 const SignUp = () => {
-  const form = useForm<newUser>();
+  const form = useForm<newUserForm>();
   const { register, handleSubmit, control, formState } = form;
   const { errors } = formState;
+  const navigate = useNavigate();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isError, setIsError] = useState("true");
 
-  const onSubmit = (data: newUser) => {
+  const handleSuccess = () => navigate("/");
+
+  const onSubmit = (data: newUserForm) => {
     console.log("Form Submitted", data);
+    const adjustedData = {
+      username: data.username,
+      email: data.email,
+      password: data.password,
+    };
+    registerUser(adjustedData, handleSuccess);
   };
 
   return (
@@ -132,7 +142,7 @@ const SignUp = () => {
               validate: (value) => {
                 return (
                   value === form.getValues("password") ||
-                  "Passwrods should be identical"
+                  "Passwords should be identical"
                 );
               },
             })}

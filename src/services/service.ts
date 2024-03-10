@@ -3,6 +3,12 @@ import { Collection, newCollection, newItem } from "../types/types";
 const URL = "http://localhost:3000/collections/";
 const ITEM_URL = 'http://localhost:3000/items/'
 
+export const getCollections = async () => {
+  const res = await fetch(URL);
+  const data = await res.json();
+  return data;
+}
+
 export const updateCollection = async (collection: Collection) => {
     const res = await fetch(`${URL}${collection._id}`, {
       method: "PUT",
@@ -29,6 +35,12 @@ export const createCollection = async (newCollection: newCollection) => {
   return data;
 }
 
+export const getItems = async (id: string) => {
+  const res = await fetch(`${ITEM_URL}${id}`);
+  const data = await res.json();
+  return data;
+}
+
 export const createItem = async (newItem: newItem) => {
   const res = await fetch(ITEM_URL, {
     method: "POST",
@@ -40,18 +52,6 @@ export const createItem = async (newItem: newItem) => {
   const data = await res.json();
   console.log(data);
   return data; 
-}
-
-export const getCollections = async () => {
-  const res = await fetch(URL);
-  const data = await res.json();
-  return data;
-}
-
-export const getItems = async (id: string) => {
-  const res = await fetch(`${ITEM_URL}${id}`);
-  const data = await res.json();
-  return data;
 }
 
 export const deleteCollection = async (id: string) => {
@@ -69,9 +69,3 @@ export const deleteCollectionFeature = async (collectionID: string, featureID: s
   const data = await res.json();
   return data;
 }
-
-export const fetchFeatures = async (collectionID: string) => {
-  const res = await fetch(URL + collectionID);
-  const data = await res.json();
-  return data;
-};

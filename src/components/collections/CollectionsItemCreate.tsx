@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { createCollection } from "../../service/service";
+import { createCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 
 const CollectionsItemCreate = () => {

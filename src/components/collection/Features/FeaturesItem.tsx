@@ -1,7 +1,7 @@
 import { HStack, Box, Badge, IconButton, Text } from "@chakra-ui/react";
 import { IoMdClose } from "react-icons/io";
 import { useCollectionStore } from "../../../store/store";
-import { deleteCollectionFeature } from "../../../service/service";
+import { deleteCollectionFeature } from "../../../services/service";
 import { useParams } from "react-router-dom";
 import { FieldType } from "../../../types/types";
 

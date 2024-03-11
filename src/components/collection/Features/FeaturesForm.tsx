@@ -12,8 +12,10 @@ type PropertiesFormProps = {
 const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const collections = useCollectionStore((state) => state.collections);
-  const setCollections = useCollectionStore((state) => state.setCollections);
+  const userCollections = useCollectionStore((state) => state.userCollections);
+  const setUserCollections = useCollectionStore(
+    (state) => state.setUserCollections
+  );
 
   const clearForm = () => {
     setSelectedType("");
@@ -34,8 +36,8 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
         .then((data) => {
           clearForm();
           console.log("Collection updated successfully");
-          setCollections(
-            collections.map((c) => (c._id === data._id ? data : c))
+          setUserCollections(
+            userCollections.map((c) => (c._id === data._id ? data : c))
           );
         })
         .catch((err) => {

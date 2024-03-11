@@ -14,16 +14,18 @@ import {
   Badge,
   Checkbox,
 } from "@chakra-ui/react";
-import { FieldExeType, newItem, useCollectionStore } from "../store/store";
+import { useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
+import { FieldExeType, newItem } from "../types/types";
 
 const AddItem = () => {
   const collectionID = useParams().id || "";
-  const collections = useCollectionStore((state) => state.collections);
-  const collection = collections.find((c) => c._id === collectionID);
+  const userCollections = useCollectionStore((state) => state.userCollections);
+  const userCollection = userCollections.find((c) => c._id === collectionID);
+
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
   const navigate = useNavigate();
@@ -214,7 +216,7 @@ const AddItem = () => {
                 onChange={handleInputChange}
               />
             </FormControl>
-            {collection?.itemFields.map((item) => {
+            {userCollection?.itemFields.map((item) => {
               return (
                 <FormControl key={item._id}>
                   {item.fieldType === "checkbox" ? (

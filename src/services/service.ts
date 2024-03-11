@@ -28,6 +28,7 @@ export const updateCollection = async (collection: Collection) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "X-Auth-Token": localStorage.getItem('X-Auth-Token')!,
       },
       body: JSON.stringify(collection),
     });

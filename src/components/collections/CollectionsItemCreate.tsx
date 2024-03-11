@@ -58,7 +58,6 @@ const CollectionsItemCreate = () => {
 
   const createData = (data: formData) => {
     const result = {
-      userID: "1",
       topic: data.topic,
       name: data.name,
       description: data.description,

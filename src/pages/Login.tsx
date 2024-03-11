@@ -26,6 +26,7 @@ const Login = () => {
   const setUserError = useCollectionStore((state) => state.setUserError);
 
   const handleSuccess = () => navigate("/");
+
   const handleFail = useCallback(
     (error: string) => {
       setUserError(error);

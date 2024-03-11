@@ -9,6 +9,20 @@ export const getCollections = async () => {
   return data;
 }
 
+export const getUserCollection = async () => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
+  const res = await fetch(`${URL}/my`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
+    }
+  });
+  const data = await res.json();
+  return data;
+}
+
 export const updateCollection = async (collection: Collection) => {
     const res = await fetch(`${URL}${collection._id}`, {
       method: "PUT",
@@ -23,10 +37,13 @@ export const updateCollection = async (collection: Collection) => {
   };
 
 export const createCollection = async (newCollection: newCollection) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
   const res = await fetch(URL, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
     },
     body: JSON.stringify(newCollection)
   });

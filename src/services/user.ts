@@ -1,12 +1,15 @@
-import { newUser, user } from "../types/types";
+import { currentUser, newUser, user } from "../types/types";
 
-const URL = "http://localhost:3000/users/";
-const AUTH_URL = "http://localhost:3000/auth/";
+const URL = "http://localhost:3000/";
+enum Routes {
+    LOGIN = "auth/",
+    REGISTER = "users/",
+    ME = "/me"
+}
 
-
-export const registerUser = async (user: newUser, onSuccess: () => void, onFail: (error: string) => void) => {   
+export const registerUser = async (user: newUser, onSuccess: (data: currentUser) => void, onFail: (error: string) => void) => {   
   try {
-    const res = await fetch(URL, {
+    const res = await fetch(`${URL}${Routes.REGISTER}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -21,8 +24,12 @@ export const registerUser = async (user: newUser, onSuccess: () => void, onFail:
 
     const data = await res.json();
     localStorage.setItem('X-Auth-Token', data.token);
+    onSuccess({
+        _id: data.id,
+        username: data.username,
+        email: data.email,
+      });
     console.log(data);
-    onSuccess();
     return data;
   } catch (error) {
     console.error('Error registering user:', error);
@@ -33,9 +40,9 @@ export const registerUser = async (user: newUser, onSuccess: () => void, onFail:
   }
 }
 
-export const loginUser = async (user: user, onSuccess: () => void, onFail: (error: string) => void) => {
+export const loginUser = async (user: user, onSuccess: (data: currentUser) => void, onFail: (error: string) => void) => {
     try {
-      const res = await fetch(AUTH_URL, {
+      const res = await fetch(`${URL}${Routes.LOGIN}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -48,10 +55,14 @@ export const loginUser = async (user: user, onSuccess: () => void, onFail: (erro
             throw new Error(errorMessage);
         }
   
-      const data = await res.text();
-      localStorage.setItem('X-Auth-Token', data);
+      const data = await res.json();
+      localStorage.setItem('X-Auth-Token', data.token);
+      onSuccess({
+        _id: data.id,
+        username: data.username,
+        email: data.email,
+      });
       console.log(data);
-      onSuccess();
       return data;
 
     } catch (error) {
@@ -62,5 +73,3 @@ export const loginUser = async (user: user, onSuccess: () => void, onFail: (erro
       throw error;
     }
   }
-
-

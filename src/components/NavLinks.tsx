@@ -23,6 +23,7 @@ const NavLinks = () => {
           leftIcon={<IoLogOutOutline />}
           fontWeight={"bold"}
           onClick={() => {
+            navigate("/");
             localStorage.removeItem("X-Auth-Token");
           }}
         >

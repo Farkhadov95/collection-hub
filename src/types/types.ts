@@ -20,6 +20,13 @@ export type Collection = {
     date: Date
 }
 
+export type newCollection = {
+    topic: string,
+    name: string,
+    description: string
+    image: string,
+}
+
 export type ItemType = {
     _id: string,
     collectionID: string,
@@ -30,14 +37,6 @@ export type ItemType = {
     image: string,
     likeIDs: string[],
     commentIDs: string[],
-}
-
-export type newCollection = {
-    userID: string,
-    topic: string,
-    name: string,
-    description: string
-    image: string,
 }
 
 export type newItem = {
@@ -65,4 +64,10 @@ export type newUser = {
 export type user = {
     email: string,
     password: string,
+}
+
+export type currentUser = {
+    _id: string,
+    username: string,
+    email: string,
 }

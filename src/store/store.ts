@@ -16,6 +16,7 @@ export const useCollectionStore = create<CollectionStore>()(
       (set) => ({
         collections: [],
         items: [],
+
         userError: "",
         setCollections: (collections: Collection[]) => set({ collections }),
         setItems: (items: ItemType[]) => set({ items }),

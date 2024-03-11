@@ -12,8 +12,9 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { NavLink, useNavigate } from "react-router-dom";
 import { newUserForm } from "../types/types";
-import { useState } from "react";
 import { registerUser } from "../services/user";
+import { useCollectionStore } from "../store/store";
+import { useCallback } from "react";
 
 const SignUp = () => {
   const form = useForm<newUserForm>();
@@ -21,10 +22,18 @@ const SignUp = () => {
   const { errors } = formState;
   const navigate = useNavigate();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isError, setIsError] = useState("true");
-
   const handleSuccess = () => navigate("/");
+
+  const setUserError = useCollectionStore((state) => state.setUserError);
+  const handleFail = useCallback(
+    (error: string) => {
+      setUserError(error);
+      setTimeout(() => {
+        setUserError("");
+      }, 3000);
+    },
+    [setUserError]
+  );
 
   const onSubmit = (data: newUserForm) => {
     console.log("Form Submitted", data);
@@ -33,7 +42,7 @@ const SignUp = () => {
       email: data.email,
       password: data.password,
     };
-    registerUser(adjustedData, handleSuccess);
+    registerUser(adjustedData, handleSuccess, handleFail);
   };
 
   return (
@@ -56,12 +65,7 @@ const SignUp = () => {
       >
         <Box marginBottom={5}>
           <Heading as={"h2"}>Sign Up</Heading>
-          <Text
-            paddingX={1}
-            color={"red.300"}
-            mt={2}
-            display={isError ? "block" : "none"}
-          >
+          <Text paddingX={1} color={"red.300"} mt={2}>
             User is already registred
           </Text>
         </Box>

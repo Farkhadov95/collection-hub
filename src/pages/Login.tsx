@@ -13,6 +13,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { user } from "../types/types";
 import { DevTool } from "@hookform/devtools";
 import { loginUser } from "../services/user";
+import { useCollectionStore } from "../store/store";
+import { useCallback } from "react";
 
 const Login = () => {
   const form = useForm<user>();
@@ -20,11 +22,23 @@ const Login = () => {
   const { errors } = formState;
   const navigate = useNavigate();
 
+  const userError = useCollectionStore((state) => state.userError);
+  const setUserError = useCollectionStore((state) => state.setUserError);
+
   const handleSuccess = () => navigate("/");
+  const handleFail = useCallback(
+    (error: string) => {
+      setUserError(error);
+      setTimeout(() => {
+        setUserError("");
+      }, 3000);
+    },
+    [setUserError]
+  );
 
   const onSubmit = (data: user) => {
     console.log("Form Submitted", data);
-    loginUser(data, handleSuccess);
+    loginUser(data, handleSuccess, handleFail);
   };
 
   return (
@@ -47,8 +61,13 @@ const Login = () => {
       >
         <Box marginBottom={5}>
           <Heading as={"h2"}>Login</Heading>
-          <Text paddingX={1} color={"red.300"} mt={2} display={"block"}>
-            User is not registred
+          <Text
+            paddingX={1}
+            color={"red.300"}
+            mt={2}
+            display={userError !== "" ? "block" : "none"}
+          >
+            {userError}
           </Text>
         </Box>
         <FormControl isRequired>

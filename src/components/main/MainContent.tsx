@@ -1,7 +1,31 @@
-import { Stack, Box, Heading, Tag, SimpleGrid, HStack } from "@chakra-ui/react";
-import MainCollectionItem from "./MainCollectionItem";
+import {
+  Stack,
+  Box,
+  Heading,
+  Tag,
+  SimpleGrid,
+  HStack,
+  Text,
+} from "@chakra-ui/react";
+import { useCollectionStore } from "../../store/store";
+import { useEffect } from "react";
+import { getCollections } from "../../services/service";
+import CollectionsItem from "../collections/CollectionsItem";
 
 const MainContent = () => {
+  const collections = useCollectionStore((state) => state.collections);
+  const setCollections = useCollectionStore((state) => state.setCollections);
+
+  useEffect(() => {
+    getCollections()
+      .then((res) => {
+        setCollections(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [setCollections]);
+
   return (
     <Stack
       borderRadius={10}
@@ -25,33 +49,43 @@ const MainContent = () => {
         <Heading fontSize={{ base: "medium", md: "large" }}>
           Top 5 largest Collections:{" "}
         </Heading>
-        <SimpleGrid
-          marginY={{ base: 2, md: 5 }}
-          columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
-          spacing={5}
-        >
-          <MainCollectionItem />
-          <MainCollectionItem />
-          <MainCollectionItem />
-          <MainCollectionItem />
-          <MainCollectionItem />
-        </SimpleGrid>
+        <HStack marginY={{ base: 2, md: 5 }}>
+          {collections.length !== 0 ? (
+            <SimpleGrid
+              columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
+              spacing={5}
+            >
+              {collections.map((collection) => (
+                <CollectionsItem key={collection._id} collection={collection} />
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Box>
+              <Text>No Collection</Text>
+            </Box>
+          )}
+        </HStack>
       </Box>
       <Box>
         <Heading fontSize={{ base: "medium", md: "large" }}>
           Latest Collections:
         </Heading>
-        <SimpleGrid
-          marginY={{ base: 2, md: 5 }}
-          columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
-          spacing={5}
-        >
-          <MainCollectionItem />
-          <MainCollectionItem />
-          <MainCollectionItem />
-          <MainCollectionItem />
-          <MainCollectionItem />
-        </SimpleGrid>
+        <HStack marginY={{ base: 2, md: 5 }}>
+          {collections.length !== 0 ? (
+            <SimpleGrid
+              columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
+              spacing={5}
+            >
+              {collections.map((collection) => (
+                <CollectionsItem key={collection._id} collection={collection} />
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Box>
+              <Text>No Collection</Text>
+            </Box>
+          )}
+        </HStack>
       </Box>
     </Stack>
   );

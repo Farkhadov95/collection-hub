@@ -6,20 +6,22 @@ import { getUserCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 
 const Collections = () => {
-  const collections = useCollectionStore((state) => state.collections);
-  const setCollections = useCollectionStore((state) => state.setCollections);
+  const userCollections = useCollectionStore((state) => state.userCollections);
+  const setUserCollections = useCollectionStore(
+    (state) => state.setUserCollections
+  );
 
   useEffect(() => {
     getUserCollection()
       .then((res) => {
-        setCollections(res);
+        setUserCollections(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [setCollections]);
+  }, [setUserCollections]);
 
-  console.log(collections);
+  console.log(userCollections);
 
   return (
     <>
@@ -28,12 +30,12 @@ const Collections = () => {
           <Heading fontSize="2xl">My Collections</Heading>
           <CollectionsItemCreate />
         </HStack>
-        {collections.length !== 0 ? (
+        {userCollections.length !== 0 ? (
           <SimpleGrid
             columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
             spacing={5}
           >
-            {collections.map((collection) => (
+            {userCollections.map((collection) => (
               <CollectionsItem key={collection._id} collection={collection} />
             ))}
           </SimpleGrid>

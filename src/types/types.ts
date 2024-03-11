@@ -13,6 +13,7 @@ export type Collection = {
     _id: string,
     topic: string,
     userID: string,
+    userName: string,
     name: string,
     description: string,
     image: string,

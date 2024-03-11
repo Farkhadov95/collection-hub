@@ -44,7 +44,7 @@ const CollectionsItem = ({ collection }: CollectionsItemProp) => {
           <Box>
             <Heading size="sm">{collection.name}</Heading>
             <Text fontWeight={"bold"} fontSize={"small"}>
-              Created by: {collection.name}
+              Created by: {collection.userName}
             </Text>
             <Badge colorScheme="green" fontSize={"2xs"}>
               {collection.topic}

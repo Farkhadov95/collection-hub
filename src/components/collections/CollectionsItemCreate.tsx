@@ -27,8 +27,10 @@ import { useCollectionStore } from "../../store/store";
 const CollectionsItemCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
-  const collections = useCollectionStore((state) => state.collections);
-  const setCollections = useCollectionStore((state) => state.setCollections);
+  const userCollections = useCollectionStore((state) => state.userCollections);
+  const setUserCollections = useCollectionStore(
+    (state) => state.setUserCollections
+  );
 
   type formData = {
     topic: string;
@@ -71,7 +73,7 @@ const CollectionsItemCreate = () => {
     console.log(formData);
     const result = createData(formData);
     createCollection(result).then((data) => {
-      setCollections([...collections, data]);
+      setUserCollections([...userCollections, data]);
     });
 
     setFormData({

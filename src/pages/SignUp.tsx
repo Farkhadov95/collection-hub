@@ -22,9 +22,10 @@ const SignUp = () => {
   const { errors } = formState;
   const navigate = useNavigate();
 
-  const handleSuccess = () => navigate("/");
-
+  const userError = useCollectionStore((state) => state.userError);
   const setUserError = useCollectionStore((state) => state.setUserError);
+
+  const handleSuccess = () => navigate("/");
   const handleFail = useCallback(
     (error: string) => {
       setUserError(error);
@@ -65,8 +66,13 @@ const SignUp = () => {
       >
         <Box marginBottom={5}>
           <Heading as={"h2"}>Sign Up</Heading>
-          <Text paddingX={1} color={"red.300"} mt={2}>
-            User is already registred
+          <Text
+            paddingX={1}
+            color={"red.300"}
+            mt={2}
+            display={userError !== "" ? "block" : "none"}
+          >
+            {userError}
           </Text>
         </Box>
         <FormControl isRequired>

@@ -11,11 +11,11 @@ const NavLinks = () => {
   const token = localStorage.getItem("X-Auth-Token");
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
-      {pathname === "/login" ? null : (
+      {token && pathname !== "/login" && pathname !== "/signup" ? (
         <Text as={Link} to={"/user"} fontWeight={"bold"}>
           My Collections
         </Text>
-      )}
+      ) : null}
 
       {token && pathname !== "/login" && pathname !== "/signup" ? (
         <Button

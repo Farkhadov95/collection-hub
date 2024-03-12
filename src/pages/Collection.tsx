@@ -7,16 +7,12 @@ import { useCollectionStore } from "../store/store";
 
 const Collection = () => {
   const collectionID = useParams().id;
-  const userCollections = useCollectionStore((state) => state.userCollections);
-  const currentCollection = userCollections?.find(
-    (c) => c._id === collectionID
-  );
+  const collections = useCollectionStore((state) => state.collections);
+  const currentCollection = collections?.find((c) => c._id === collectionID);
 
   if (!currentCollection) {
     return <Heading>Empty collection</Heading>;
   }
-
-  console.log(currentCollection);
 
   return (
     <Box padding={{ base: 1, md: 5 }}>

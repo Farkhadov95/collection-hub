@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Layout from "./Layout";
 import Item from "../pages/Item";
+import Admin from "../pages/Admin";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "admin",
+        element: <Admin />,
       },
       {
         path: "*",

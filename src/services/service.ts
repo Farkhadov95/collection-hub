@@ -23,12 +23,20 @@ export const getUserCollection = async () => {
   return data;
 }
 
+export const getItems = async (id: string) => {
+  const res = await fetch(`${ITEM_URL}${id}`);
+  const data = await res.json();
+  return data;
+}
+
 export const updateCollection = async (collection: Collection) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
     const res = await fetch(`${URL}${collection._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "X-Auth-Token": localStorage.getItem('X-Auth-Token')!,
+        "X-Auth-Token": token,
       },
       body: JSON.stringify(collection),
     });
@@ -53,17 +61,14 @@ export const createCollection = async (newCollection: newCollection) => {
   return data;
 }
 
-export const getItems = async (id: string) => {
-  const res = await fetch(`${ITEM_URL}${id}`);
-  const data = await res.json();
-  return data;
-}
-
 export const createItem = async (newItem: newItem) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
   const res = await fetch(ITEM_URL, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
     },
     body: JSON.stringify(newItem)
   });
@@ -73,16 +78,28 @@ export const createItem = async (newItem: newItem) => {
 }
 
 export const deleteCollection = async (id: string) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
   const res = await fetch(`${URL}${id}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
+    },
   });
   const data = await res.json();
   return data;
 }
 
 export const deleteCollectionFeature = async (collectionID: string, featureID: string) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
   const res = await fetch(`${URL}${collectionID}/${featureID}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
+    },
   });
   const data = await res.json();
   return data;

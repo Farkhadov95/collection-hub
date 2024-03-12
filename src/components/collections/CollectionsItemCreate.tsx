@@ -27,7 +27,12 @@ import { useCollectionStore } from "../../store/store";
 const CollectionsItemCreate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
+  const collections = useCollectionStore((state) => state.collections);
   const userCollections = useCollectionStore((state) => state.userCollections);
+  const currentUser = useCollectionStore((state) => state.currentUser);
+  console.log(currentUser);
+
+  const setCollections = useCollectionStore((state) => state.setCollections);
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
   );
@@ -72,7 +77,9 @@ const CollectionsItemCreate = () => {
   const handleSubmit = () => {
     console.log(formData);
     const result = createData(formData);
-    createCollection(result).then((data) => {
+    console.log(currentUser._id);
+    createCollection(result, currentUser._id).then((data) => {
+      setCollections([...collections, data]);
       setUserCollections([...userCollections, data]);
     });
 

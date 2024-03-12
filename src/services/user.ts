@@ -7,7 +7,7 @@ enum Routes {
     ME = "/me"
 }
 
-export const registerUser = async (user: newUser, onSuccess: (data: currentUser) => void, onFail: (error: string) => void) => {   
+export const registerUser = async (user: newUser, onSuccess: (currentUser: currentUser) => void, onFail: (error: string) => void) => {   
   try {
     const res = await fetch(`${URL}${Routes.REGISTER}`, {
       method: "POST",
@@ -40,7 +40,7 @@ export const registerUser = async (user: newUser, onSuccess: (data: currentUser)
   }
 }
 
-export const loginUser = async (user: user, onSuccess: (data: currentUser) => void, onFail: (error: string) => void) => {
+export const loginUser = async (user: user, onSuccess: (currentUser: currentUser) => void, onFail: (error: string) => void) => {
     try {
       const res = await fetch(`${URL}${Routes.LOGIN}`, {
         method: "POST",
@@ -58,7 +58,7 @@ export const loginUser = async (user: user, onSuccess: (data: currentUser) => vo
       const data = await res.json();
       localStorage.setItem('X-Auth-Token', data.token);
       onSuccess({
-        _id: data.id,
+        _id: data._id,
         username: data.username,
         email: data.email,
       });

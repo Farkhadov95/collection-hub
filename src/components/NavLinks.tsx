@@ -1,11 +1,13 @@
 import { Button, HStack, Text } from "@chakra-ui/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
+import { useCollectionStore } from "../store/store";
 
 const NavLinks = () => {
   const location = useLocation();
   const { pathname } = location;
   const navigate = useNavigate();
+  const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
   console.log(pathname);
 
   const token = localStorage.getItem("X-Auth-Token");
@@ -23,6 +25,11 @@ const NavLinks = () => {
           leftIcon={<IoLogOutOutline />}
           fontWeight={"bold"}
           onClick={() => {
+            setCurrentUser({
+              _id: "",
+              username: "",
+              email: "",
+            });
             navigate("/");
             localStorage.removeItem("X-Auth-Token");
           }}

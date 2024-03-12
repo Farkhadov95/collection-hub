@@ -60,7 +60,7 @@ const NavbarDrawer = () => {
 
           <DrawerFooter borderTopWidth="1px">
             <Button variant={"outline"} colorScheme="red" mr={3}>
-              Sign Out
+              Log Out
             </Button>
             <Button variant="outline" onClick={onClose}>
               Cancel

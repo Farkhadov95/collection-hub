@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { user } from "../types/types";
+import { currentUser, user } from "../types/types";
 import { DevTool } from "@hookform/devtools";
 import { loginUser } from "../services/user";
 import { useCollectionStore } from "../store/store";
@@ -25,7 +25,12 @@ const Login = () => {
   const userError = useCollectionStore((state) => state.userError);
   const setUserError = useCollectionStore((state) => state.setUserError);
 
-  const handleSuccess = () => navigate("/");
+  const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
+
+  const handleSuccess = (data: currentUser) => {
+    setCurrentUser(data);
+    navigate("/");
+  };
 
   const handleFail = useCallback(
     (error: string) => {

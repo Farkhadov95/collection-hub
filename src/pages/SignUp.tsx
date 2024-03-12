@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { NavLink, useNavigate } from "react-router-dom";
-import { newUserForm } from "../types/types";
+import { currentUser, newUserForm } from "../types/types";
 import { registerUser } from "../services/user";
 import { useCollectionStore } from "../store/store";
 import { useCallback } from "react";
@@ -24,8 +24,12 @@ const SignUp = () => {
 
   const userError = useCollectionStore((state) => state.userError);
   const setUserError = useCollectionStore((state) => state.setUserError);
+  const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
-  const handleSuccess = () => navigate("/");
+  const handleSuccess = (data: currentUser) => {
+    setCurrentUser(data);
+    navigate("/");
+  };
 
   const handleFail = useCallback(
     (error: string) => {

@@ -45,10 +45,10 @@ export const updateCollection = async (collection: Collection) => {
     return data;
   };
 
-export const createCollection = async (newCollection: newCollection) => {
+export const createCollection = async (newCollection: newCollection, userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) return [];
-  const res = await fetch(URL, {
+  const res = await fetch(`${URL}${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -8,8 +8,12 @@ import { useCollectionStore } from "../store/store";
 const Collection = () => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
+  console.log(collections);
+  console.log(collectionID);
   const currentCollection = collections?.find((c) => c._id === collectionID);
+  const currentUser = useCollectionStore((state) => state.currentUser);
 
+  console.log(currentUser);
   if (!currentCollection) {
     return <Heading>Empty collection</Heading>;
   }

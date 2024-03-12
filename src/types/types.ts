@@ -10,9 +10,9 @@ export type FieldExeType = {
   };
 
 export type Collection = {
+    userID: string,
     _id: string,
     topic: string,
-    userID: string,
     userName: string,
     name: string,
     description: string,
@@ -29,8 +29,9 @@ export type newCollection = {
 }
 
 export type ItemType = {
-    _id: string,
+    userID: string,
     collectionID: string,
+    _id: string,
     name: string,
     tags: string,
     description: string,
@@ -41,6 +42,7 @@ export type ItemType = {
 }
 
 export type newItem = {
+    userID: string,
     collectionID: string,
     name: string,
     description: string,

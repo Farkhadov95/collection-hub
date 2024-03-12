@@ -8,8 +8,6 @@ import { useCollectionStore } from "../store/store";
 const Collection = () => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
-  console.log(collections);
-  console.log(collectionID);
   const currentCollection = collections?.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
@@ -22,8 +20,12 @@ const Collection = () => {
     <Box padding={{ base: 1, md: 5 }}>
       <About currentCollection={currentCollection} />
       <Divider marginY={5} />
-      <Features currentCollection={currentCollection} />
-      <Divider marginY={5} />
+      {currentUser._id === currentCollection.userID && (
+        <>
+          <Features currentCollection={currentCollection} />
+          <Divider marginY={5} />
+        </>
+      )}
       <ItemsContainer />
     </Box>
   );

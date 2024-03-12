@@ -9,6 +9,7 @@ import SignUp from "../pages/SignUp";
 import Layout from "./Layout";
 import Item from "../pages/Item";
 import Admin from "../pages/Admin";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -18,10 +19,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Main />,
-      },
-      {
-        path: "user",
-        element: <User />,
       },
       {
         path: "collections/:id",
@@ -46,6 +43,15 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: <Admin />,
+      },
+      {
+        element: <PrivateRoutes />,
+        children: [
+          {
+            path: "user",
+            element: <User />,
+          },
+        ],
       },
       {
         path: "*",

@@ -55,7 +55,7 @@ const MainContent = () => {
               columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
               spacing={5}
             >
-              {collections.map((collection) => (
+              {collections.slice(0, 5).map((collection) => (
                 <CollectionsItem key={collection._id} collection={collection} />
               ))}
             </SimpleGrid>

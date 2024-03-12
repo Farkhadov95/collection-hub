@@ -24,7 +24,8 @@ import { FieldExeType, newItem } from "../types/types";
 const AddItem = () => {
   const collectionID = useParams().id || "";
   const userCollections = useCollectionStore((state) => state.userCollections);
-  const userCollection = userCollections.find((c) => c._id === collectionID);
+  const currentCollection = userCollections.find((c) => c._id === collectionID);
+  const currentUser = useCollectionStore((state) => state.currentUser);
 
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
@@ -94,6 +95,7 @@ const AddItem = () => {
   const createData = (data: AddItemForm) => {
     const result = {
       collectionID,
+      userID: currentUser._id,
       name: data.name,
       description: data.description,
       tags: data.tags,
@@ -216,7 +218,7 @@ const AddItem = () => {
                 onChange={handleInputChange}
               />
             </FormControl>
-            {userCollection?.itemFields.map((item) => {
+            {currentCollection?.itemFields.map((item) => {
               return (
                 <FormControl key={item._id}>
                   {item.fieldType === "checkbox" ? (

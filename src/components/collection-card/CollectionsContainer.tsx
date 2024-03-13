@@ -22,8 +22,6 @@ const CollectionContainer = () => {
       });
   }, [currentUser._id, setUserCollections]);
 
-  console.log(userCollections);
-
   return (
     <>
       <Box paddingX={5} paddingY={5}>

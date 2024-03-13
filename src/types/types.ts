@@ -70,6 +70,14 @@ export type user = {
     password: string,
 }
 
+export type userInfo = {
+    _id: string,
+    username: string,
+    email: string,
+    createdAt: Date,
+    isAdmin: boolean,
+}
+
 export type currentUser = {
     _id: string,
     username: string,

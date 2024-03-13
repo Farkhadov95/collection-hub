@@ -3,13 +3,13 @@ import { currentUser, newUser, user } from "../types/types";
 const URL = "http://localhost:3000/";
 enum Routes {
     LOGIN = "auth/",
-    REGISTER = "users/",
+    USERS = "users/",
     ME = "/me"
 }
 
 export const registerUser = async (user: newUser, onSuccess: (currentUser: currentUser) => void, onFail: (error: string) => void) => {   
   try {
-    const res = await fetch(`${URL}${Routes.REGISTER}`, {
+    const res = await fetch(`${URL}${Routes.USERS}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -72,4 +72,19 @@ export const loginUser = async (user: user, onSuccess: (currentUser: currentUser
       }
       throw error;
     }
-  }
+}
+
+export const getAllUsers = async (userId: string) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
+  const res = await fetch(`${URL}${Routes.USERS}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token,
+      "X-User-ID": userId
+    }
+  });
+  const data = await res.json();
+  return data;
+}

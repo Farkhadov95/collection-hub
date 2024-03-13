@@ -8,15 +8,15 @@ const AdminTools = () => {
       <HStack spacing={2}>
         <Button variant="outline" colorScheme="green">
           <Icon as={IoMdAdd} />
-          <Text paddingLeft={1}>Add</Text>
+          <Text paddingLeft={1}>Make Admin</Text>
         </Button>
         <Button variant="outline" colorScheme="yellow">
           <Icon as={MdBlockFlipped} />
-          <Text paddingLeft={1}>Block</Text>
+          <Text paddingLeft={1}>Remove Admin</Text>
         </Button>
         <Button variant="outline" colorScheme="red">
           <Icon as={MdDeleteForever} />
-          <Text paddingLeft={1}>Delete</Text>
+          <Text paddingLeft={1}>Delete User</Text>
         </Button>
       </HStack>
     </>

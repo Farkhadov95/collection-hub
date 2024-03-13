@@ -14,8 +14,25 @@ import {
 } from "@chakra-ui/react";
 import AdminTableItem from "./AdminTableItem";
 import AdminTools from "./AdminTools";
+import { getAllUsers } from "../../services/user";
+import { useCollectionStore } from "../../store/store";
+import { useEffect } from "react";
 
 const AdminsTable = () => {
+  const currentUser = useCollectionStore((state) => state.currentUser);
+  const users = useCollectionStore((state) => state.users);
+  const setUsers = useCollectionStore((state) => state.setUsers);
+
+  useEffect(() => {
+    getAllUsers(currentUser._id)
+      .then((res) => {
+        setUsers(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [currentUser._id, setUsers]);
+
   return (
     <Box padding={5}>
       <HStack marginBottom={5} justifyContent={"space-between"}>
@@ -31,20 +48,18 @@ const AdminsTable = () => {
                   <Text fontSize={"12px"}>Select all</Text>
                 </Checkbox>
               </Th>
-              <Th>ID</Th>
-              <Th>Name</Th>
+              <Th>User ID</Th>
+              <Th>Username</Th>
               <Th>Email</Th>
-              <Th>Last Login Time</Th>
               <Th>Registration Time</Th>
-              <Th>Status</Th>
+              <Th>Admin</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <AdminTableItem />
-            <AdminTableItem />
-            <AdminTableItem />
-            <AdminTableItem />
-            <AdminTableItem />
+            {users &&
+              users.map((user) => (
+                <AdminTableItem user={user} key={user._id} />
+              ))}
           </Tbody>
           <Tfoot></Tfoot>
         </Table>

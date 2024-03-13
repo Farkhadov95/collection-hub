@@ -1,9 +1,11 @@
-import { Flex, HStack } from "@chakra-ui/react";
+import { Button, Flex, HStack } from "@chakra-ui/react";
+import { GrUserAdmin } from "react-icons/gr";
 import ColorModeSwitch from "./ColorModeSwitch";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import NavbarDrawer from "./NavbarDrawer";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -17,6 +19,16 @@ const Navbar = () => {
         >
           <ColorModeSwitch />
           <SearchBar />
+          <Button
+            variant={"ghost"}
+            colorScheme="green"
+            fontWeight={"bold"}
+            as={Link}
+            to={"/admin"}
+            leftIcon={<GrUserAdmin />}
+          >
+            Admin
+          </Button>
         </HStack>
         <HStack display={{ base: "none", lg: "flex" }}>
           <NavLinks />

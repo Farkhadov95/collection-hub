@@ -30,13 +30,18 @@ const MainContent = () => {
       });
   }, [setCollections, setItems]);
 
-  console.log(items);
-
   const sortedItems = items.sort((a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
     return dateB.getTime() - dateA.getTime();
   });
+
+  const tagsSet = new Set<string>();
+  items.forEach((item) => {
+    const tagsArray = item.tags.split(" ");
+    tagsArray.forEach((tag) => tagsSet.add(tag));
+  });
+  const uniqueTags = Array.from(tagsSet);
 
   return (
     <Stack
@@ -50,11 +55,11 @@ const MainContent = () => {
           Popular tags:{" "}
         </Heading>
         <HStack flexWrap={"wrap"}>
-          <Tag fontSize={{ base: "small", md: "medium" }}>Sample Tag</Tag>
-          <Tag fontSize={{ base: "small", md: "medium" }}>Sample Tag</Tag>
-          <Tag fontSize={{ base: "small", md: "medium" }}>Sample Tag</Tag>
-          <Tag fontSize={{ base: "small", md: "medium" }}>Sample Tag</Tag>
-          <Tag fontSize={{ base: "small", md: "medium" }}>Sample Tag</Tag>
+          {uniqueTags.map((tag: string, index: number) => (
+            <Tag key={index} fontSize={{ base: "small", md: "medium" }}>
+              {tag}
+            </Tag>
+          ))}
         </HStack>
       </HStack>
       <Box>

@@ -39,6 +39,7 @@ export type ItemType = {
     image: string,
     likeIDs: string[],
     commentIDs: string[],
+    createdAt: Date,
 }
 
 export type newItem = {

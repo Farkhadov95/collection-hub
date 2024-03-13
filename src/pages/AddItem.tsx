@@ -27,8 +27,8 @@ const AddItem = () => {
   const currentCollection = userCollections.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
-  const items = useCollectionStore((state) => state.items);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const userItems = useCollectionStore((state) => state.userItems);
+  const setUserItems = useCollectionStore((state) => state.setUserItems);
   const navigate = useNavigate();
 
   type AddItemForm = {
@@ -108,9 +108,9 @@ const AddItem = () => {
 
   const handleSubmit = () => {
     const result: newItem = createData(formData);
-    createItem(result)
+    createItem(result, currentUser._id)
       .then((data) => {
-        setItems([...items, data]);
+        setUserItems([...userItems, data]);
         navigate(-1);
       })
       .catch((error) => console.error("Could not save data: ", error));

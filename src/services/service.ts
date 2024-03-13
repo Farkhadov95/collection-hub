@@ -24,6 +24,12 @@ export const getUserCollection = async (userId: string) => {
   return data;
 }
 
+export const getAllItems = async () => {
+  const res = await fetch(ITEM_URL);
+  const data = await res.json();
+  return data;
+}
+
 export const getItems = async (id: string) => {
   const res = await fetch(`${ITEM_URL}${id}`);
   const data = await res.json();
@@ -65,7 +71,7 @@ export const createCollection = async (newCollection: newCollection, userId: str
   return data;
 }
 
-export const createItem = async (newItem: newItem) => {
+export const createItem = async (newItem: newItem, userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) return [];
   const res = await fetch(ITEM_URL, {
@@ -73,6 +79,7 @@ export const createItem = async (newItem: newItem) => {
     headers: {
       "Content-Type": "application/json",
       "X-Auth-Token": token,
+      "X-User-ID": userId,
     },
     body: JSON.stringify(newItem)
   });

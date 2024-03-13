@@ -7,10 +7,9 @@ import { useCollectionStore } from "../store/store";
 
 const Collection = () => {
   const collectionID = useParams().id;
-  const userCollections = useCollectionStore((state) => state.userCollections);
-  const currentCollection = userCollections?.find(
-    (c) => c._id === collectionID
-  );
+  const collections = useCollectionStore((state) => state.collections);
+  const currentCollection = collections?.find((c) => c._id === collectionID);
+
   const currentUser = useCollectionStore((state) => state.currentUser);
 
   console.log(currentCollection);

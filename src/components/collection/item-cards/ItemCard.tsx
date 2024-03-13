@@ -27,9 +27,8 @@ const ItemCard = ({ item }: ItemProps) => {
     return <div>Loading...</div>;
   }
 
-  console.log(item);
+  const tagsToArray = (item.tags ?? "").split(" ");
 
-  const tagsToArray = item.tags.split(" ");
   return (
     <Box>
       <Card maxW="md">
@@ -38,9 +37,11 @@ const ItemCard = ({ item }: ItemProps) => {
             <Box>
               <Heading size="sm">{item.name}</Heading>
               <HStack mt={2} spacing={1} flexWrap={"wrap"}>
-                {tagsToArray.slice(0, 3).map((tag: string, index) => (
-                  <Tag key={index}>{tag}</Tag>
-                ))}
+                {tagsToArray[0] !== ""
+                  ? tagsToArray
+                      .slice(0, 3)
+                      .map((tag: string, index) => <Tag key={index}>{tag}</Tag>)
+                  : null}
               </HStack>
             </Box>
             <IconButton

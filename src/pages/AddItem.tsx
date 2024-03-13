@@ -98,7 +98,7 @@ const AddItem = () => {
       userID: currentUser._id,
       name: data.name,
       description: data.description,
-      tags: data.tags,
+      tags: data.tags.trim(),
       image: data.image,
       fields: data.fields,
     };

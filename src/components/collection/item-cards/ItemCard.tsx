@@ -17,12 +17,18 @@ import { BiLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../../types/types";
 import { Link } from "react-router-dom";
+import { useCollectionStore } from "../../../store/store";
 
 type ItemProps = {
   item: ItemType;
 };
 
 const ItemCard = ({ item }: ItemProps) => {
+  const collections = useCollectionStore((state) => state.collections);
+  const collection = collections.find(
+    (collection) => collection._id === item.collectionID
+  );
+
   if (!item) {
     return <div>Loading...</div>;
   }
@@ -36,6 +42,9 @@ const ItemCard = ({ item }: ItemProps) => {
           <Flex justifyContent={"space-between"}>
             <Box>
               <Heading size="sm">{item.name}</Heading>
+              <Text fontWeight={"bold"} fontSize={"small"}>
+                Collection: {collection?.name}
+              </Text>
               <HStack mt={2} spacing={1} flexWrap={"wrap"}>
                 {tagsToArray[0] !== ""
                   ? tagsToArray
@@ -53,8 +62,10 @@ const ItemCard = ({ item }: ItemProps) => {
           </Flex>
         </CardHeader>
         <CardBody paddingTop={0}>
-          <Text height={"80px"} overflow={"hidden"}>
-            {item.description}
+          <Text height={"50px"} overflow={"hidden"}>
+            {item.description.length > 50
+              ? item.description.slice(0, 50).concat("  ...")
+              : item.description}
           </Text>
         </CardBody>
         <Image

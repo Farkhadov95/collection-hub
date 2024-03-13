@@ -32,6 +32,12 @@ const MainContent = () => {
 
   console.log(items);
 
+  const sortedItems = items.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB.getTime() - dateA.getTime();
+  });
+
   return (
     <Stack
       borderRadius={10}
@@ -58,12 +64,11 @@ const MainContent = () => {
         <HStack marginY={{ base: 2, md: 5 }}>
           {items.length !== 0 ? (
             <SimpleGrid
-              marginY={5}
               columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
               spacing={5}
             >
-              {items &&
-                items
+              {sortedItems &&
+                sortedItems
                   .slice(0, 5)
                   .map((item) => <ItemCard key={item._id} item={item} />)}
             </SimpleGrid>
@@ -84,7 +89,7 @@ const MainContent = () => {
               columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 5 }}
               spacing={5}
             >
-              {collections.map((collection) => (
+              {collections.slice(0, 5).map((collection) => (
                 <CollectionsItem key={collection._id} collection={collection} />
               ))}
             </SimpleGrid>

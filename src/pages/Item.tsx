@@ -6,14 +6,16 @@ import ItemComments from "../components/item/ItemComments";
 
 const Item = () => {
   const itemID = useParams().id;
-  const userItems = useCollectionStore((state) => state.userItems);
+  const items = useCollectionStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
 
-  const item = userItems.find((item) => item._id === itemID);
+  const item = items.find((item) => item._id === itemID);
   const parentCollection = collections?.find(
     (c) => c._id === item?.collectionID
   );
   const parentCollectionName = parentCollection?.name;
+
+  console.log(itemID);
 
   if (!item || !parentCollectionName) {
     return <Heading>Empty item</Heading>;

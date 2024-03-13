@@ -12,10 +12,9 @@ type PropertiesFormProps = {
 const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const userCollections = useCollectionStore((state) => state.userCollections);
-  const setUserCollections = useCollectionStore(
-    (state) => state.setUserCollections
-  );
+  const collections = useCollectionStore((state) => state.collections);
+  const setCollections = useCollectionStore((state) => state.setCollections);
+  const currentUser = useCollectionStore((state) => state.currentUser);
 
   const clearForm = () => {
     setSelectedType("");
@@ -32,13 +31,14 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
         ],
       };
 
-      await updateCollection(updatedCollection)
+      await updateCollection(updatedCollection, currentUser._id)
         .then((data) => {
           clearForm();
           console.log("Collection updated successfully");
-          setUserCollections(
-            userCollections.map((c) => (c._id === data._id ? data : c))
+          setCollections(
+            collections.map((c) => (c._id === data._id ? data : c))
           );
+          console.log(collections);
         })
         .catch((err) => {
           console.error("Failed to update collection:", err);

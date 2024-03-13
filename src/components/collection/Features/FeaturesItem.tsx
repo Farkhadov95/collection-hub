@@ -11,11 +11,10 @@ type PropertiesItemProp = {
 
 const FeaturesItem = ({ feature }: PropertiesItemProp) => {
   const collectionID = useParams().id;
-  const userCollections = useCollectionStore((state) => state.userCollections);
-  const currentCollection = userCollections.find((c) => c._id === collectionID);
-  const setUserCollections = useCollectionStore(
-    (state) => state.setUserCollections
-  );
+  const collections = useCollectionStore((state) => state.collections);
+  const setCollections = useCollectionStore((state) => state.setCollections);
+
+  const currentCollection = collections.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
   const handleDelete = async (id: string) => {
@@ -31,13 +30,13 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
             itemFields: updatedItemFields,
           };
 
-          const updatedCollections = userCollections.map((collection) => {
+          const updatedCollections = collections.map((collection) => {
             if (collection._id === collectionID) {
               return updatedCollection;
             }
             return collection;
           });
-          setUserCollections(updatedCollections);
+          setCollections(updatedCollections);
         })
         .catch((err) => {
           console.error(

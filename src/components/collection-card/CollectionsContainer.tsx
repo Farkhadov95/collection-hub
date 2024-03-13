@@ -1,11 +1,11 @@
 import { Box, HStack, Heading, SimpleGrid, Text } from "@chakra-ui/react";
-import CollectionsItem from "./CollectionsItem";
-import CollectionsItemCreate from "./CollectionsItemCreate";
+import CollectionCard from "./CollectionCard";
+import CollectionsItemCreate from "./AddCollectionCard";
 import { useEffect } from "react";
 import { getUserCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 
-const Collections = () => {
+const CollectionContainer = () => {
   const userCollections = useCollectionStore((state) => state.userCollections);
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
@@ -37,7 +37,7 @@ const Collections = () => {
             spacing={5}
           >
             {userCollections.map((collection) => (
-              <CollectionsItem key={collection._id} collection={collection} />
+              <CollectionCard key={collection._id} collection={collection} />
             ))}
           </SimpleGrid>
         ) : (
@@ -50,4 +50,4 @@ const Collections = () => {
   );
 };
 
-export default Collections;
+export default CollectionContainer;

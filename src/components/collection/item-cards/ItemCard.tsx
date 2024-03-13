@@ -62,7 +62,7 @@ const ItemCard = ({ item }: ItemProps) => {
           </Flex>
         </CardHeader>
         <CardBody paddingTop={0}>
-          <Text height={"50px"} overflow={"hidden"}>
+          <Text maxHeight={"50px"} overflow={"hidden"}>
             {item.description.length > 50
               ? item.description.slice(0, 50).concat("  ...")
               : item.description}

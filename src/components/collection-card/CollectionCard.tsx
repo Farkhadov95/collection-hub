@@ -26,7 +26,7 @@ type CollectionsItemProp = {
   collection: Collection;
 };
 
-const CollectionsItem = ({ collection }: CollectionsItemProp) => {
+const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const collections = useCollectionStore((state) => state.collections);
   const userCollections = useCollectionStore((state) => state.userCollections);
   const currentUser = useCollectionStore((state) => state.currentUser);
@@ -107,4 +107,4 @@ const CollectionsItem = ({ collection }: CollectionsItemProp) => {
   );
 };
 
-export default CollectionsItem;
+export default CollectionCard;

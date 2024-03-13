@@ -15,7 +15,7 @@ const Item = () => {
   );
   const parentCollectionName = parentCollection?.name;
 
-  console.log(itemID);
+  console.log(items);
 
   if (!item || !parentCollectionName) {
     return <Heading>Empty item</Heading>;

@@ -10,7 +10,7 @@ import {
 import { useCollectionStore } from "../../store/store";
 import { useEffect } from "react";
 import { getAllItems, getCollections } from "../../services/service";
-import CollectionsItem from "../collections/CollectionsItem";
+import CollectionsItem from "../collection-card/CollectionCard";
 import ItemCard from "../collection/item-cards/ItemCard";
 
 const MainContent = () => {

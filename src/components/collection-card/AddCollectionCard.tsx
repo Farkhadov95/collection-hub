@@ -24,7 +24,7 @@ import { IoMdAdd } from "react-icons/io";
 import { createCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 
-const CollectionsItemCreate = () => {
+const AddCollectionCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
   const collections = useCollectionStore((state) => state.collections);
@@ -182,4 +182,4 @@ const CollectionsItemCreate = () => {
   );
 };
 
-export default CollectionsItemCreate;
+export default AddCollectionCard;

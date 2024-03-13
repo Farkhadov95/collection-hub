@@ -1,7 +1,7 @@
-import Collections from "../components/collections/Collections";
+import CollectionsContainer from "../components/collection-card/CollectionsContainer";
 
 const User = () => {
-  return <Collections />;
+  return <CollectionsContainer />;
 };
 
 export default User;

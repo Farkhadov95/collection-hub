@@ -16,19 +16,19 @@ import {
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldExeType, newItem } from "../types/types";
 
 const AddItem = () => {
   const collectionID = useParams().id || "";
-  const userCollections = useCollectionStore((state) => state.userCollections);
-  const currentCollection = userCollections.find((c) => c._id === collectionID);
+  const collections = useCollectionStore((state) => state.collections);
+  const currentCollection = collections.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
-  const userItems = useCollectionStore((state) => state.userItems);
-  const setUserItems = useCollectionStore((state) => state.setUserItems);
+  const items = useCollectionStore((state) => state.items);
+  const setItems = useCollectionStore((state) => state.setItems);
   const navigate = useNavigate();
 
   type AddItemForm = {
@@ -48,7 +48,7 @@ const AddItem = () => {
   });
 
   const handleInputChange = (
-    event: React.ChangeEvent<
+    event: ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
@@ -110,7 +110,7 @@ const AddItem = () => {
     const result: newItem = createData(formData);
     createItem(result, currentUser._id)
       .then((data) => {
-        setUserItems([...userItems, data]);
+        setItems([...items, data]);
         navigate(-1);
       })
       .catch((error) => console.error("Could not save data: ", error));

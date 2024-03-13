@@ -11,7 +11,7 @@ import { useCollectionStore } from "../../store/store";
 import { useEffect } from "react";
 import { getAllItems, getCollections } from "../../services/service";
 import CollectionsItem from "../collection-card/CollectionCard";
-import ItemCard from "../collection/item-cards/ItemCard";
+import ItemCard from "../item-cards/ItemCard";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);

@@ -1,5 +1,5 @@
 import { Divider, Box, Heading } from "@chakra-ui/react";
-import ItemsContainer from "../components/collection/item-cards/ItemContainer";
+import ItemsContainer from "../components/item-cards/ItemContainer";
 import About from "../components/collection/About";
 import Features from "../components/collection/features/Features";
 import { useParams } from "react-router-dom";

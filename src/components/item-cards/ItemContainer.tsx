@@ -1,10 +1,10 @@
 import { Box, HStack, Heading, SimpleGrid } from "@chakra-ui/react";
-import CollectionTools from "../CollectionTools";
+import CollectionTools from "../collection/CollectionTools";
 import ItemCard from "./ItemCard";
-import { useCollectionStore } from "../../../store/store";
+import { useCollectionStore } from "../../store/store";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getItems } from "../../../services/service";
+import { getItems } from "../../services/service";
 
 const ItemContainer = () => {
   const collectionID = useParams().id || "";

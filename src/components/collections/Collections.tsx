@@ -10,16 +10,17 @@ const Collections = () => {
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
   );
+  const currentUser = useCollectionStore((state) => state.currentUser);
 
   useEffect(() => {
-    getUserCollection()
+    getUserCollection(currentUser._id)
       .then((res) => {
         setUserCollections(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [setUserCollections]);
+  }, [currentUser._id, setUserCollections]);
 
   console.log(userCollections);
 

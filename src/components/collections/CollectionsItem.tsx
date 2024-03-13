@@ -28,12 +28,20 @@ type CollectionsItemProp = {
 
 const CollectionsItem = ({ collection }: CollectionsItemProp) => {
   const collections = useCollectionStore((state) => state.collections);
+  const userCollections = useCollectionStore((state) => state.userCollections);
+  const currentUser = useCollectionStore((state) => state.currentUser);
+
   const setCollections = useCollectionStore((state) => state.setCollections);
+  const setUserCollections = useCollectionStore(
+    (state) => state.setUserCollections
+  );
 
   const handleDelete = () => {
-    deleteCollection(collection._id).then((data) => {
+    deleteCollection(collection._id, currentUser._id).then(() => {
       setCollections(collections.filter((c) => c._id !== collection._id));
-      console.log(data);
+      setUserCollections(
+        userCollections.filter((c) => c._id !== collection._id)
+      );
     });
   };
 

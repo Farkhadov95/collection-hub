@@ -9,14 +9,15 @@ export const getCollections = async () => {
   return data;
 }
 
-export const getUserCollection = async () => {
+export const getUserCollection = async (userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) return [];
   const res = await fetch(`${URL}/my`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token
+      "X-Auth-Token": token,
+      "X-User-ID": userId
     }
   });
   const data = await res.json();
@@ -37,27 +38,30 @@ export const updateCollection = async (collection: Collection) => {
       headers: {
         "Content-Type": "application/json",
         "X-Auth-Token": token,
+        "X-User-ID": collection.userID,
       },
       body: JSON.stringify(collection),
     });
     const data = await res.json();
     console.log(data);
     return data;
-  };
+};
 
 export const createCollection = async (newCollection: newCollection, userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) return [];
-  const res = await fetch(`${URL}${userId}`, {
+  
+  const res = await fetch(`${URL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token
+      "X-Auth-Token": token,
+      "X-User-ID": userId,
     },
     body: JSON.stringify(newCollection)
   });
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
@@ -68,7 +72,7 @@ export const createItem = async (newItem: newItem) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token
+      "X-Auth-Token": token,
     },
     body: JSON.stringify(newItem)
   });
@@ -77,28 +81,34 @@ export const createItem = async (newItem: newItem) => {
   return data; 
 }
 
-export const deleteCollection = async (id: string) => {
+export const deleteCollection = async (id: string, userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) return [];
   const res = await fetch(`${URL}${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token
+      "X-Auth-Token": token,
+      "X-User-ID": userId,
     },
   });
   const data = await res.json();
   return data;
 }
 
-export const deleteCollectionFeature = async (collectionID: string, featureID: string) => {
+export const deleteCollectionFeature = async (
+    collectionID: string,
+    featureID: string,
+    userId: string
+  ) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) return [];
   const res = await fetch(`${URL}${collectionID}/${featureID}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token
+      "X-Auth-Token": token,
+      "X-User-ID": userId,
     },
   });
   const data = await res.json();

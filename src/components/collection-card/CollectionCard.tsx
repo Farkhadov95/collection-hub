@@ -15,6 +15,7 @@ import {
   MenuItem,
   MenuList,
   Badge,
+  useColorMode,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
@@ -38,6 +39,8 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
     (state) => state.setUserCollections
   );
 
+  const { colorMode } = useColorMode();
+
   const handleDelete = () => {
     deleteCollection(collection._id, currentUser._id)
       .then(() => {
@@ -53,7 +56,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   };
 
   return (
-    <Card maxW="md">
+    <Card maxW="md" bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}>
       <CardHeader>
         <Flex justifyContent={"space-between"}>
           <Box>
@@ -91,7 +94,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
           )}
         </Flex>
       </CardHeader>
-      <CardBody>
+      <CardBody paddingTop={0}>
         <Text>{collection.description}</Text>
       </CardBody>
       <Image

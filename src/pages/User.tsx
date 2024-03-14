@@ -1,9 +1,10 @@
-import { Heading, Box, Badge, HStack } from "@chakra-ui/react";
+import { Heading, Box, Badge, HStack, useColorMode } from "@chakra-ui/react";
 import CollectionsContainer from "../components/collection-card/CollectionsContainer";
 import { useCollectionStore } from "../store/store";
 
 const User = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const { colorMode } = useColorMode();
   return (
     <Box padding={5}>
       <HStack
@@ -11,7 +12,7 @@ const User = () => {
         boxSizing={"border-box"}
         padding={5}
         display={"flex"}
-        bgColor={"gray.700"}
+        bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}
         borderRadius={10}
       >
         <Heading fontSize={"xx-large"}>Hello, {currentUser.username}</Heading>

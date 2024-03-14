@@ -4,6 +4,7 @@ import { useCollectionStore } from "../../../store/store";
 import { deleteCollectionFeature } from "../../../services/service";
 import { useParams } from "react-router-dom";
 import { FieldType } from "../../../types/types";
+import useErrorHandler from "../../../hooks/useError";
 
 type PropertiesItemProp = {
   feature: FieldType;
@@ -16,6 +17,7 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
 
   const currentCollection = collections.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const { handleFail } = useErrorHandler();
 
   const handleDelete = async (id: string) => {
     if (id !== "" && collectionID && feature._id && currentCollection) {
@@ -39,10 +41,8 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
           setCollections(updatedCollections);
         })
         .catch((err) => {
-          console.error(
-            "Failed to delete collection item field (feature):",
-            err
-          );
+          const errorMessage = err.message.toString();
+          handleFail(errorMessage);
         });
     }
   };

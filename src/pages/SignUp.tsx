@@ -14,32 +14,22 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, newUserForm } from "../types/types";
 import { registerUser } from "../services/user";
 import { useCollectionStore } from "../store/store";
-import { useCallback } from "react";
+import useErrorHandler from "../hooks/useError";
 
 const SignUp = () => {
   const form = useForm<newUserForm>();
   const { register, handleSubmit, control, formState } = form;
   const { errors } = formState;
   const navigate = useNavigate();
+  const { handleUserFail } = useErrorHandler();
 
   const userError = useCollectionStore((state) => state.userError);
-  const setUserError = useCollectionStore((state) => state.setUserError);
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
   const handleSuccess = (data: currentUser) => {
     setCurrentUser(data);
     navigate("/");
   };
-
-  const handleFail = useCallback(
-    (error: string) => {
-      setUserError(error);
-      setTimeout(() => {
-        setUserError("");
-      }, 3000);
-    },
-    [setUserError]
-  );
 
   const onSubmit = (data: newUserForm) => {
     console.log("Form Submitted", data);
@@ -48,7 +38,7 @@ const SignUp = () => {
       email: data.email,
       password: data.password,
     };
-    registerUser(adjustedData, handleSuccess, handleFail);
+    registerUser(adjustedData, handleSuccess, handleUserFail);
   };
 
   return (

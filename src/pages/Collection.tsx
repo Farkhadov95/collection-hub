@@ -9,7 +9,6 @@ const Collection = () => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections?.find((c) => c._id === collectionID);
-
   const currentUser = useCollectionStore((state) => state.currentUser);
 
   console.log(currentCollection);

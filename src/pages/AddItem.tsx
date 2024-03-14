@@ -20,6 +20,7 @@ import { useState, ChangeEvent } from "react";
 import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldExeType, newItem } from "../types/types";
+import useErrorHandler from "../hooks/useError";
 
 const AddItem = () => {
   const collectionID = useParams().id || "";
@@ -30,6 +31,7 @@ const AddItem = () => {
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
   const navigate = useNavigate();
+  const { handleFail } = useErrorHandler();
 
   type AddItemForm = {
     name: string;
@@ -113,7 +115,10 @@ const AddItem = () => {
         setItems([...items, data]);
         navigate(-1);
       })
-      .catch((error) => console.error("Could not save data: ", error));
+      .catch((err) => {
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
+      });
 
     setFormData({
       ...formData,

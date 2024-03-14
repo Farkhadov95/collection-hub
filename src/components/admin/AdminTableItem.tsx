@@ -3,13 +3,19 @@ import { userInfo } from "../../types/types";
 
 type AdminTableItemProps = {
   user: userInfo;
+  handleSelect: (user: userInfo) => void;
+  selected: boolean;
 };
 
-const AdminTableItem = ({ user }: AdminTableItemProps) => {
+const AdminTableItem = ({
+  user,
+  handleSelect,
+  selected,
+}: AdminTableItemProps) => {
   return (
     <Tr>
       <Td>
-        <Checkbox />
+        <Checkbox onChange={() => handleSelect(user)} isChecked={selected} />
       </Td>
       <Td>{user._id}</Td>
       <Td>{user.username}</Td>

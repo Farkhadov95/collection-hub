@@ -4,6 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import { useCollectionStore } from "../../../store/store";
 import { updateCollection } from "../../../services/service";
 import { Collection } from "../../../types/types";
+import useErrorHandler from "../../../hooks/useError";
 
 type PropertiesFormProps = {
   currentCollection: Collection;
@@ -12,6 +13,7 @@ type PropertiesFormProps = {
 const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const [selectedType, setSelectedType] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const { handleFail } = useErrorHandler();
   const collections = useCollectionStore((state) => state.collections);
   const setCollections = useCollectionStore((state) => state.setCollections);
   const currentUser = useCollectionStore((state) => state.currentUser);
@@ -41,7 +43,8 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
           console.log(collections);
         })
         .catch((err) => {
-          console.error("Failed to update collection:", err);
+          const errorMessage = err.message.toString();
+          handleFail(errorMessage);
         });
     }
   };

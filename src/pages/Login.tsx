@@ -14,17 +14,16 @@ import { currentUser, user } from "../types/types";
 import { DevTool } from "@hookform/devtools";
 import { loginUser } from "../services/user";
 import { useCollectionStore } from "../store/store";
-import { useCallback } from "react";
+import useErrorHandler from "../hooks/useError";
 
 const Login = () => {
   const form = useForm<user>();
   const { register, handleSubmit, control, formState } = form;
   const { errors } = formState;
+  const { handleUserFail } = useErrorHandler();
   const navigate = useNavigate();
 
   const userError = useCollectionStore((state) => state.userError);
-  const setUserError = useCollectionStore((state) => state.setUserError);
-
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
   const handleSuccess = (data: currentUser) => {
@@ -32,19 +31,9 @@ const Login = () => {
     navigate("/");
   };
 
-  const handleFail = useCallback(
-    (error: string) => {
-      setUserError(error);
-      setTimeout(() => {
-        setUserError("");
-      }, 3000);
-    },
-    [setUserError]
-  );
-
   const onSubmit = (data: user) => {
     console.log("Form Submitted", data);
-    loginUser(data, handleSuccess, handleFail);
+    loginUser(data, handleSuccess, handleUserFail);
   };
 
   return (

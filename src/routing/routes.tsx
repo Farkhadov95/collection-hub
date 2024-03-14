@@ -10,6 +10,7 @@ import Layout from "./Layout";
 import Item from "../pages/Item";
 import Admin from "../pages/Admin";
 import PrivateRoutes from "./PrivateRoutes";
+import AdminRoutes from "./AdminRoutes";
 
 const router = createBrowserRouter([
   {
@@ -41,8 +42,13 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "admin",
-        element: <Admin />,
+        element: <AdminRoutes />,
+        children: [
+          {
+            path: "admin",
+            element: <Admin />,
+          },
+        ],
       },
       {
         element: <PrivateRoutes />,

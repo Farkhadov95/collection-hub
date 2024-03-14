@@ -6,6 +6,7 @@ const emptyCurrentUser = {
   _id: "",
   username: "",
   email: "",
+  isAdmin: false,
 }
 
 type CollectionStore = {
@@ -16,6 +17,7 @@ type CollectionStore = {
   userCollections: Collection[],
   userItems: ItemType[],
   userError: string,
+  error: string,
   setCurrentUser: (user: currentUser) => void,
   setCollections: (collections: Collection[]) => void,
   setItems: (items: ItemType[]) => void,
@@ -23,6 +25,7 @@ type CollectionStore = {
   setUserCollections: (collections: Collection[]) => void,
   setUserItems: (items: ItemType[]) => void,
   setUserError: (userError: string) => void,
+  setError: (error: string) => void,
 }
 
 export const useCollectionStore = create<CollectionStore>()(
@@ -35,6 +38,7 @@ export const useCollectionStore = create<CollectionStore>()(
         userCollections: [],
         userItems: [],
         userError: "",
+        error: "",
         setCurrentUser: (user: currentUser) => set({ currentUser: user }),
         setCollections: (collections: Collection[]) => set({ collections }),
         setItems: (items: ItemType[]) => set({ items }),
@@ -42,6 +46,7 @@ export const useCollectionStore = create<CollectionStore>()(
         setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
         setUserItems: (userItems: ItemType[]) => set({ userItems }),
         setUserError: (userError: string) => set({ userError }),
+        setError: (error: string) => set({ error }),
       }),
       {
         name: 'collections-storage',

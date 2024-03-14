@@ -6,8 +6,10 @@ import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import NavbarDrawer from "./NavbarDrawer";
 import { Link } from "react-router-dom";
+import { useCollectionStore } from "../store/store";
 
 const Navbar = () => {
+  const currentUser = useCollectionStore((state) => state.currentUser);
   return (
     <>
       <Flex justifyContent={"space-between"} marginBottom={{ base: 2, md: 5 }}>
@@ -19,16 +21,18 @@ const Navbar = () => {
         >
           <ColorModeSwitch />
           <SearchBar />
-          <Button
-            variant={"ghost"}
-            colorScheme="green"
-            fontWeight={"bold"}
-            as={Link}
-            to={"/admin"}
-            leftIcon={<GrUserAdmin />}
-          >
-            Admin
-          </Button>
+          {currentUser.isAdmin && (
+            <Button
+              variant={"ghost"}
+              colorScheme="green"
+              fontWeight={"bold"}
+              as={Link}
+              to={"/admin"}
+              leftIcon={<GrUserAdmin />}
+            >
+              Admin
+            </Button>
+          )}
         </HStack>
         <HStack display={{ base: "none", lg: "flex" }}>
           <NavLinks />

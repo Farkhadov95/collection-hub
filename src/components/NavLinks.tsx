@@ -8,9 +8,8 @@ const NavLinks = () => {
   const { pathname } = location;
   const navigate = useNavigate();
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
-  console.log(pathname);
-
   const token = localStorage.getItem("X-Auth-Token");
+
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
       {token && pathname !== "/login" && pathname !== "/signup" ? (
@@ -29,6 +28,7 @@ const NavLinks = () => {
               _id: "",
               username: "",
               email: "",
+              isAdmin: false,
             });
             navigate("/");
             localStorage.removeItem("X-Auth-Token");

@@ -4,6 +4,7 @@ import CollectionsItemCreate from "./AddCollectionCard";
 import { useEffect } from "react";
 import { getUserCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
+import useErrorHandler from "../../hooks/useError";
 
 const CollectionContainer = () => {
   const userCollections = useCollectionStore((state) => state.userCollections);
@@ -11,6 +12,7 @@ const CollectionContainer = () => {
     (state) => state.setUserCollections
   );
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const { handleFail } = useErrorHandler();
 
   useEffect(() => {
     getUserCollection(currentUser._id)
@@ -18,9 +20,10 @@ const CollectionContainer = () => {
         setUserCollections(res);
       })
       .catch((err) => {
-        console.log(err);
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
       });
-  }, [currentUser._id, setUserCollections]);
+  }, [currentUser._id, handleFail, setUserCollections]);
 
   return (
     <>

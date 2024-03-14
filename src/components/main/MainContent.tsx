@@ -12,12 +12,14 @@ import { useEffect } from "react";
 import { getAllItems, getCollections } from "../../services/service";
 import CollectionsItem from "../collection-card/CollectionCard";
 import ItemCard from "../item-cards/ItemCard";
+import useErrorHandler from "../../hooks/useError";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);
   const setCollections = useCollectionStore((state) => state.setCollections);
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
+  const { handleFail } = useErrorHandler();
 
   useEffect(() => {
     Promise.all([getCollections(), getAllItems()])
@@ -26,9 +28,10 @@ const MainContent = () => {
         setItems(itemsRes);
       })
       .catch((err) => {
-        console.log(err);
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
       });
-  }, [setCollections, setItems]);
+  }, [handleFail, setCollections, setItems]);
 
   const sortedItems = items.sort((a, b) => {
     const dateA = new Date(a.createdAt);

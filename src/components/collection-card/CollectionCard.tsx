@@ -21,6 +21,7 @@ import { useCollectionStore } from "../../store/store";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteCollection } from "../../services/service";
 import { Collection } from "../../types/types";
+import useErrorHandler from "../../hooks/useError";
 
 type CollectionsItemProp = {
   collection: Collection;
@@ -31,18 +32,24 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const userCollections = useCollectionStore((state) => state.userCollections);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
+  const { handleFail } = useErrorHandler();
   const setCollections = useCollectionStore((state) => state.setCollections);
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
   );
 
   const handleDelete = () => {
-    deleteCollection(collection._id, currentUser._id).then(() => {
-      setCollections(collections.filter((c) => c._id !== collection._id));
-      setUserCollections(
-        userCollections.filter((c) => c._id !== collection._id)
-      );
-    });
+    deleteCollection(collection._id, currentUser._id)
+      .then(() => {
+        setCollections(collections.filter((c) => c._id !== collection._id));
+        setUserCollections(
+          userCollections.filter((c) => c._id !== collection._id)
+        );
+      })
+      .catch((err) => {
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
+      });
   };
 
   return (

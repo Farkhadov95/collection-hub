@@ -23,6 +23,7 @@ import { useRef, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { createCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
+import useErrorHandler from "../../hooks/useError";
 
 const AddCollectionCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,6 +33,7 @@ const AddCollectionCard = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
   console.log(currentUser);
 
+  const { handleFail } = useErrorHandler();
   const setCollections = useCollectionStore((state) => state.setCollections);
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
@@ -75,13 +77,16 @@ const AddCollectionCard = () => {
   };
 
   const handleSubmit = () => {
-    console.log(formData);
     const result = createData(formData);
-    console.log(currentUser._id);
-    createCollection(result, currentUser._id).then((data) => {
-      setCollections([...collections, data]);
-      setUserCollections([...userCollections, data]);
-    });
+    createCollection(result, currentUser._id)
+      .then((data) => {
+        setCollections([...collections, data]);
+        setUserCollections([...userCollections, data]);
+      })
+      .catch((err) => {
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
+      });
 
     setFormData({
       ...formData,

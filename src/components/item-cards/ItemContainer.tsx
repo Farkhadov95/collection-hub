@@ -5,11 +5,13 @@ import { useCollectionStore } from "../../store/store";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getItems } from "../../services/service";
+import useErrorHandler from "../../hooks/useError";
 
 const ItemContainer = () => {
   const collectionID = useParams().id || "";
   const userItems = useCollectionStore((state) => state.userItems);
   const setUserItems = useCollectionStore((state) => state.setUserItems);
+  const { handleFail } = useErrorHandler();
 
   useEffect(() => {
     getItems(collectionID)
@@ -17,9 +19,10 @@ const ItemContainer = () => {
         setUserItems(res);
       })
       .catch((err) => {
-        console.log(err);
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
       });
-  }, [collectionID, setUserItems]);
+  }, [collectionID, handleFail, setUserItems]);
 
   return (
     <Box marginTop={5}>

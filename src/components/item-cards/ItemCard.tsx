@@ -28,6 +28,7 @@ const ItemCard = ({ item }: ItemProps) => {
   const collection = collections.find(
     (collection) => collection._id === item.collectionID
   );
+  const currentUser = useCollectionStore((state) => state.currentUser);
 
   if (!item) {
     return <div>Loading...</div>;
@@ -53,12 +54,14 @@ const ItemCard = ({ item }: ItemProps) => {
                   : null}
               </HStack>
             </Box>
-            <IconButton
-              variant="ghost"
-              colorScheme="gray"
-              aria-label="See menu"
-              icon={<BsThreeDotsVertical />}
-            />
+            {currentUser._id !== "" && (
+              <IconButton
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+                icon={<BsThreeDotsVertical />}
+              />
+            )}
           </Flex>
         </CardHeader>
         <CardBody paddingTop={0}>
@@ -75,9 +78,12 @@ const ItemCard = ({ item }: ItemProps) => {
         />
 
         <CardFooter justify="space-between">
-          <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
-            Like
-          </Button>
+          {currentUser._id !== "" && (
+            <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
+              Like
+            </Button>
+          )}
+
           <Button
             as={Link}
             to={`/item/${item._id}`}

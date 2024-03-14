@@ -20,7 +20,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
       >
         <Box>
           <Heading fontSize={"x-large"}>{item?.name}</Heading>
-          <Text>Collection: {parentCollectionName} </Text>
+          <Text fontWeight={"bold"}>Collection: {parentCollectionName} </Text>
         </Box>
         <Text>{item?.description}</Text>
         <HStack>
@@ -28,6 +28,19 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
             <Tag key={index}>{tag}</Tag>
           ))}
         </HStack>
+        <Box>
+          <Text fontWeight={"bold"} mb={1}>
+            Additional information:{" "}
+          </Text>
+          {item.fields.map((field) => {
+            return (
+              <HStack>
+                <Text fontWeight={"bold"}>{field.fieldName}:</Text>
+                <Text>{field.fieldValue}</Text>
+              </HStack>
+            );
+          })}
+        </Box>
       </VStack>
       <Box
         border={"1px solid"}

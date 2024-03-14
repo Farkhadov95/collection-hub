@@ -67,7 +67,7 @@ const MainContent = () => {
       </HStack>
       <Box>
         <Heading fontSize={{ base: "medium", md: "large" }}>
-          Top 5 Latest Items:{" "}
+          Top 5 Latest Items:
         </Heading>
         <HStack marginY={{ base: 2, md: 5 }}>
           {items.length !== 0 ? (
@@ -97,7 +97,7 @@ const MainContent = () => {
               columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 5 }}
               spacing={5}
             >
-              {collections.slice(0, 5).map((collection) => (
+              {collections.slice(0, 10).map((collection) => (
                 <CollectionsItem key={collection._id} collection={collection} />
               ))}
             </SimpleGrid>

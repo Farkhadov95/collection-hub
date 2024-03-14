@@ -65,26 +65,30 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
               {collection.topic}
             </Badge>
           </Box>
-          <Menu>
-            {({ isOpen }) => (
-              <>
-                <MenuButton
-                  as={IconButton}
-                  size="sm"
-                  isActive={isOpen}
-                  variant="ghost"
-                  colorScheme="gray"
-                  aria-label="See menu"
-                  icon={<BsThreeDotsVertical />}
-                />
+          {currentUser._id !== "" && (
+            <Menu>
+              {({ isOpen }) => (
+                <>
+                  <MenuButton
+                    as={IconButton}
+                    size="sm"
+                    isActive={isOpen}
+                    variant="ghost"
+                    colorScheme="gray"
+                    aria-label="See menu"
+                    icon={<BsThreeDotsVertical />}
+                  />
 
-                <MenuList>
-                  <MenuItem onClick={handleDelete}>Delete</MenuItem>
-                  <MenuItem onClick={() => alert("Kagebunshin")}>Edit</MenuItem>
-                </MenuList>
-              </>
-            )}
-          </Menu>
+                  <MenuList>
+                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    <MenuItem onClick={() => alert("Kagebunshin")}>
+                      Edit
+                    </MenuItem>
+                  </MenuList>
+                </>
+              )}
+            </Menu>
+          )}
         </Flex>
       </CardHeader>
       <CardBody>

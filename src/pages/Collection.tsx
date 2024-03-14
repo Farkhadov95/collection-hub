@@ -20,12 +20,13 @@ const Collection = () => {
     <Box padding={{ base: 1, md: 5 }}>
       <About currentCollection={currentCollection} />
       <Divider marginY={5} />
-      {currentUser._id === currentCollection.userID && (
-        <>
-          <Features currentCollection={currentCollection} />
-          <Divider marginY={5} />
-        </>
-      )}
+      {currentUser._id === currentCollection.userID ||
+        (currentUser.isAdmin && (
+          <>
+            <Features currentCollection={currentCollection} />
+            <Divider marginY={5} />
+          </>
+        ))}
       <ItemsContainer />
     </Box>
   );

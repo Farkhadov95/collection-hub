@@ -27,7 +27,7 @@ const CollectionContainer = () => {
 
   return (
     <>
-      <Box paddingX={5} paddingY={5}>
+      <Box>
         <HStack marginBottom={5} justifyContent={"space-between"}>
           <Heading fontSize="2xl">My Collections</Heading>
           <CollectionsItemCreate />

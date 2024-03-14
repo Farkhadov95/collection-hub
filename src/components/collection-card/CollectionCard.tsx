@@ -107,12 +107,13 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         alt="Chakra UI"
       />
 
-      <CardFooter padding={2}>
+      <CardFooter padding={3}>
         <Button
           as={Link}
           to={`/collections/${collection._id}`}
           flex="1"
-          variant="ghost"
+          variant="outline"
+          colorScheme="green"
         >
           Open
         </Button>

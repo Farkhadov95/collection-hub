@@ -1,4 +1,4 @@
-import { Button, HStack, Text } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCollectionStore } from "../store/store";
@@ -13,9 +13,9 @@ const NavLinks = () => {
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
       {token && pathname !== "/login" && pathname !== "/signup" ? (
-        <Text as={Link} to={"/user"} fontWeight={"bold"}>
+        <Button variant={"ghost"} as={Link} to={"/user"} fontWeight={"bold"}>
           My Collections
-        </Text>
+        </Button>
       ) : null}
 
       {token && pathname !== "/login" && pathname !== "/signup" ? (

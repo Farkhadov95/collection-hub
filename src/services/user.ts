@@ -25,7 +25,7 @@ export const registerUser = async (user: newUser, onSuccess: (currentUser: curre
     const data = await res.json();
     localStorage.setItem('X-Auth-Token', data.token);
     onSuccess({
-        _id: data.id,
+        _id: data._id,
         username: data.username,
         email: data.email,
         isAdmin: data.isAdmin,

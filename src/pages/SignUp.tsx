@@ -27,6 +27,7 @@ const SignUp = () => {
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
   const handleSuccess = (data: currentUser) => {
+    console.log(data);
     setCurrentUser(data);
     navigate("/");
   };

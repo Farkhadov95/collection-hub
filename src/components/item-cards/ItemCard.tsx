@@ -82,7 +82,7 @@ const ItemCard = ({ item }: ItemProps) => {
         alt="Chakra UI"
       />
 
-      <CardFooter justify="space-between">
+      <CardFooter justify="space-between" padding={3} gap={2}>
         {currentUser._id !== "" && (
           <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
             Like

@@ -44,7 +44,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const { colorMode } = useColorMode();
 
   const handleDelete = () => {
-    deleteCollection(collection._id, currentUser._id)
+    deleteCollection(collection._id)
       .then(() => {
         setCollections(collections.filter((c) => c._id !== collection._id));
         setItems(items.filter((c) => c.collectionID !== collection._id));
@@ -57,6 +57,8 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         handleFail(errorMessage);
       });
   };
+
+  const isAuth = currentUser._id == collection.userID || currentUser.isAdmin;
 
   return (
     <Card maxW="md" bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}>
@@ -71,7 +73,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
               {collection.topic}
             </Badge>
           </Box>
-          {currentUser._id !== "" && (
+          {isAuth && (
             <Menu>
               {({ isOpen }) => (
                 <>

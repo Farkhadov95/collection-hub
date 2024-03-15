@@ -16,12 +16,11 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
   const setCollections = useCollectionStore((state) => state.setCollections);
 
   const currentCollection = collections.find((c) => c._id === collectionID);
-  const currentUser = useCollectionStore((state) => state.currentUser);
   const { handleFail } = useErrorHandler();
 
   const handleDelete = async (id: string) => {
     if (id !== "" && collectionID && feature._id && currentCollection) {
-      deleteCollectionFeature(collectionID, feature._id, currentUser._id)
+      deleteCollectionFeature(collectionID, feature._id)
         .then(() => {
           const updatedItemFields = currentCollection.itemFields.filter(
             (item) => item._id !== id

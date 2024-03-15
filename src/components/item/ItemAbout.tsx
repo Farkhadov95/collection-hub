@@ -32,9 +32,9 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
           <Text fontWeight={"bold"} mb={1}>
             Additional information:{" "}
           </Text>
-          {item.fields.map((field) => {
+          {item.fields.map((field, index) => {
             return (
-              <HStack>
+              <HStack key={index}>
                 <Text fontWeight={"bold"}>{field.fieldName}:</Text>
                 <Text>{field.fieldValue}</Text>
               </HStack>

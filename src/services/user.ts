@@ -78,7 +78,7 @@ export const loginUser = async (user: user, onSuccess: (currentUser: currentUser
 
 export const getAllUsers = async (userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   const res = await fetch(`${URL}${Routes.USERS}`, {
     method: "GET",
     headers: {
@@ -93,7 +93,7 @@ export const getAllUsers = async (userId: string) => {
 
 export const updateUsers = async (users: userInfo[], status: boolean, userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
 
   const requestBody = {
     users: users,
@@ -116,7 +116,7 @@ export const updateUsers = async (users: userInfo[], status: boolean, userId: st
 
 export const deleteUsers = async (users: userInfo[], userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   const res = await fetch(`${URL}${Routes.USERS}`, {
     method: "DELETE",
     headers: {

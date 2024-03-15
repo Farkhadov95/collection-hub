@@ -11,7 +11,7 @@ export const getCollections = async () => {
 
 export const getUserCollection = async (userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   const res = await fetch(`${URL}/my`, {
     method: "GET",
     headers: {
@@ -36,15 +36,14 @@ export const getItems = async (id: string) => {
   return data;
 }
 
-export const updateCollection = async (collection: Collection, userId: string) => {
+export const updateCollection = async (collection: Collection) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
     const res = await fetch(`${URL}${collection._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "X-Auth-Token": token,
-        "X-User-ID": userId,
+        "X-Auth-Token": token
       },
       body: JSON.stringify(collection),
     });
@@ -53,16 +52,15 @@ export const updateCollection = async (collection: Collection, userId: string) =
     return data;
 };
 
-export const createCollection = async (newCollection: newCollection, userId: string) => {
+export const createCollection = async (newCollection: newCollection) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   
   const res = await fetch(`${URL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-Auth-Token": token,
-      "X-User-ID": userId,
     },
     body: JSON.stringify(newCollection)
   });
@@ -71,15 +69,14 @@ export const createCollection = async (newCollection: newCollection, userId: str
   return data;
 }
 
-export const createItem = async (newItem: newItem, userId: string) => {
+export const createItem = async (newItem: newItem) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   const res = await fetch(ITEM_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token,
-      "X-User-ID": userId,
+      "X-Auth-Token": token
     },
     body: JSON.stringify(newItem)
   });
@@ -88,15 +85,14 @@ export const createItem = async (newItem: newItem, userId: string) => {
   return data; 
 }
 
-export const updateItem = async (updatedItem: ItemType, userId: string) => {
+export const updateItem = async (updatedItem: ItemType) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   const res = await fetch(`${ITEM_URL}${updatedItem._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token,
-      "X-User-ID": userId,
+      "X-Auth-Token": token
     },
     body: JSON.stringify(updatedItem),
   });
@@ -105,15 +101,14 @@ export const updateItem = async (updatedItem: ItemType, userId: string) => {
   return data;
 }
 
-export const deleteCollection = async (id: string, userId: string) => {
+export const deleteCollection = async (collectionID: string) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
-  const res = await fetch(`${URL}${id}`, {
+  if (!token) throw new Error('Unauthorized request');
+  const res = await fetch(`${URL}${collectionID}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token,
-      "X-User-ID": userId,
+      "X-Auth-Token": token
     },
   });
   const data = await res.json();
@@ -122,17 +117,15 @@ export const deleteCollection = async (id: string, userId: string) => {
 
 export const deleteCollectionFeature = async (
     collectionID: string,
-    featureID: string,
-    userId: string
+    featureID: string
   ) => {
   const token = localStorage.getItem('X-Auth-Token');
-  if (!token) return [];
+  if (!token) throw new Error('Unauthorized request');
   const res = await fetch(`${URL}${collectionID}/${featureID}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "X-Auth-Token": token,
-      "X-User-ID": userId,
+      "X-Auth-Token": token
     },
   });
   const data = await res.json();

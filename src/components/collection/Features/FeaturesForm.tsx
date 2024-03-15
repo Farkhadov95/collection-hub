@@ -16,7 +16,6 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const { handleFail } = useErrorHandler();
   const collections = useCollectionStore((state) => state.collections);
   const setCollections = useCollectionStore((state) => state.setCollections);
-  const currentUser = useCollectionStore((state) => state.currentUser);
 
   const clearForm = () => {
     setSelectedType("");
@@ -33,7 +32,7 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
         ],
       };
 
-      await updateCollection(updatedCollection, currentUser._id)
+      await updateCollection(updatedCollection)
         .then((data) => {
           clearForm();
           console.log("Collection updated successfully");

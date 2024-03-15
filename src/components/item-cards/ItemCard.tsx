@@ -13,8 +13,12 @@ import {
   Tag,
   HStack,
   useColorMode,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
-import { BiLike } from "react-icons/bi";
+import { BiLike, BiSolidLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../types/types";
 import { Link } from "react-router-dom";
@@ -47,13 +51,10 @@ const ItemCard = ({ item }: ItemProps) => {
       updatedLike = [...item.likeIDs, currentUser._id];
     }
 
-    updateItem(
-      {
-        ...item,
-        likeIDs: updatedLike,
-      },
-      currentUser._id
-    )
+    updateItem({
+      ...item,
+      likeIDs: updatedLike,
+    })
       .then((res) => {
         setItems(
           items.map((item) => {
@@ -69,11 +70,16 @@ const ItemCard = ({ item }: ItemProps) => {
       });
   };
 
+  // const handleDelete = () => {
+
+  // }
+
   if (!item) {
     return <div>Loading...</div>;
   }
 
   const tagsToArray = (item.tags ?? "").split(" ");
+  const isAuth = currentUser._id == item.userID || currentUser.isAdmin;
 
   return (
     <Card maxW="md" bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}>
@@ -97,13 +103,29 @@ const ItemCard = ({ item }: ItemProps) => {
                 : null}
             </HStack>
           </Box>
-          {currentUser._id !== "" && (
-            <IconButton
-              variant="ghost"
-              colorScheme="gray"
-              aria-label="See menu"
-              icon={<BsThreeDotsVertical />}
-            />
+          {isAuth && (
+            <Menu>
+              {({ isOpen }) => (
+                <>
+                  <MenuButton
+                    as={IconButton}
+                    size="sm"
+                    isActive={isOpen}
+                    variant="ghost"
+                    colorScheme="gray"
+                    aria-label="See menu"
+                    icon={<BsThreeDotsVertical />}
+                  />
+
+                  <MenuList>
+                    <MenuItem>Delete</MenuItem>
+                    <MenuItem onClick={() => alert("Kagebunshin")}>
+                      Edit
+                    </MenuItem>
+                  </MenuList>
+                </>
+              )}
+            </Menu>
           )}
         </Flex>
       </CardHeader>
@@ -125,11 +147,11 @@ const ItemCard = ({ item }: ItemProps) => {
           <Button
             flex="1"
             variant="ghost"
-            leftIcon={<BiLike />}
+            leftIcon={isLiked ? <BiSolidLike /> : <BiLike />}
             colorScheme={isLiked ? "green" : "white"}
             onClick={handleLike}
           >
-            Like
+            {isLiked ? "Liked" : "Like"}
           </Button>
         )}
 

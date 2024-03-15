@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Collection, ItemType, currentUser, userInfo } from "../types/types";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 const emptyCurrentUser = {
   _id: "",
@@ -55,3 +56,6 @@ export const useCollectionStore = create<CollectionStore>()(
   );
 
 
+  if (process.env.NODE_ENV === "development") {
+    mountStoreDevtool("CollectionStore", useCollectionStore);
+  }

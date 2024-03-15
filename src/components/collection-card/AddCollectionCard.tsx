@@ -78,7 +78,7 @@ const AddCollectionCard = () => {
 
   const handleSubmit = () => {
     const result = createData(formData);
-    createCollection(result, currentUser._id)
+    createCollection(result)
       .then((data) => {
         setCollections([...collections, data]);
         setUserCollections([...userCollections, data]);

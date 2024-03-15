@@ -11,22 +11,23 @@ const Collection = () => {
   const currentCollection = collections?.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
-  console.log(currentCollection);
   if (!currentCollection) {
     return <Heading>Empty collection</Heading>;
   }
+
+  const isAuth =
+    currentUser._id === currentCollection?.userID || currentUser.isAdmin;
 
   return (
     <Box padding={{ base: 1, md: 5 }}>
       <About currentCollection={currentCollection} />
       <Divider marginY={5} />
-      {currentUser._id === currentCollection.userID ||
-        (currentUser.isAdmin && (
-          <>
-            <Features currentCollection={currentCollection} />
-            <Divider marginY={5} />
-          </>
-        ))}
+      {isAuth && (
+        <>
+          <Features currentCollection={currentCollection} />
+          <Divider marginY={5} />
+        </>
+      )}
       <ItemsContainer />
     </Box>
   );

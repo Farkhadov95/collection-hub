@@ -32,6 +32,8 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const collections = useCollectionStore((state) => state.collections);
   const userCollections = useCollectionStore((state) => state.userCollections);
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const items = useCollectionStore((state) => state.items);
+  const setItems = useCollectionStore((state) => state.setItems);
 
   const { handleFail } = useErrorHandler();
   const setCollections = useCollectionStore((state) => state.setCollections);
@@ -45,6 +47,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
     deleteCollection(collection._id, currentUser._id)
       .then(() => {
         setCollections(collections.filter((c) => c._id !== collection._id));
+        setItems(items.filter((c) => c.collectionID !== collection._id));
         setUserCollections(
           userCollections.filter((c) => c._id !== collection._id)
         );

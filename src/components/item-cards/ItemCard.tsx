@@ -19,18 +19,56 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../types/types";
 import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
+import { updateItem } from "../../services/service";
+import useErrorHandler from "../../hooks/useError";
 
 type ItemProps = {
   item: ItemType;
 };
 
 const ItemCard = ({ item }: ItemProps) => {
+  const { colorMode } = useColorMode();
+  const currentUser = useCollectionStore((state) => state.currentUser);
   const collections = useCollectionStore((state) => state.collections);
+  const items = useCollectionStore((state) => state.items);
+  const setItems = useCollectionStore((state) => state.setItems);
   const collection = collections.find(
     (collection) => collection._id === item.collectionID
   );
-  const currentUser = useCollectionStore((state) => state.currentUser);
-  const { colorMode } = useColorMode();
+  const { handleFail } = useErrorHandler();
+
+  const isLiked = item.likeIDs.includes(currentUser._id);
+
+  const handleLike = () => {
+    let updatedLike;
+    if (isLiked) {
+      updatedLike = item.likeIDs.filter((id) => id !== currentUser._id);
+    } else {
+      updatedLike = [...item.likeIDs, currentUser._id];
+    }
+
+    updateItem(
+      {
+        ...item,
+        likeIDs: updatedLike,
+      },
+      currentUser._id
+    )
+      .then((res) => {
+        setItems(
+          items.map((item) => {
+            if (item._id === res._id) {
+              return res;
+            }
+            return item;
+          })
+        );
+      })
+      .catch((err) => {
+        handleFail(err.message.toString());
+      });
+  };
+
   if (!item) {
     return <div>Loading...</div>;
   }
@@ -84,7 +122,13 @@ const ItemCard = ({ item }: ItemProps) => {
 
       <CardFooter justify="space-between" padding={3} gap={2}>
         {currentUser._id !== "" && (
-          <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
+          <Button
+            flex="1"
+            variant="ghost"
+            leftIcon={<BiLike />}
+            colorScheme={isLiked ? "green" : "white"}
+            onClick={handleLike}
+          >
             Like
           </Button>
         )}

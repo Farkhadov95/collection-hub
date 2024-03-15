@@ -1,4 +1,4 @@
-import { Collection, newCollection, newItem } from "../types/types";
+import { Collection, ItemType, newCollection, newItem } from "../types/types";
 
 const URL = "http://localhost:3000/collections/";
 const ITEM_URL = 'http://localhost:3000/items/'
@@ -86,6 +86,23 @@ export const createItem = async (newItem: newItem, userId: string) => {
   const data = await res.json();
   console.log(data);
   return data; 
+}
+
+export const updateItem = async (updatedItem: ItemType, userId: string) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) return [];
+  const res = await fetch(`${ITEM_URL}${updatedItem._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token,
+      "X-User-ID": userId,
+    },
+    body: JSON.stringify(updatedItem),
+  });
+  const data = await res.json();
+  console.log(data);
+  return data;
 }
 
 export const deleteCollection = async (id: string, userId: string) => {

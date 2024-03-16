@@ -2,17 +2,18 @@ import {
   Stack,
   Box,
   Heading,
-  Tag,
   SimpleGrid,
   HStack,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../../store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllItems, getCollections } from "../../services/service";
 import CollectionsItem from "../collection-card/CollectionCard";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
+import { ItemType } from "../../types/types";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);
@@ -20,6 +21,9 @@ const MainContent = () => {
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
+
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
 
   useEffect(() => {
     Promise.all([getCollections(), getAllItems()])
@@ -46,6 +50,22 @@ const MainContent = () => {
   });
   const uniqueTags = Array.from(tagsSet);
 
+  const handleSelectTag = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
+      return;
+    }
+    setSelectedTags([...selectedTags, tag]);
+  };
+
+  useEffect(() => {
+    const filteredItemsByTag = items.filter((item) => {
+      const itemTags = item.tags.split(" ");
+      return selectedTags.every((tag) => itemTags.includes(tag));
+    });
+    setFilteredItems(filteredItemsByTag);
+  }, [selectedTags, items]);
+
   return (
     <Stack
       borderRadius={10}
@@ -57,14 +77,37 @@ const MainContent = () => {
         <Heading fontSize={{ base: "medium", md: "large" }}>
           Popular tags:{" "}
         </Heading>
-        <HStack flexWrap={"wrap"}>
+        <HStack flexWrap={"wrap"} gap={1}>
           {uniqueTags.map((tag: string, index: number) => (
-            <Tag key={index} fontSize={{ base: "small", md: "medium" }}>
+            <Button
+              variant={"outline"}
+              colorScheme={selectedTags.includes(tag) ? "green" : "white"}
+              borderRadius={10}
+              key={index}
+              fontSize={{ base: "small", md: "medium" }}
+              height={"fit-content"}
+              paddingY={1}
+              onClick={() => handleSelectTag(tag)}
+            >
               {tag}
-            </Tag>
+            </Button>
           ))}
         </HStack>
       </HStack>
+      {selectedTags.length > 0 && (
+        <HStack marginBottom={{ base: 2, md: 5 }}>
+          (
+          <SimpleGrid
+            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
+            spacing={5}
+          >
+            {filteredItems.slice(0, 5).map((item) => (
+              <ItemCard key={item._id} item={item} />
+            ))}
+          </SimpleGrid>
+          )
+        </HStack>
+      )}
       <Box>
         <Heading fontSize={{ base: "medium", md: "large" }}>
           Top 5 Latest Items:

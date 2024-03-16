@@ -23,6 +23,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteCollection } from "../../services/service";
 import { Collection } from "../../types/types";
 import useErrorHandler from "../../hooks/useError";
+import EditCollectionCard from "./EditCollectionCard";
 
 type CollectionsItemProp = {
   collection: Collection;
@@ -89,8 +90,8 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
 
                   <MenuList>
                     <MenuItem onClick={handleDelete}>Delete</MenuItem>
-                    <MenuItem onClick={() => alert("Kagebunshin")}>
-                      Edit
+                    <MenuItem>
+                      <EditCollectionCard collection={collection} />
                     </MenuItem>
                   </MenuList>
                 </>

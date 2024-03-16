@@ -28,6 +28,13 @@ export type newCollection = {
     image: string,
 }
 
+export type collectionFormData = {
+    topic: string;
+    name: string;
+    description: string;
+    image: string;
+};
+
 export type ItemType = {
     userID: string,
     collectionID: string,

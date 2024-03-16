@@ -14,35 +14,33 @@ import {
   InputLeftAddon,
   Textarea,
   DrawerFooter,
-  Icon,
   Text,
   FormControl,
   Select,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { IoMdAdd } from "react-icons/io";
-import { createCollection } from "../../services/service";
+import { updateCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
-import { collectionFormData } from "../../types/types";
+import { Collection, collectionFormData } from "../../types/types";
 
-const AddCollectionCard = () => {
+type EditCollectionCard = {
+  collection: Collection;
+};
+
+const EditCollectionCard = ({ collection }: EditCollectionCard) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
   const collections = useCollectionStore((state) => state.collections);
-  const userCollections = useCollectionStore((state) => state.userCollections);
+  const setCollections = useCollectionStore((state) => state.setCollections);
 
   const { handleFail } = useErrorHandler();
-  const setCollections = useCollectionStore((state) => state.setCollections);
-  const setUserCollections = useCollectionStore(
-    (state) => state.setUserCollections
-  );
 
   const [formData, setFormData] = useState<collectionFormData>({
-    topic: "",
-    name: "",
-    description: "",
-    image: "",
+    topic: collection.topic,
+    name: collection.name,
+    description: collection.description,
+    image: collection.image,
   });
 
   const handleInputChange = (
@@ -59,42 +57,38 @@ const AddCollectionCard = () => {
 
   const createData = (data: collectionFormData) => {
     const result = {
+      userID: collection.userID,
+      _id: collection._id,
       topic: data.topic,
+      userName: collection.userName,
       name: data.name,
       description: data.description,
       image: data.image,
+      itemFields: collection.itemFields,
+      date: collection.date,
     };
-
     return result;
   };
 
   const handleSubmit = () => {
     const result = createData(formData);
-    createCollection(result)
+    updateCollection(result)
       .then((data) => {
-        setCollections([...collections, data]);
-        setUserCollections([...userCollections, data]);
+        const cleanCollections = collections.filter((c) => c._id !== data._id);
+        setCollections([...cleanCollections, data]);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
       });
-
-    setFormData({
-      topic: "",
-      name: "",
-      description: "",
-      image: "",
-    });
     onClose();
   };
 
   return (
     <>
-      <Button variant="outline" onClick={onOpen}>
-        <Icon as={IoMdAdd} />
-        <Text paddingLeft={1}>Create</Text>
-      </Button>
+      <Text onClick={onOpen} display={"block"}>
+        Edit
+      </Text>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -104,9 +98,7 @@ const AddCollectionCard = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">
-            Create a new collection
-          </DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">Edit collection</DrawerHeader>
 
           <DrawerBody>
             <Stack spacing="24px">
@@ -116,6 +108,7 @@ const AddCollectionCard = () => {
                   placeholder="Select topic"
                   name="topic"
                   onChange={handleInputChange}
+                  value={formData.topic}
                 >
                   <option value="books">Books</option>
                   <option value="movies">Movies</option>
@@ -169,7 +162,7 @@ const AddCollectionCard = () => {
               Cancel
             </Button>
             <Button colorScheme="blue" onClick={handleSubmit}>
-              Submit
+              Update
             </Button>
           </DrawerFooter>
         </DrawerContent>
@@ -178,4 +171,4 @@ const AddCollectionCard = () => {
   );
 };
 
-export default AddCollectionCard;
+export default EditCollectionCard;

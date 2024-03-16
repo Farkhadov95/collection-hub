@@ -1,35 +1,38 @@
 import {
-  Box,
-  FormLabel,
   Heading,
-  Input,
-  Textarea,
-  Stack,
-  SimpleGrid,
-  FormControl,
-  VStack,
   Divider,
-  HStack,
-  Button,
+  Box,
   Badge,
+  Button,
   Checkbox,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  SimpleGrid,
+  Stack,
+  Textarea,
+  VStack,
 } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
-import { useParams, useNavigate } from "react-router-dom";
-import { useState, ChangeEvent } from "react";
-import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
-import { FieldExeType, newItem } from "../types/types";
 import useErrorHandler from "../hooks/useError";
+import { FieldExeType, ItemType } from "../types/types";
+import { ChangeEvent, useState } from "react";
+import { updateItem } from "../services/service";
 
-const AddItem = () => {
-  const collectionID = useParams().id || "";
-  const collections = useCollectionStore((state) => state.collections);
-  const currentCollection = collections.find((c) => c._id === collectionID);
-  const currentUser = useCollectionStore((state) => state.currentUser);
-
+const ItemEdit = () => {
+  const itemID = useParams().id;
   const items = useCollectionStore((state) => state.items);
+  const currentItem = items.find((item) => item._id === itemID);
+  const currentUser = useCollectionStore((state) => state.currentUser);
   const setItems = useCollectionStore((state) => state.setItems);
+  const collections = useCollectionStore((state) => state.collections);
+  const currentCollection = collections.find(
+    (c) => c._id === currentItem?.collectionID
+  );
+
   const navigate = useNavigate();
   const { handleFail } = useErrorHandler();
 
@@ -42,11 +45,11 @@ const AddItem = () => {
   };
 
   const [formData, setFormData] = useState<AddItemForm>({
-    name: "",
-    tags: "",
-    description: "",
-    image: "",
-    fields: [],
+    name: currentItem?.name || "",
+    tags: currentItem?.tags || "",
+    description: currentItem?.description || "",
+    image: currentItem?.image || "",
+    fields: currentItem?.fields || [],
   });
 
   const handleInputChange = (
@@ -92,27 +95,30 @@ const AddItem = () => {
     }
   };
 
-  console.log(formData);
-
   const createData = (data: AddItemForm) => {
     const result = {
-      collectionID,
+      _id: currentItem?._id || "",
+      collectionID: currentItem?.collectionID || "",
       userID: currentUser._id,
       name: data.name,
       description: data.description,
       tags: data.tags.trim(),
       image: data.image,
       fields: data.fields,
+      likeIDs: currentItem?.likeIDs || [],
+      commentIDs: currentItem?.commentIDs || [],
+      createdAt: currentItem?.createdAt || new Date(),
     };
 
     return result;
   };
 
   const handleSubmit = () => {
-    const result: newItem = createData(formData);
-    createItem(result)
+    const result: ItemType = createData(formData);
+    updateItem(result)
       .then((data) => {
-        setItems([...items, data]);
+        const itemsWithout = items.filter((item) => item._id !== data._id);
+        setItems([...itemsWithout, data]);
         navigate(-1);
       })
       .catch((err) => {
@@ -121,7 +127,6 @@ const AddItem = () => {
       });
 
     setFormData({
-      ...formData,
       name: "",
       description: "",
       tags: "",
@@ -133,7 +138,7 @@ const AddItem = () => {
   return (
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <HStack justifyContent={"space-between"}>
-        <Heading size="lg">Add New Item</Heading>
+        <Heading size="lg">Edit Item</Heading>
         <HStack spacing={3}>
           <Button
             onClick={() => navigate(-1)}
@@ -223,7 +228,7 @@ const AddItem = () => {
                 onChange={handleInputChange}
               />
             </FormControl>
-            {currentCollection?.itemFields.map((item) => {
+            {currentCollection?.itemFields.map((item, index) => {
               return (
                 <FormControl key={item._id}>
                   {item.fieldType === "checkbox" ? (
@@ -243,6 +248,7 @@ const AddItem = () => {
                         type={item.fieldType}
                         placeholder={item.fieldName}
                         onChange={handleInputChange}
+                        value={currentItem?.fields[index].fieldValue}
                       />
                     </>
                   )}
@@ -256,4 +262,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default ItemEdit;

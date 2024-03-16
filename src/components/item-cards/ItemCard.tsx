@@ -18,13 +18,11 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { BiLike, BiSolidLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../types/types";
 import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
-import { updateItem } from "../../services/service";
-import useErrorHandler from "../../hooks/useError";
+import LikeButton from "../LikeButton";
 
 type ItemProps = {
   item: ItemType;
@@ -32,47 +30,12 @@ type ItemProps = {
 
 const ItemCard = ({ item }: ItemProps) => {
   const { colorMode } = useColorMode();
-  const currentUser = useCollectionStore((state) => state.currentUser);
   const collections = useCollectionStore((state) => state.collections);
-  const items = useCollectionStore((state) => state.items);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const currentUser = useCollectionStore((state) => state.currentUser);
+
   const collection = collections.find(
     (collection) => collection._id === item.collectionID
   );
-  const { handleFail } = useErrorHandler();
-
-  const isLiked = item.likeIDs.includes(currentUser._id);
-
-  const handleLike = () => {
-    let updatedLike;
-    if (isLiked) {
-      updatedLike = item.likeIDs.filter((id) => id !== currentUser._id);
-    } else {
-      updatedLike = [...item.likeIDs, currentUser._id];
-    }
-
-    updateItem({
-      ...item,
-      likeIDs: updatedLike,
-    })
-      .then((res) => {
-        setItems(
-          items.map((item) => {
-            if (item._id === res._id) {
-              return res;
-            }
-            return item;
-          })
-        );
-      })
-      .catch((err) => {
-        handleFail(err.message.toString());
-      });
-  };
-
-  // const handleDelete = () => {
-
-  // }
 
   if (!item) {
     return <div>Loading...</div>;
@@ -119,7 +82,7 @@ const ItemCard = ({ item }: ItemProps) => {
 
                   <MenuList>
                     <MenuItem>Delete</MenuItem>
-                    <MenuItem onClick={() => alert("Kagebunshin")}>
+                    <MenuItem as={Link} to={`/item/edit/${item._id}`}>
                       Edit
                     </MenuItem>
                   </MenuList>
@@ -143,17 +106,7 @@ const ItemCard = ({ item }: ItemProps) => {
       />
 
       <CardFooter justify="space-between" padding={3} gap={2}>
-        {currentUser._id !== "" && (
-          <Button
-            flex="1"
-            variant="ghost"
-            leftIcon={isLiked ? <BiSolidLike /> : <BiLike />}
-            colorScheme={isLiked ? "green" : "white"}
-            onClick={handleLike}
-          >
-            {isLiked ? "Liked" : "Like"}
-          </Button>
-        )}
+        {currentUser._id !== "" && <LikeButton item={item} />}
 
         <Button
           as={Link}

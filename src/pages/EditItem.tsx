@@ -1,54 +1,58 @@
 import {
-  Box,
-  FormLabel,
   Heading,
-  Input,
-  Textarea,
-  Stack,
-  SimpleGrid,
-  FormControl,
-  VStack,
   Divider,
-  HStack,
-  Button,
+  Box,
   Badge,
+  Button,
   Checkbox,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  SimpleGrid,
+  Stack,
+  Textarea,
+  VStack,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
-import { useParams, useNavigate } from "react-router-dom";
-import { useState, ChangeEvent } from "react";
-import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
-import { OptItemData, ReqItemData, newItem } from "../types/types";
 import useErrorHandler from "../hooks/useError";
+import { ItemType, ReqItemData, OptItemData } from "../types/types";
+import { ChangeEvent, useState } from "react";
+import { updateItem } from "../services/service";
 import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
 
-const AddItem = () => {
-  const collectionID = useParams().id || "";
-  const collections = useCollectionStore((state) => state.collections);
-  const currentCollection = collections.find((c) => c._id === collectionID);
-  const currentUser = useCollectionStore((state) => state.currentUser);
-
+const EditItem = () => {
+  const itemID = useParams().id;
   const items = useCollectionStore((state) => state.items);
+  const currentItem = items.find((item) => item._id === itemID);
+  const currentUser = useCollectionStore((state) => state.currentUser);
   const setItems = useCollectionStore((state) => state.setItems);
-  const navigate = useNavigate();
+  const collections = useCollectionStore((state) => state.collections);
+  const currentCollection = collections.find(
+    (c) => c._id === currentItem?.collectionID
+  );
+
   const { handleFail } = useErrorHandler();
+  const navigate = useNavigate();
 
   const form = useForm<ReqItemData>({
     defaultValues: {
-      name: "",
-      tags: "",
-      description: "",
+      name: currentItem?.name || "",
+      tags: currentItem?.tags || "",
+      description: currentItem?.description || "",
     },
   });
 
   const [optFormData, setOptFormData] = useState<OptItemData>({
-    image: "",
-    fields: [],
+    image: currentItem?.image || "",
+    fields: currentItem?.fields || [],
   });
 
-  const { register, handleSubmit, formState } = form;
+  const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
 
   const handleInputChange = (
@@ -57,7 +61,7 @@ const AddItem = () => {
     >
   ) => {
     const { name, value, id } = event.target;
-
+    console.log(event.target);
     if (name !== "image") {
       setOptFormData((prevState) => {
         const existingFieldIndex = prevState.fields.findIndex(
@@ -89,27 +93,29 @@ const AddItem = () => {
     }
   };
 
-  console.log(optFormData);
-
-  const createData = (reqData: ReqItemData, optData: OptItemData) => {
-    const result = {
-      collectionID,
+  const createData = (reqData: ReqItemData, OptData: OptItemData) => {
+    return {
+      _id: currentItem?._id || "",
+      collectionID: currentItem?.collectionID || "",
       userID: currentUser._id,
       name: reqData.name,
       description: reqData.description,
       tags: reqData.tags.trim(),
-      image: optData.image,
-      fields: optData.fields,
+      image: OptData.image,
+      fields: OptData.fields,
+      likeIDs: currentItem?.likeIDs || [],
+      commentIDs: currentItem?.commentIDs || [],
+      createdAt: currentItem?.createdAt || new Date(),
     };
-
-    return result;
   };
 
   const onSubmit = (reqData: ReqItemData) => {
-    const result: newItem = createData(reqData, optFormData);
-    createItem(result)
+    console.log("Form ", reqData);
+    const result: ItemType = createData(reqData, optFormData);
+    updateItem(result)
       .then((data) => {
-        setItems([...items, data]);
+        const itemsWithout = items.filter((item) => item._id !== data._id);
+        setItems([...itemsWithout, data]);
         navigate(-1);
       })
       .catch((err) => {
@@ -127,7 +133,7 @@ const AddItem = () => {
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <HStack justifyContent={"space-between"}>
-          <Heading size="lg">Add New Item</Heading>
+          <Heading size="lg">Edit Item</Heading>
           <HStack spacing={3}>
             <Button
               onClick={() => navigate(-1)}
@@ -230,7 +236,6 @@ const AddItem = () => {
                   </Badge>
                   Image URL
                 </FormLabel>
-
                 <Input
                   name="image"
                   type={"url"}
@@ -239,15 +244,16 @@ const AddItem = () => {
                   onChange={handleInputChange}
                 />
               </FormControl>
-              {currentCollection?.itemFields.map((item) => {
+
+              {currentCollection?.itemFields.map((item, index) => {
                 return (
                   <FormControl key={item._id}>
                     {item.fieldType === "checkbox" ? (
                       <Checkbox
                         id={item._id}
+                        name={item.fieldName}
                         padding={2}
                         width={"100%"}
-                        name={item.fieldName}
                       >
                         {item.fieldName}
                       </Checkbox>
@@ -264,6 +270,7 @@ const AddItem = () => {
                           name={item.fieldName}
                           type={item.fieldType}
                           placeholder={item.fieldName}
+                          value={currentItem?.fields[index]?.fieldValue}
                           onChange={handleInputChange}
                         />
                       </>
@@ -274,9 +281,10 @@ const AddItem = () => {
             </SimpleGrid>
           </Stack>
         </Box>
+        <DevTool control={control} />
       </form>
     </Box>
   );
 };
 
-export default AddItem;
+export default EditItem;

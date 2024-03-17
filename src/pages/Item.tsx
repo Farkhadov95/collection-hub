@@ -15,13 +15,9 @@ const Item = () => {
   );
   const parentCollectionName = parentCollection?.name;
 
-  console.log(items);
-
   if (!item || !parentCollectionName) {
     return <Heading>Empty item</Heading>;
   }
-
-  console.log(item);
 
   return (
     <Box padding={{ base: 2, md: 5 }}>

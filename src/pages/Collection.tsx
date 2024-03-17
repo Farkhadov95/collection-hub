@@ -15,6 +15,8 @@ const Collection = () => {
     return <Heading>Empty collection</Heading>;
   }
 
+  console.log(collections);
+
   const isAuth =
     currentUser._id === currentCollection?.userID || currentUser.isAdmin;
 

@@ -11,7 +11,7 @@ import Item from "../pages/Item";
 import Admin from "../pages/Admin";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminRoutes from "./AdminRoutes";
-import ItemEdit from "../pages/ItemEdit";
+import EditItem from "../pages/EditItem";
 
 const router = createBrowserRouter([
   {
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
           },
           {
             path: "item/edit/:id",
-            element: <ItemEdit />,
+            element: <EditItem />,
           },
         ],
       },

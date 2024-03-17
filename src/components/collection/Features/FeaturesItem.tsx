@@ -18,6 +18,9 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
   const currentCollection = collections.find((c) => c._id === collectionID);
   const { handleFail } = useErrorHandler();
 
+  const items = useCollectionStore((state) => state.items);
+  const setItems = useCollectionStore((state) => state.setItems);
+
   const handleDelete = async (id: string) => {
     if (id !== "" && collectionID && feature._id && currentCollection) {
       deleteCollectionFeature(collectionID, feature._id)
@@ -37,7 +40,14 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
             }
             return collection;
           });
+
+          const updatedItems = items.map((item) => ({
+            ...item,
+            fields: item.fields.filter((field) => field._id !== feature._id),
+          }));
+
           setCollections(updatedCollections);
+          setItems(updatedItems);
         })
         .catch((err) => {
           const errorMessage = err.message.toString();

@@ -39,7 +39,6 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
           setCollections(
             collections.map((c) => (c._id === data._id ? data : c))
           );
-          console.log(collections);
         })
         .catch((err) => {
           const errorMessage = err.message.toString();

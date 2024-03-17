@@ -9,6 +9,9 @@ const CollectionTools = () => {
   const currentCollection = collections.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
 
+  const isAuth =
+    currentUser._id === currentCollection?.userID || currentUser.isAdmin;
+
   return (
     <HStack justifyContent={"space-between"}>
       <HStack>
@@ -23,7 +26,7 @@ const CollectionTools = () => {
           <option value="option3">Option 3</option>
         </Select>
       </HStack>
-      {currentUser._id === currentCollection?.userID && (
+      {isAuth && (
         <Button
           as={NavLink}
           to={`/collections/${collectionID}/create`}

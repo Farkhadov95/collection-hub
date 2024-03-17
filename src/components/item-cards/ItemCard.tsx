@@ -54,16 +54,15 @@ const ItemCard = ({ item }: ItemProps) => {
               Collection: {collection?.name}
             </Text>
             <HStack mt={2} spacing={1} flexWrap={"wrap"}>
-              {tagsToArray[0] !== ""
-                ? tagsToArray.slice(0, 3).map((tag: string, index) => (
-                    <Tag
-                      key={index}
-                      bgColor={colorMode === "dark" ? "gray.600" : "gray.300"}
-                    >
-                      {tag}
-                    </Tag>
-                  ))
-                : null}
+              {tagsToArray[0] !== "" &&
+                tagsToArray.slice(0, 3).map((tag: string, index) => (
+                  <Tag
+                    key={index}
+                    bgColor={colorMode === "dark" ? "gray.600" : "gray.300"}
+                  >
+                    {tag}
+                  </Tag>
+                ))}
             </HStack>
           </Box>
           {isAuth && (
@@ -95,7 +94,7 @@ const ItemCard = ({ item }: ItemProps) => {
       <CardBody paddingTop={0}>
         <Text maxHeight={"50px"} overflow={"hidden"}>
           {item.description.length > 50
-            ? item.description.slice(0, 50).concat("  ...")
+            ? item.description.slice(0, 48).concat("  ...")
             : item.description}
         </Text>
       </CardBody>

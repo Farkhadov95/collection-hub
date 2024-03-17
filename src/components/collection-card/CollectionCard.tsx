@@ -101,7 +101,11 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         </Flex>
       </CardHeader>
       <CardBody paddingTop={0}>
-        <Text>{collection.description}</Text>
+        <Text>
+          {collection.description.length > 50
+            ? collection.description.slice(0, 48).concat("  ...")
+            : collection.description}
+        </Text>
       </CardBody>
       <Image
         objectFit="cover"

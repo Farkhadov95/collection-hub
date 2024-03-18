@@ -95,17 +95,19 @@ const MainContent = () => {
         </HStack>
       </HStack>
       {selectedTags.length > 0 && (
-        <HStack marginBottom={{ base: 2, md: 5 }}>
-          (
-          <SimpleGrid
-            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
-            spacing={5}
-          >
-            {filteredItems.slice(0, 5).map((item) => (
-              <ItemCard key={item._id} item={item} />
-            ))}
-          </SimpleGrid>
-          )
+        <HStack marginBottom={{ base: 2, md: 5 }} justifyContent={"center"}>
+          {filteredItems.length > 0 ? (
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
+              spacing={5}
+            >
+              {filteredItems.slice(0, 5).map((item) => (
+                <ItemCard key={item._id} item={item} />
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Heading>No Items on selected tags</Heading>
+          )}
         </HStack>
       )}
       <Box>

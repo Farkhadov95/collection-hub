@@ -1,10 +1,14 @@
 import { Collection, ItemType, newCollection, newItem } from "../types/types";
 
-const URL = "http://localhost:3000/collections/";
-const ITEM_URL = 'http://localhost:3000/items/'
+const URL = "http://localhost:3000/";
+
+enum ApiRoutes {
+  collections = 'collections/',
+  items = 'items/'
+}
 
 export const getCollections = async () => {
-  const res = await fetch(URL);
+  const res = await fetch(`${URL}${ApiRoutes.collections}`);
   const data = await res.json();
   return data;
 }
@@ -12,7 +16,7 @@ export const getCollections = async () => {
 export const getUserCollection = async (userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-  const res = await fetch(`${URL}/my`, {
+  const res = await fetch(`${URL}${ApiRoutes.collections}/my`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -25,13 +29,13 @@ export const getUserCollection = async (userId: string) => {
 }
 
 export const getAllItems = async () => {
-  const res = await fetch(ITEM_URL);
+  const res = await fetch(`${URL}${ApiRoutes.items}`);
   const data = await res.json();
   return data;
 }
 
 export const getItems = async (id: string) => {
-  const res = await fetch(`${ITEM_URL}${id}`);
+  const res = await fetch(`${`${URL}${ApiRoutes.items}`}${id}`);
   const data = await res.json();
   return data;
 }
@@ -39,7 +43,7 @@ export const getItems = async (id: string) => {
 export const updateCollection = async (collection: Collection) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-    const res = await fetch(`${URL}${collection._id}`, {
+    const res = await fetch(`${URL}${ApiRoutes.collections}${collection._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +60,7 @@ export const createCollection = async (newCollection: newCollection) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
   
-  const res = await fetch(`${URL}`, {
+  const res = await fetch(`${URL}${ApiRoutes.collections}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +76,7 @@ export const createCollection = async (newCollection: newCollection) => {
 export const createItem = async (newItem: newItem) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-  const res = await fetch(ITEM_URL, {
+  const res = await fetch(`${URL}${ApiRoutes.items}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -88,7 +92,7 @@ export const createItem = async (newItem: newItem) => {
 export const updateItem = async (updatedItem: ItemType) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-  const res = await fetch(`${ITEM_URL}${updatedItem._id}`, {
+  const res = await fetch(`${URL}${ApiRoutes.items}${updatedItem._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -104,7 +108,7 @@ export const updateItem = async (updatedItem: ItemType) => {
 export const deleteCollection = async (collectionID: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-  const res = await fetch(`${URL}${collectionID}`, {
+  const res = await fetch(`${URL}${ApiRoutes.collections}${collectionID}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -121,7 +125,7 @@ export const deleteCollectionFeature = async (
   ) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-  const res = await fetch(`${URL}${collectionID}/${featureID}`, {
+  const res = await fetch(`${URL}${ApiRoutes.collections}${collectionID}/${featureID}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

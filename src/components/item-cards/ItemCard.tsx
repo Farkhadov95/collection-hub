@@ -45,7 +45,12 @@ const ItemCard = ({ item }: ItemProps) => {
   const isAuth = currentUser._id == item.userID || currentUser.isAdmin;
 
   return (
-    <Card maxW="md" bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}>
+    <Card
+      maxW="md"
+      bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}
+      overflow={"hidden"}
+    >
+      <Box height={2} bgColor={"yellow.400"} />
       <CardHeader>
         <Flex justifyContent={"space-between"}>
           <Box>
@@ -112,7 +117,7 @@ const ItemCard = ({ item }: ItemProps) => {
           to={`/item/${item._id}`}
           flex="1"
           variant="outline"
-          colorScheme="green"
+          colorScheme="yellow"
         >
           Open
         </Button>

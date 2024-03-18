@@ -48,7 +48,7 @@ const LikeButton = ({ item }: LikeButtonProps) => {
     <Button
       variant="ghost"
       leftIcon={isLiked ? <BiSolidLike /> : <BiLike />}
-      colorScheme={isLiked ? "green" : "white"}
+      colorScheme={isLiked ? "yellow" : "white"}
       onClick={handleLike}
     >
       {isLiked ? "Liked" : "Like"}

@@ -81,7 +81,7 @@ const MainContent = () => {
           {uniqueTags.map((tag: string, index: number) => (
             <Button
               variant={"outline"}
-              colorScheme={selectedTags.includes(tag) ? "green" : "white"}
+              colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
               borderRadius={10}
               key={index}
               fontSize={{ base: "small", md: "medium" }}
@@ -114,7 +114,7 @@ const MainContent = () => {
         <Heading fontSize={{ base: "medium", md: "large" }}>
           Top 5 Latest Items:
         </Heading>
-        <HStack marginY={{ base: 2, md: 5 }}>
+        <HStack marginY={{ base: 2, md: 5 }} justifyContent={"center"}>
           {items.length !== 0 ? (
             <SimpleGrid
               columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
@@ -126,9 +126,7 @@ const MainContent = () => {
                   .map((item) => <ItemCard key={item._id} item={item} />)}
             </SimpleGrid>
           ) : (
-            <Box>
-              <Text>No Items</Text>
-            </Box>
+            <Heading>No Items</Heading>
           )}
         </HStack>
       </Box>
@@ -136,7 +134,7 @@ const MainContent = () => {
         <Heading fontSize={{ base: "medium", md: "large" }}>
           Top 5 Largest Collections:
         </Heading>
-        <HStack marginY={{ base: 2, md: 5 }}>
+        <HStack marginY={{ base: 2, md: 5 }} justifyContent={"center"}>
           {collections.length !== 0 ? (
             <SimpleGrid
               columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 5 }}
@@ -147,9 +145,7 @@ const MainContent = () => {
               ))}
             </SimpleGrid>
           ) : (
-            <Box>
-              <Text>No Collection</Text>
-            </Box>
+            <Text>No Collection</Text>
           )}
         </HStack>
       </Box>

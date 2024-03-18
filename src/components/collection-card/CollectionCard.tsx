@@ -62,7 +62,12 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const isAuth = currentUser._id == collection.userID || currentUser.isAdmin;
 
   return (
-    <Card maxW="md" bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}>
+    <Card
+      maxW="md"
+      bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}
+      overflow={"hidden"}
+    >
+      <Box height={2} bgColor={"green.300"} />
       <CardHeader>
         <Flex justifyContent={"space-between"}>
           <Box>

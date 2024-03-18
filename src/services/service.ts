@@ -1,6 +1,6 @@
 import { Collection, ItemType, newCollection, newItem } from "../types/types";
 
-const URL = "http://localhost:3000/";
+const URL = "https://collection-hub-server.adaptable.app/";
 
 enum ApiRoutes {
   collections = 'collections/',

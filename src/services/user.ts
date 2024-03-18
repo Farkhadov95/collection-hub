@@ -1,6 +1,7 @@
 import { currentUser, newUser, user, userInfo } from "../types/types";
 
-const URL = "http://localhost:3000/";
+const URL = "https://collection-hub-server.adaptable.app/";
+
 enum Routes {
     LOGIN = "auth/",
     USERS = "users/",

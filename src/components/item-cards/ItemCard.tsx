@@ -47,7 +47,7 @@ const ItemCard = ({ item }: ItemProps) => {
   return (
     <Card
       maxW="md"
-      bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}
+      bgColor={colorMode === "dark" ? "gray.700" : "gray.50"}
       overflow={"hidden"}
     >
       <Box height={2} bgColor={"yellow.400"} />

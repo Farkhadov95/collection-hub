@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
 import { BiSolidLike, BiLike } from "react-icons/bi";
 import useErrorHandler from "../hooks/useError";
 import { updateItem } from "../services/service";
@@ -45,14 +45,17 @@ const LikeButton = ({ item }: LikeButtonProps) => {
       });
   };
   return (
-    <Button
-      variant="ghost"
-      leftIcon={isLiked ? <BiSolidLike /> : <BiLike />}
-      colorScheme={isLiked ? "yellow" : "white"}
-      onClick={handleLike}
-    >
-      {isLiked ? "Liked" : "Like"}
-    </Button>
+    <HStack gap={2}>
+      <Button
+        variant="ghost"
+        leftIcon={isLiked ? <BiSolidLike /> : <BiLike />}
+        colorScheme={isLiked ? "yellow" : "white"}
+        onClick={handleLike}
+        padding={0}
+      >
+        {item.likeIDs.length}
+      </Button>
+    </HStack>
   );
 };
 

@@ -1,18 +1,11 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Textarea,
-  VStack,
-  Text,
-  Accordion,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Textarea, VStack, Text } from "@chakra-ui/react";
 import ItemComment from "./ItemComment";
 import { useForm } from "react-hook-form";
 import { newComment, postComment } from "../../services/comment";
 import { useParams } from "react-router-dom";
 import useErrorHandler from "../../hooks/useError";
 import { useCollectionStore } from "../../store/store";
+import { useEffect, useRef } from "react";
 
 const ItemComments = () => {
   const itemID = useParams().id || "";
@@ -42,10 +35,26 @@ const ItemComments = () => {
       });
   };
 
+  const commentsContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (commentsContainerRef.current) {
+      commentsContainerRef.current.scrollTop =
+        commentsContainerRef.current.scrollHeight;
+    }
+  }, [comments]);
+
   return (
     <Box>
-      <Heading fontSize={"large"}>Comments:</Heading>
-      <Accordion marginY={5} defaultIndex={[0]} allowMultiple>
+      <Heading fontSize={"large"}>{comments.length} Comments:</Heading>
+      <Box
+        ref={commentsContainerRef}
+        display="flex"
+        flexDirection="column"
+        gap={2}
+        marginY={5}
+        height={"500px"}
+        overflow={"scroll"}
+      >
         {comments.length > 0 ? (
           comments.map((comment, index) => (
             <ItemComment key={`${comment._id}-${index}`} comment={comment} />
@@ -53,7 +62,8 @@ const ItemComments = () => {
         ) : (
           <Text fontWeight={"bold"}>No Comments yet.</Text>
         )}
-      </Accordion>
+      </Box>
+
       {currentUser && (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <VStack boxSizing={"border-box"} alignItems={"start"}>

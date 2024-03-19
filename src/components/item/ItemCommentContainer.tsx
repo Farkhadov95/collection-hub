@@ -6,6 +6,10 @@ import { useParams } from "react-router-dom";
 import useErrorHandler from "../../hooks/useError";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useRef } from "react";
+import { io } from "socket.io-client";
+
+const URL = "https://collection-hub-server.adaptable.app/";
+const socket = io(URL);
 
 const ItemComments = () => {
   const itemID = useParams().id || "";
@@ -25,8 +29,8 @@ const ItemComments = () => {
   const onSubmit = (formData: newComment) => {
     console.log(formData);
     postComment(itemID, formData)
-      .then((data) => {
-        setComments([...comments, data]);
+      .then(() => {
+        // setComments([...comments, data]);
         form.reset();
       })
       .catch((err) => {
@@ -42,6 +46,17 @@ const ItemComments = () => {
         commentsContainerRef.current.scrollHeight;
     }
   }, [comments]);
+
+  useEffect(() => {
+    socket.on("newComment", (data) => {
+      console.log(data);
+      setComments([...comments, data]); // Update comments state when a new comment is received from the server
+    });
+
+    return () => {
+      socket.off("newComment"); // Clean up event listener when the component unmounts
+    };
+  }, [comments, setComments]);
 
   return (
     <Box>

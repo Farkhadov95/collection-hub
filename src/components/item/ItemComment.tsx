@@ -8,7 +8,7 @@ type ItemCommentProp = {
 
 const ItemComment = ({ comment }: ItemCommentProp) => {
   const createdTime = comment.createdAt;
-  const formattedTime = moment(createdTime).format("LL");
+  const formattedTime = moment(createdTime).fromNow();
 
   return (
     <Card>

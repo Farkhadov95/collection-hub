@@ -10,8 +10,6 @@ import {
   Stack,
   FormLabel,
   Input,
-  InputGroup,
-  InputLeftAddon,
   Textarea,
   DrawerFooter,
   Icon,
@@ -19,16 +17,15 @@ import {
   FormControl,
   Select,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { createCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
-import { collectionFormData } from "../../types/types";
+import { collectionFormData, newCollection } from "../../types/types";
+import { useForm } from "react-hook-form";
 
 const AddCollectionCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = useRef<HTMLInputElement>(null);
   const collections = useCollectionStore((state) => state.collections);
   const userCollections = useCollectionStore((state) => state.userCollections);
 
@@ -38,24 +35,17 @@ const AddCollectionCard = () => {
     (state) => state.setUserCollections
   );
 
-  const [formData, setFormData] = useState<collectionFormData>({
-    topic: "",
-    name: "",
-    description: "",
-    image: "",
+  const form = useForm<collectionFormData>({
+    defaultValues: {
+      topic: "",
+      name: "",
+      description: "",
+      image: "",
+    },
   });
 
-  const handleInputChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = event.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
 
   const createData = (data: collectionFormData) => {
     const result = {
@@ -68,8 +58,8 @@ const AddCollectionCard = () => {
     return result;
   };
 
-  const handleSubmit = () => {
-    const result = createData(formData);
+  const onSubmit = (data: newCollection) => {
+    const result = createData(data);
     createCollection(result)
       .then((data) => {
         setCollections([...collections, data]);
@@ -79,13 +69,6 @@ const AddCollectionCard = () => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
       });
-
-    setFormData({
-      topic: "",
-      name: "",
-      description: "",
-      image: "",
-    });
     onClose();
   };
 
@@ -95,84 +78,96 @@ const AddCollectionCard = () => {
         <Icon as={IoMdAdd} />
         <Text paddingLeft={1}>Create</Text>
       </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        initialFocusRef={firstField}
-        onClose={onClose}
-      >
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">
-            Create a new collection
-          </DrawerHeader>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader borderBottomWidth="1px">
+              Create a new collection
+            </DrawerHeader>
 
-          <DrawerBody>
-            <Stack spacing="24px">
-              <FormControl isRequired>
-                <FormLabel>Topic</FormLabel>
-                <Select
-                  placeholder="Select topic"
-                  name="topic"
-                  onChange={handleInputChange}
-                >
-                  <option value="books">Books</option>
-                  <option value="movies">Movies</option>
-                  <option value="coins">Coins</option>
-                  <option value="music">Music</option>
-                  <option value="games">Games</option>
-                  <option value="furniture">Furniture</option>
-                </Select>
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel htmlFor="username">Name</FormLabel>
-                <Input
-                  ref={firstField}
-                  id="username"
-                  name="name"
-                  placeholder="Please enter user name"
-                  onChange={handleInputChange}
-                  value={formData.name}
-                />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel htmlFor="desc">Description</FormLabel>
-                <Textarea
-                  id="desc"
-                  name="description"
-                  onChange={handleInputChange}
-                  value={formData.description}
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel htmlFor="image">Image URL</FormLabel>
-                <InputGroup>
-                  <InputLeftAddon>http://</InputLeftAddon>
+            <DrawerBody>
+              <Stack spacing="24px">
+                <FormControl isRequired>
+                  <FormLabel>Topic</FormLabel>
+                  <Select
+                    {...register("topic", {
+                      required: {
+                        value: true,
+                        message: "Please select topic",
+                      },
+                    })}
+                    placeholder="Select topic"
+                  >
+                    <option value="books">Books</option>
+                    <option value="movies">Movies</option>
+                    <option value="coins">Coins</option>
+                    <option value="music">Music</option>
+                    <option value="games">Games</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="other">Other</option>
+                  </Select>
+                  <Text ml={"auto"} fontSize={"small"} color={"red.300"} px="2">
+                    {errors.topic?.message}
+                  </Text>
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel htmlFor="username">Name</FormLabel>
                   <Input
-                    type="url"
-                    id="imageUrl"
-                    name="image"
-                    placeholder="example.com/img"
-                    value={formData.image}
-                    onChange={handleInputChange}
+                    {...register("name", {
+                      required: {
+                        value: true,
+                        message: "Please enter user name",
+                      },
+                    })}
+                    id="username"
+                    placeholder="Please enter user name"
                   />
-                </InputGroup>
-              </FormControl>
-            </Stack>
-          </DrawerBody>
+                  <Text ml={"auto"} fontSize={"small"} color={"red.300"} px="2">
+                    {errors.name?.message}
+                  </Text>
+                </FormControl>
 
-          <DrawerFooter borderTopWidth="1px">
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue" onClick={handleSubmit}>
-              Submit
-            </Button>
-          </DrawerFooter>
-        </DrawerContent>
+                <FormControl isRequired>
+                  <FormLabel htmlFor="desc">Description</FormLabel>
+                  <Textarea
+                    {...register("description", {
+                      required: {
+                        value: true,
+                        message: "Please enter description",
+                      },
+                    })}
+                    id="desc"
+                  />
+                  <Text ml={"auto"} fontSize={"small"} color={"red.300"} px="2">
+                    {errors.description?.message}
+                  </Text>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel htmlFor="image">Image</FormLabel>
+                  <Input
+                    {...register("image")}
+                    type="file"
+                    id="imageUrl"
+                    border={"none"}
+                    paddingX={0}
+                  />
+                </FormControl>
+              </Stack>
+            </DrawerBody>
+
+            <DrawerFooter borderTopWidth="1px">
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type="submit" colorScheme="green">
+                Submit
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </form>
       </Drawer>
     </>
   );

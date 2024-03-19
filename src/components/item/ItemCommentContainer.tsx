@@ -9,7 +9,6 @@ import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 
 const URL = "https://collection-hub-server.adaptable.app/";
-const socket = io(URL);
 
 const ItemComments = () => {
   const itemID = useParams().id || "";
@@ -47,6 +46,7 @@ const ItemComments = () => {
   }, [comments]);
 
   useEffect(() => {
+    const socket = io(URL);
     socket.on("newComment", (data) => {
       console.log(data);
       setComments([...comments, data]);

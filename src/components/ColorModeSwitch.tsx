@@ -13,7 +13,7 @@ const ColorModeSwitch = () => {
       aria-label={"Color Mode Switch"}
       colorScheme="green"
       icon={
-        colorMode === "dark" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />
+        colorMode === "dark" ? <MdOutlineLightMode /> : <MdOutlineDarkMode />
       }
       onClick={handleSwitch}
     />

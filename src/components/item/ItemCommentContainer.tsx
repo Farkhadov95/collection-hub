@@ -30,7 +30,6 @@ const ItemComments = () => {
     console.log(formData);
     postComment(itemID, formData)
       .then(() => {
-        // setComments([...comments, data]);
         form.reset();
       })
       .catch((err) => {
@@ -50,11 +49,11 @@ const ItemComments = () => {
   useEffect(() => {
     socket.on("newComment", (data) => {
       console.log(data);
-      setComments([...comments, data]); // Update comments state when a new comment is received from the server
+      setComments([...comments, data]);
     });
 
     return () => {
-      socket.off("newComment"); // Clean up event listener when the component unmounts
+      socket.off("newComment");
     };
   }, [comments, setComments]);
 
@@ -67,7 +66,7 @@ const ItemComments = () => {
         flexDirection="column"
         gap={2}
         marginY={5}
-        height={"500px"}
+        maxHeight={"500px"}
         overflow={"scroll"}
       >
         {comments.length > 0 ? (

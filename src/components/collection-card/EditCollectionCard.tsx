@@ -16,12 +16,13 @@ import {
   FormControl,
   Select,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { updateCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { Collection, collectionFormData } from "../../types/types";
 import { useForm } from "react-hook-form";
+import { convertToBase64 } from "../../utils";
 
 type EditCollectionCard = {
   collection: Collection;
@@ -31,16 +32,20 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
   const collections = useCollectionStore((state) => state.collections);
+  const userCollections = useCollectionStore((state) => state.userCollections);
   const setCollections = useCollectionStore((state) => state.setCollections);
+  const setUserCollections = useCollectionStore(
+    (state) => state.setUserCollections
+  );
 
   const { handleFail } = useErrorHandler();
+  const [postImage, setPostImage] = useState({ myFile: "" });
 
   const form = useForm<collectionFormData>({
     defaultValues: {
       topic: collection.topic,
       name: collection.name,
       description: collection.description,
-      image: collection.image,
     },
   });
 
@@ -55,19 +60,46 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
       userName: collection.userName,
       name: data.name,
       description: data.description,
-      image: data.image,
+      image: postImage.myFile,
       itemFields: collection.itemFields,
       date: collection.date,
     };
     return result;
   };
 
+  // const convertToBase64 = (file: Blob) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
+
+  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setPostImage({ myFile: base64 as string });
+    }
+  };
+
   const onSubmit = (data: collectionFormData) => {
     const result = createData(data);
+    console.log(result);
     updateCollection(result)
       .then((data) => {
         const cleanCollections = collections.filter((c) => c._id !== data._id);
+        const cleanUserCollections = userCollections.filter(
+          (c) => c._id !== data._id
+        );
+        console.log(data);
         setCollections([...cleanCollections, data]);
+        setUserCollections([...cleanUserCollections, data]);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
@@ -155,11 +187,15 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
                 <FormControl>
                   <FormLabel htmlFor="image">Image</FormLabel>
                   <Input
-                    {...register("image")}
+                    name="myFile"
                     type="file"
                     id="imageUrl"
                     border={"none"}
-                    padding={0}
+                    paddingX={0}
+                    accept=".jpeg, .png, .jpg, .webp"
+                    onChange={(e) => {
+                      handleFileUpload(e);
+                    }}
                   />
                 </FormControl>
               </Stack>

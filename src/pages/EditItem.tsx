@@ -24,6 +24,7 @@ import { ChangeEvent, useState } from "react";
 import { updateItem } from "../services/service";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { convertToBase64 } from "../utils";
 
 const EditItem = () => {
   const itemID = useParams().id;
@@ -47,8 +48,8 @@ const EditItem = () => {
     },
   });
 
+  const [postImage, setPostImage] = useState({ myFile: "" });
   const [optFormData, setOptFormData] = useState<OptItemData>({
-    image: currentItem?.image || "",
     fields: currentItem?.fields || [],
   });
 
@@ -85,11 +86,14 @@ const EditItem = () => {
           };
         }
       });
-    } else {
-      setOptFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
+    }
+  };
+
+  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setPostImage({ myFile: base64 as string });
     }
   };
 
@@ -101,7 +105,7 @@ const EditItem = () => {
       name: reqData.name,
       description: reqData.description,
       tags: reqData.tags.trim(),
-      image: OptData.image,
+      image: postImage.myFile,
       fields: OptData.fields,
       likeIDs: currentItem?.likeIDs || [],
       commentIDs: currentItem?.commentIDs || [],
@@ -124,7 +128,6 @@ const EditItem = () => {
       });
 
     setOptFormData({
-      image: "",
       fields: [],
     });
   };
@@ -229,19 +232,42 @@ const EditItem = () => {
           <Stack spacing={5}>
             <Heading fontSize={"large"}>Optional fields:</Heading>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-              <FormControl>
-                <FormLabel>
-                  <Badge colorScheme="green" fontSize={"2xs"} mr={1}>
-                    link
+              <FormControl
+                display={"flex"}
+                border={"1px solid"}
+                padding={2}
+                borderRadius={10}
+                alignItems={"center"}
+              >
+                <FormLabel
+                  display={"flex"}
+                  height={"fit-content"}
+                  fontWeight={"bold"}
+                  alignItems={"center"}
+                  marginBottom={0}
+                >
+                  <Badge
+                    colorScheme="green"
+                    fontSize={"2xs"}
+                    marginRight={1}
+                    height={"fit-content"}
+                  >
+                    File
                   </Badge>
-                  Image URL
+                  Image
                 </FormLabel>
+
                 <Input
-                  name="image"
-                  type={"url"}
-                  placeholder="http://www.example.com/"
-                  value={optFormData.image}
-                  onChange={handleInputChange}
+                  name="myFile"
+                  type="file"
+                  id="imageUrl"
+                  border={"none"}
+                  paddingX={0}
+                  accept=".jpeg, .png, .jpg, .webp"
+                  onChange={(e) => {
+                    handleFileUpload(e);
+                  }}
+                  height={"fit-content"}
                 />
               </FormControl>
 

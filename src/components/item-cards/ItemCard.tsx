@@ -23,6 +23,7 @@ import { ItemType } from "../../types/types";
 import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
 import LikeButton from "../LikeButton";
+import placeholderImage from "../../assets/placeholder.jpg";
 
 type ItemProps = {
   item: ItemType;
@@ -104,9 +105,12 @@ const ItemCard = ({ item }: ItemProps) => {
         </Text>
       </CardBody>
       <Image
+        height={"300px"}
+        width={"100%"}
+        alt={item.name}
         objectFit="cover"
-        src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        alt="Chakra UI"
+        objectPosition={item.image ? "0 0" : "center"}
+        src={item.image === "" ? placeholderImage : item.image}
       />
 
       <CardFooter justify="space-between" padding={3} gap={2}>

@@ -21,8 +21,10 @@ import { IoMdAdd } from "react-icons/io";
 import { createCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
-import { collectionFormData, newCollection } from "../../types/types";
+import { collectionFormData } from "../../types/types";
 import { useForm } from "react-hook-form";
+import { ChangeEvent, useState } from "react";
+import { convertToBase64 } from "../../utils";
 
 const AddCollectionCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,9 +42,10 @@ const AddCollectionCard = () => {
       topic: "",
       name: "",
       description: "",
-      image: "",
     },
   });
+
+  const [postImage, setPostImage] = useState({ myFile: "" });
 
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
@@ -52,18 +55,40 @@ const AddCollectionCard = () => {
       topic: data.topic,
       name: data.name,
       description: data.description,
-      image: data.image,
+      image: postImage.myFile || "",
     };
 
     return result;
   };
 
-  const onSubmit = (data: newCollection) => {
+  // const convertToBase64 = (file: Blob) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
+
+  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setPostImage({ ...postImage, myFile: base64 as string });
+    }
+  };
+
+  const onSubmit = (data: collectionFormData) => {
     const result = createData(data);
     createCollection(result)
       .then((data) => {
         setCollections([...collections, data]);
         setUserCollections([...userCollections, data]);
+        form.reset();
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
@@ -148,11 +173,15 @@ const AddCollectionCard = () => {
                 <FormControl>
                   <FormLabel htmlFor="image">Image</FormLabel>
                   <Input
-                    {...register("image")}
+                    name="myFile"
                     type="file"
                     id="imageUrl"
                     border={"none"}
                     paddingX={0}
+                    accept=".jpeg, .png, .jpg, .webp"
+                    onChange={(e) => {
+                      handleFileUpload(e);
+                    }}
                   />
                 </FormControl>
               </Stack>

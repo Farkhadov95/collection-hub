@@ -24,6 +24,7 @@ import { deleteCollection } from "../../services/service";
 import { Collection } from "../../types/types";
 import useErrorHandler from "../../hooks/useError";
 import EditCollectionCard from "./EditCollectionCard";
+import placeholderImage from "../../assets/placeholder.jpg";
 
 type CollectionsItemProp = {
   collection: Collection;
@@ -113,13 +114,12 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         </Text>
       </CardBody>
       <Image
+        height={"300px"}
+        width={"100%"}
         objectFit="cover"
-        src={
-          collection.image === ""
-            ? "https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            : collection.image
-        }
-        alt="Chakra UI"
+        objectPosition={collection.image ? "0 0" : "center"}
+        src={collection.image === "" ? placeholderImage : collection.image}
+        alt={collection.name}
       />
 
       <CardFooter padding={3}>

@@ -33,7 +33,6 @@ export type collectionFormData = {
   topic: string;
   name: string;
   description: string;
-  image: string;
 };
 
 export type ItemType = {
@@ -61,7 +60,6 @@ export type newItem = {
 }
 
 export type OptItemData = {
-  image: string;
   fields: FieldExeType[] | [];
 };
   

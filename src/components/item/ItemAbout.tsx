@@ -6,11 +6,13 @@ import {
   Tag,
   Text,
   VStack,
+  Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { ItemType } from "../../types/types";
 import LikeButton from "../LikeButton";
+import placeholderImage from "../../assets/placeholder.jpg";
 
 type ItemAboutProp = {
   item: ItemType;
@@ -65,13 +67,15 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
         </Button>
         <LikeButton item={item} />
       </VStack>
-      <Box
-        border={"1px solid"}
-        borderRadius={10}
-        height={"200px"}
-        width={"300px"}
-      >
-        <Text>Image</Text>
+      <Box width={"300px"}>
+        <Image
+          height={"300px"}
+          width={"100%"}
+          alt={item.name}
+          objectFit="cover"
+          objectPosition={item.image ? "0 0" : "center"}
+          src={item.image !== "" ? item.image : placeholderImage}
+        />
       </Box>
     </HStack>
   );

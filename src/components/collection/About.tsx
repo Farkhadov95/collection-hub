@@ -1,5 +1,6 @@
 import { Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
 import { Collection } from "../../types/types";
+import placeholderImage from "../../assets/placeholder.jpg";
 
 type AboutProp = {
   currentCollection: Collection;
@@ -8,7 +9,7 @@ type AboutProp = {
 const About = ({ currentCollection }: AboutProp) => {
   return (
     <Flex
-      height={{ base: "400px", sm: "350px", md: "200px" }}
+      height={{ base: "400px", sm: "350px", md: "300px" }}
       flexDirection={{ base: "column", md: "row" }}
       justifyContent={{ base: "center", md: "space-between" }}
     >
@@ -29,15 +30,18 @@ const About = ({ currentCollection }: AboutProp) => {
           {currentCollection.description}
         </Text>
       </Flex>
-      <Box>
+      <Box width={"300px"}>
         <Image
-          margin={"auto"}
-          width={"300px"}
-          height={"200px"}
-          overflow={"hidden"}
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-          alt="Green double couch with wooden legs"
-          borderRadius="lg"
+          height={"300px"}
+          width={"100%"}
+          alt={currentCollection.name}
+          objectFit="cover"
+          objectPosition={currentCollection.image ? "0 0" : "center"}
+          src={
+            currentCollection.image !== ""
+              ? currentCollection.image
+              : placeholderImage
+          }
         />
       </Box>
     </Flex>

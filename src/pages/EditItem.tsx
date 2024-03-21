@@ -49,6 +49,7 @@ const EditItem = () => {
   });
 
   const [postImage, setPostImage] = useState({ myFile: "" });
+  const [postImageError, setPostImageError] = useState("");
   const [optFormData, setOptFormData] = useState<OptItemData>({
     fields: currentItem?.fields || [],
   });
@@ -92,6 +93,15 @@ const EditItem = () => {
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const fileSize = file.size;
+      const maxSize = 500000; // 500kb
+      if (fileSize > maxSize) {
+        setPostImageError("Image exeeds 500kb");
+        setPostImage({ myFile: "" });
+        return;
+      } else {
+        setPostImageError("");
+      }
       const base64 = await convertToBase64(file);
       setPostImage({ myFile: base64 as string });
     }
@@ -105,8 +115,8 @@ const EditItem = () => {
       name: reqData.name,
       description: reqData.description,
       tags: reqData.tags.trim(),
-      image: postImage.myFile,
-      fields: OptData.fields,
+      image: postImage.myFile || "",
+      fields: OptData.fields || [],
       likeIDs: currentItem?.likeIDs || [],
       commentIDs: currentItem?.commentIDs || [],
       createdAt: currentItem?.createdAt || new Date(),
@@ -233,9 +243,9 @@ const EditItem = () => {
             <Heading fontSize={"large"}>Optional fields:</Heading>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
               <FormControl
-                display={"flex"}
                 border={"1px solid"}
                 padding={2}
+                paddingTop={"5px"}
                 borderRadius={10}
                 alignItems={"center"}
               >
@@ -244,7 +254,7 @@ const EditItem = () => {
                   height={"fit-content"}
                   fontWeight={"bold"}
                   alignItems={"center"}
-                  marginBottom={0}
+                  marginBottom={1}
                 >
                   <Badge
                     colorScheme="green"
@@ -270,6 +280,12 @@ const EditItem = () => {
                   height={"fit-content"}
                 />
               </FormControl>
+
+              {postImageError && (
+                <Text fontSize={"xs"} color={"red.300"}>
+                  {postImageError}
+                </Text>
+              )}
 
               {currentCollection?.itemFields.map((item, index) => {
                 return (

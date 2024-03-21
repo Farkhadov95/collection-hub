@@ -119,6 +119,20 @@ export const deleteCollection = async (collectionID: string) => {
   return data;
 }
 
+export const deleteItem = async (itemID: string) => {
+  const token = localStorage.getItem('X-Auth-Token');
+  if (!token) throw new Error('Unauthorized request');
+  const res = await fetch(`${URL}${ApiRoutes.items}${itemID}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
+    },
+  });
+  const data = await res.json();
+  return data; 
+}
+
 export const deleteCollectionFeature = async (
     collectionID: string,
     featureID: string

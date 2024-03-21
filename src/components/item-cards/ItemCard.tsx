@@ -24,6 +24,8 @@ import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
+import useErrorHandler from "../../hooks/useError";
+import { deleteItem } from "../../services/service";
 
 type ItemProps = {
   item: ItemType;
@@ -33,7 +35,12 @@ const ItemCard = ({ item }: ItemProps) => {
   const { colorMode } = useColorMode();
   const collections = useCollectionStore((state) => state.collections);
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const items = useCollectionStore((state) => state.items);
+  const userItems = useCollectionStore((state) => state.userItems);
+  const setItems = useCollectionStore((state) => state.setItems);
+  const setUserItems = useCollectionStore((state) => state.setUserItems);
 
+  const { handleFail } = useErrorHandler();
   const collection = collections.find(
     (collection) => collection._id === item.collectionID
   );
@@ -44,6 +51,20 @@ const ItemCard = ({ item }: ItemProps) => {
 
   const tagsToArray = (item.tags ?? "").split(" ");
   const isAuth = currentUser._id == item.userID || currentUser.isAdmin;
+
+  const handleDelete = () => {
+    deleteItem(item._id)
+      .then(() => {
+        const cleanItems = items.filter((c) => c._id !== item._id);
+        setItems(cleanItems);
+        const cleanUserItems = userItems.filter((c) => c._id !== item._id);
+        setUserItems(cleanUserItems);
+      })
+      .catch((err) => {
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
+      });
+  };
 
   return (
     <Card
@@ -86,7 +107,7 @@ const ItemCard = ({ item }: ItemProps) => {
                   />
 
                   <MenuList>
-                    <MenuItem>Delete</MenuItem>
+                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
                     <MenuItem as={Link} to={`/item/edit/${item._id}`}>
                       Edit
                     </MenuItem>
@@ -110,7 +131,7 @@ const ItemCard = ({ item }: ItemProps) => {
         alt={item.name}
         objectFit="cover"
         objectPosition={item.image ? "0 0" : "center"}
-        src={item.image === "" ? placeholderImage : item.image}
+        src={item.image !== "" ? item.image : placeholderImage}
       />
 
       <CardFooter justify="space-between" padding={3} gap={2}>

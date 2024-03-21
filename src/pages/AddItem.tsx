@@ -88,6 +88,12 @@ const AddItem = () => {
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const fileSize = file.size;
+      const maxSize = 500000; // 500kb
+      if (fileSize > maxSize) {
+        handleFail("File size should NOT exceed 500kb");
+        return;
+      }
       const base64 = await convertToBase64(file);
       setPostImage({ myFile: base64 as string });
     }

@@ -57,7 +57,7 @@ const AddItem = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value, id } = event.target;
+    const { name, value, id, type } = event.target;
 
     if (name !== "image") {
       setOptFormData((prevState) => {
@@ -77,7 +77,7 @@ const AddItem = () => {
             ...prevState,
             fields: [
               ...prevState.fields,
-              { fieldName: name, fieldValue: value, _id: id },
+              { fieldName: name, fieldType: type, fieldValue: value, _id: id },
             ],
           };
         }

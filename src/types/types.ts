@@ -10,6 +10,13 @@ export type FieldExeType = {
   _id: string
 };
 
+export type FieldRenderType = {
+  _id: string,
+  fieldName: string;
+  fieldType: string;
+  fieldValue: string;
+}
+
 export type Collection = {
   userID: string,
   _id: string,
@@ -60,7 +67,7 @@ export type newItem = {
 }
 
 export type OptItemData = {
-  fields: FieldExeType[] | [];
+  fields: FieldRenderType[] | [];
 };
   
 export type ReqItemData = {

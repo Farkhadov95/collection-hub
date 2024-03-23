@@ -19,7 +19,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
 import { IoIosArrowBack } from "react-icons/io";
 import useErrorHandler from "../hooks/useError";
-import { ItemType, ReqItemData, OptItemData } from "../types/types";
+import {
+  ItemType,
+  ReqItemData,
+  OptItemData,
+  FieldRenderType,
+} from "../types/types";
 import { ChangeEvent, useState } from "react";
 import { updateItem } from "../services/service";
 import { useForm } from "react-hook-form";
@@ -48,10 +53,33 @@ const EditItem = () => {
     },
   });
 
+  const getInputValue = (collectionFieldID: string) => {
+    const item = currentItem?.fields.find(
+      (field) => field._id === collectionFieldID
+    );
+    return item?.fieldValue || "";
+  };
+
+  const updateInitialFieldsValue = () => {
+    console.log(currentCollection?.itemFields);
+    const fields: FieldRenderType[] = [];
+    currentCollection?.itemFields.map((field) => {
+      if (field._id) {
+        fields.push({
+          _id: field._id,
+          fieldName: field.fieldName,
+          fieldType: field.fieldType,
+          fieldValue: getInputValue(field._id),
+        });
+      }
+    });
+    return fields;
+  };
+
   const [postImage, setPostImage] = useState({ myFile: "" });
   const [postImageError, setPostImageError] = useState("");
   const [optFormData, setOptFormData] = useState<OptItemData>({
-    fields: currentItem?.fields || [],
+    fields: updateInitialFieldsValue() || [],
   });
 
   const { register, control, handleSubmit, formState } = form;
@@ -62,32 +90,33 @@ const EditItem = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value, id } = event.target;
+    const { name, value, id, type } = event.target;
     console.log(event.target);
-    if (name !== "image") {
-      setOptFormData((prevState) => {
-        const existingFieldIndex = prevState.fields.findIndex(
-          (field) => field.fieldName === name
-        );
 
-        if (existingFieldIndex !== -1) {
-          const updatedFields = [...prevState.fields];
-          updatedFields[existingFieldIndex].fieldValue = value;
-          return {
-            ...prevState,
-            fields: updatedFields,
-          };
-        } else {
-          return {
-            ...prevState,
-            fields: [
-              ...prevState.fields,
-              { fieldName: name, fieldValue: value, _id: id },
-            ],
-          };
-        }
-      });
-    }
+    console.log(optFormData);
+
+    setOptFormData((prevState) => {
+      const existingFieldIndex = prevState.fields.findIndex(
+        (field) => field._id === id
+      );
+
+      if (existingFieldIndex !== -1) {
+        const updatedFields = [...prevState.fields];
+        updatedFields[existingFieldIndex].fieldValue = value;
+        return {
+          ...prevState,
+          fields: updatedFields,
+        };
+      } else {
+        return {
+          ...prevState,
+          fields: [
+            ...prevState.fields,
+            { fieldName: name, fieldType: type, fieldValue: value, _id: id },
+          ],
+        };
+      }
+    });
   };
 
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -279,40 +308,40 @@ const EditItem = () => {
                   }}
                   height={"fit-content"}
                 />
+
+                {postImageError && (
+                  <Text fontSize={"xs"} color={"red.300"}>
+                    {postImageError}
+                  </Text>
+                )}
               </FormControl>
 
-              {postImageError && (
-                <Text fontSize={"xs"} color={"red.300"}>
-                  {postImageError}
-                </Text>
-              )}
-
-              {currentCollection?.itemFields.map((item, index) => {
+              {optFormData.fields.map((field) => {
                 return (
-                  <FormControl key={item._id}>
-                    {item.fieldType === "checkbox" ? (
+                  <FormControl key={field._id}>
+                    {field.fieldType === "checkbox" ? (
                       <Checkbox
-                        id={item._id}
-                        name={item.fieldName}
+                        id={field._id}
+                        name={field.fieldName}
                         padding={2}
                         width={"100%"}
                       >
-                        {item.fieldName}
+                        {field.fieldName}
                       </Checkbox>
                     ) : (
                       <>
                         <FormLabel alignItems={"center"}>
                           <Badge colorScheme="green" fontSize={"2xs"} mr={1}>
-                            {item.fieldType}
+                            {field.fieldType}
                           </Badge>
-                          {item.fieldName}
+                          {field.fieldName}
                         </FormLabel>
                         <Input
-                          id={item._id}
-                          name={item.fieldName}
-                          type={item.fieldType}
-                          placeholder={item.fieldName}
-                          value={currentItem?.fields[index]?.fieldValue}
+                          id={field._id}
+                          name={field.fieldName}
+                          type={field.fieldType}
+                          placeholder={field.fieldName}
+                          value={field.fieldValue}
                           onChange={handleInputChange}
                         />
                       </>

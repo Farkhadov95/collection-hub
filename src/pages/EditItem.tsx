@@ -76,7 +76,7 @@ const EditItem = () => {
     return fields;
   };
 
-  const [postImage, setPostImage] = useState({ myFile: "" });
+  const [postImage, setPostImage] = useState({ myFile: currentItem?.image });
   const [postImageError, setPostImageError] = useState("");
   const [optFormData, setOptFormData] = useState<OptItemData>({
     fields: updateInitialFieldsValue() || [],

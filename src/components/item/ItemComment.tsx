@@ -1,6 +1,6 @@
 import { Text, HStack, Box, Card, CardBody, Heading } from "@chakra-ui/react";
 import moment from "moment";
-import { Comment } from "../../services/comment";
+import { Comment } from "../../types/types";
 
 type ItemCommentProp = {
   comment: Comment;

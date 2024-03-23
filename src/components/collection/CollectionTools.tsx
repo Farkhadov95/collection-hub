@@ -16,14 +16,15 @@ const CollectionTools = () => {
     <HStack justifyContent={"space-between"}>
       <HStack>
         <Select placeholder="Sort by:">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+          <option value="option1">Date: Old First</option>
+          <option value="option2">Date: New First</option>
+          <option value="option3">Name: A-Z</option>
+          <option value="option3">Name: Z-A</option>
         </Select>
         <Select placeholder="Filter by:">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+          <option value="option1">with Image</option>
+          <option value="option2">Most Likes</option>
+          <option value="option3">Most Comments</option>
         </Select>
       </HStack>
       {isAuth && (

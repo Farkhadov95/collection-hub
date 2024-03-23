@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Collection, ItemType, currentUser, userInfo } from "../types/types";
+import { Collection, ItemType, currentUser, userInfo, Comment } from "../types/types";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-import { Comment } from "../services/comment";
 
 const emptyCurrentUser = {
   _id: "",
@@ -15,21 +14,17 @@ type CollectionStore = {
   currentUser: currentUser,
   collections: Collection[],
   items: ItemType[],
-  comments: Comment[],
   users: userInfo[],
   userCollections: Collection[],
   userItems: ItemType[],
-  userError: string,
-  error: string,
+  comments: Comment[],
   setCurrentUser: (user: currentUser) => void,
   setCollections: (collections: Collection[]) => void,
   setItems: (items: ItemType[]) => void,
-  setComments: (comments: Comment[]) => void,
   setUsers: (users: userInfo[]) => void,
   setUserCollections: (collections: Collection[]) => void,
   setUserItems: (userItems: ItemType[]) => void,
-  setUserError: (userError: string) => void,
-  setError: (error: string) => void,
+  setComments: (comments: Comment[]) => void,
 }
 
 export const useCollectionStore = create<CollectionStore>()(
@@ -38,21 +33,17 @@ export const useCollectionStore = create<CollectionStore>()(
         currentUser: emptyCurrentUser,
         collections: [],
         items: [],
-        comments: [],
         users: [],
         userCollections: [],
         userItems: [],
-        userError: "",
-        error: "",
+        comments: [],
         setCurrentUser: (user: currentUser) => set({ currentUser: user }),
         setCollections: (collections: Collection[]) => set({ collections }),
         setItems: (items: ItemType[]) => set({ items }),
-        setComments: (comments: Comment[]) => set({comments}),
         setUsers: (users: userInfo[]) => set({ users }),
         setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
         setUserItems: (userItems: ItemType[]) => set({ userItems }),
-        setUserError: (userError: string) => set({ userError }),
-        setError: (error: string) => set({ error }),
+        setComments: (comments: Comment[]) => set({comments}),
       }),
       {
         name: 'collections-storage',
@@ -60,6 +51,23 @@ export const useCollectionStore = create<CollectionStore>()(
     )
   );
 
+  type nonPersistStore = {
+   
+    userError: string,
+    error: string,
+    
+    setUserError: (userError: string) => void,
+    setError: (error: string) => void,
+  }
+
+  export const useNonPersistStore = create<nonPersistStore>((set) => ({
+    
+    userError: "",
+    error: "",
+    
+    setUserError: (userError: string) => set({ userError }),
+    setError: (error: string) => set({ error }),
+  }))
 
   if (process.env.NODE_ENV === "development") {
     mountStoreDevtool("CollectionStore", useCollectionStore);

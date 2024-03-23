@@ -17,6 +17,7 @@ const ItemContainer = () => {
     getItems(collectionID)
       .then((res) => {
         setUserItems(res);
+        console.log(res);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
@@ -36,7 +37,7 @@ const ItemContainer = () => {
       )}
       <SimpleGrid
         marginY={5}
-        columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
+        columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
         spacing={5}
       >
         {userItems &&

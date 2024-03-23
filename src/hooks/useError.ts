@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { useCollectionStore } from '../store/store';
+import { useNonPersistStore } from '../store/store';
 
 const useErrorHandler = () => {
-  const setError = useCollectionStore((state) => state.setError);
-  const setUserError = useCollectionStore((state) => state.setUserError);
+  const setError = useNonPersistStore((state) => state.setError);
+  const setUserError = useNonPersistStore((state) => state.setUserError);
 
   const handleFail = useCallback((error: string) => {
     setError(error);
@@ -22,7 +22,7 @@ const useErrorHandler = () => {
   return {
     handleUserFail,
     handleFail
-};
+  };
 };
 
 export default useErrorHandler;

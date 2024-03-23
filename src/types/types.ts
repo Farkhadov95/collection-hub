@@ -101,3 +101,29 @@ export type currentUser = {
   email: string,
   isAdmin: boolean,
 }
+
+export type commentSearch = {
+    _id: string,
+    userID: string,
+    username: string,
+    collectionID: string,
+    itemID: string,
+    score: number,
+    comment: string,
+    updatedAt: Date,
+    createdAt: Date,
+}
+
+export type Comment = {
+  _id: string;
+  userID: string;
+  itemID: string;
+  collectionID: string;
+  username: string;
+  comment: string;
+  createdAt: Date;
+}
+
+export type newComment = {
+  comment: string;
+};

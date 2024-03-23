@@ -1,12 +1,84 @@
-import { HStack, IconButton, Input } from "@chakra-ui/react";
+import {
+  HStack,
+  IconButton,
+  Input,
+  VStack,
+  Text,
+  Divider,
+} from "@chakra-ui/react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import useErrorHandler from "../hooks/useError";
+import { searchData } from "../services/service";
+import { commentSearch } from "../types/types";
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
+  const [formData, setFormData] = useState("");
+  const [searchComments, setSearchComments] = useState<commentSearch[]>([]);
+  const { handleFail } = useErrorHandler();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData(e.target.value);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formData) {
+      searchData(formData)
+        .then((data) => {
+          console.log(data);
+          setSearchComments(data);
+        })
+        .catch((err) => {
+          const errorMessage = err.message.toString();
+          console.log(errorMessage);
+          handleFail(errorMessage);
+        });
+    }
+  };
+
   return (
-    <HStack spacing={2} flexGrow={"1"}>
-      <Input placeholder="Search" width={"100%"} />
-      <IconButton variant="outline" aria-label="search" icon={<IoSearch />} />
-    </HStack>
+    <form onSubmit={(e) => handleSubmit(e)} style={{ flexGrow: "1" }}>
+      <HStack spacing={2} flexGrow={"1"}>
+        <Input
+          name="search"
+          placeholder="Search"
+          width={"100%"}
+          onChange={handleChange}
+        />
+        <IconButton
+          type="submit"
+          variant="outline"
+          aria-label="search"
+          icon={<IoSearch />}
+        />
+      </HStack>
+      <VStack
+        bgColor={"gray.600"}
+        mt={1}
+        divider={<Divider />}
+        borderRadius={"0 0 10px 10px"}
+        padding={2}
+        alignItems={"start"}
+      >
+        <Text fontSize={"small"}>Comments ({searchComments.length})</Text>
+        {searchComments &&
+          searchComments.slice(0, 2).map((comment) => (
+            <HStack
+              key={comment._id}
+              overflow={"hidden"}
+              height={"20px"}
+              mb={1}
+              alignItems={"start"}
+            >
+              <Text as={Link} to={`/item/${comment.itemID}`} width={"100%"}>
+                {comment.comment}
+              </Text>
+            </HStack>
+          ))}
+      </VStack>
+    </form>
   );
 };
 

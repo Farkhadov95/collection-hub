@@ -1,12 +1,13 @@
 import { Box, Button, Heading, Textarea, VStack, Text } from "@chakra-ui/react";
 import ItemComment from "./ItemComment";
 import { useForm } from "react-hook-form";
-import { newComment, postComment } from "../../services/comment";
+import { postComment } from "../../services/comment";
 import { useParams } from "react-router-dom";
 import useErrorHandler from "../../hooks/useError";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
+import { newComment } from "../../types/types";
 
 const URL = "https://collection-hub-server.adaptable.app/";
 
@@ -15,6 +16,7 @@ const ItemComments = () => {
   const comments = useCollectionStore((state) => state.comments);
   const setComments = useCollectionStore((state) => state.setComments);
   const currentUser = useCollectionStore((state) => state.currentUser);
+
   const form = useForm({
     defaultValues: {
       comment: "",
@@ -24,9 +26,9 @@ const ItemComments = () => {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const { handleFail } = useErrorHandler();
+  const commentsContainerRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = (formData: newComment) => {
-    console.log(formData);
     postComment(itemID, formData)
       .then(() => {
         form.reset();
@@ -37,7 +39,6 @@ const ItemComments = () => {
       });
   };
 
-  const commentsContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (commentsContainerRef.current) {
       commentsContainerRef.current.scrollTop =
@@ -48,14 +49,15 @@ const ItemComments = () => {
   useEffect(() => {
     const socket = io(URL);
     socket.on("newComment", (data) => {
-      console.log(data);
+      console.log(comments);
       setComments([...comments, data]);
     });
 
     return () => {
       socket.off("newComment");
+      socket.disconnect();
     };
-  }, [comments, setComments]);
+  }, []);
 
   return (
     <Box>
@@ -78,7 +80,7 @@ const ItemComments = () => {
         )}
       </Box>
 
-      {currentUser && (
+      {currentUser._id !== "" && (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <VStack boxSizing={"border-box"} alignItems={"start"}>
             <Textarea

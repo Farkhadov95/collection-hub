@@ -13,7 +13,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, user } from "../types/types";
 import { DevTool } from "@hookform/devtools";
 import { loginUser } from "../services/user";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";
 
 const Login = () => {
@@ -23,7 +23,7 @@ const Login = () => {
   const { handleUserFail } = useErrorHandler();
   const navigate = useNavigate();
 
-  const userError = useCollectionStore((state) => state.userError);
+  const userError = useNonPersistStore((state) => state.userError);
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
   const handleSuccess = (data: currentUser) => {

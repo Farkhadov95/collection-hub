@@ -4,7 +4,9 @@ const URL = "https://collection-hub-server.adaptable.app/";
 
 enum ApiRoutes {
   collections = 'collections/',
-  items = 'items/'
+  collection = 'collection/',
+  items = 'items/',
+  search = 'search'
 }
 
 export const getCollections = async () => {
@@ -35,7 +37,7 @@ export const getAllItems = async () => {
 }
 
 export const getItems = async (id: string) => {
-  const res = await fetch(`${`${URL}${ApiRoutes.items}`}${id}`);
+  const res = await fetch(`${URL}${ApiRoutes.items}${ApiRoutes.collection}${id}`);
   const data = await res.json();
   return data;
 }
@@ -148,4 +150,18 @@ export const deleteCollectionFeature = async (
   });
   const data = await res.json();
   return data;
+}
+
+export const searchData = async (searchText: string) => {
+  try {
+    const res = await fetch(`${URL}${ApiRoutes.search}?query=${encodeURIComponent(searchText)}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('There was a problem with your search request:', error);
+    throw error;
+  }
 }

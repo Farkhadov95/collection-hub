@@ -22,7 +22,9 @@ const Item = () => {
 
   useEffect(() => {
     getComments(itemID)
-      .then((data) => setComments(data))
+      .then((data) => {
+        setComments(data);
+      })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);

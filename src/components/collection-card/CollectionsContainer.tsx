@@ -34,7 +34,7 @@ const CollectionContainer = () => {
         </HStack>
         {userCollections.length !== 0 ? (
           <SimpleGrid
-            columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
+            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
             spacing={5}
           >
             {userCollections.map((collection) => (

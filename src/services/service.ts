@@ -6,7 +6,8 @@ enum ApiRoutes {
   collections = 'collections/',
   collection = 'collection/',
   items = 'items/',
-  search = 'search'
+  search = 'search',
+  like='like/'
 }
 
 export const getCollections = async () => {
@@ -101,6 +102,21 @@ export const updateItem = async (updatedItem: ItemType) => {
       "X-Auth-Token": token
     },
     body: JSON.stringify(updatedItem),
+  });
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+
+export const updateLike = async (itemID: string) => {
+   const token = localStorage.getItem('X-Auth-Token');
+   if (!token) throw new Error('Unauthorized request');
+   const res = await fetch(`${URL}${ApiRoutes.items}${ApiRoutes.like}${itemID}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Auth-Token": token
+    }
   });
   const data = await res.json();
   console.log(data);

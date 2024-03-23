@@ -24,7 +24,7 @@ type CollectionStore = {
   setUsers: (users: userInfo[]) => void,
   setUserCollections: (collections: Collection[]) => void,
   setUserItems: (userItems: ItemType[]) => void,
-  setComments: (comments: Comment[]) => void,
+  setComments: (comments: Comment[]) => void;
 }
 
 export const useCollectionStore = create<CollectionStore>()(
@@ -43,7 +43,7 @@ export const useCollectionStore = create<CollectionStore>()(
         setUsers: (users: userInfo[]) => set({ users }),
         setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
         setUserItems: (userItems: ItemType[]) => set({ userItems }),
-        setComments: (comments: Comment[]) => set({comments}),
+        setComments: (comments: Comment[]) => set({ comments }),
       }),
       {
         name: 'collections-storage',
@@ -52,21 +52,21 @@ export const useCollectionStore = create<CollectionStore>()(
   );
 
   type nonPersistStore = {
-   
     userError: string,
     error: string,
-    
+    loading: boolean,
     setUserError: (userError: string) => void,
     setError: (error: string) => void,
+    setLoading: (loading: boolean) => void,
   }
 
   export const useNonPersistStore = create<nonPersistStore>((set) => ({
-    
     userError: "",
     error: "",
-    
+    loading: false,
     setUserError: (userError: string) => set({ userError }),
     setError: (error: string) => set({ error }),
+    setLoading: (loading: boolean) => set({ loading }),
   }))
 
   if (process.env.NODE_ENV === "development") {

@@ -1,6 +1,6 @@
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Box, Divider, Heading, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore, useNonPersistStore } from "../store/store";
 import ItemAbout from "../components/item/ItemAbout";
 import ItemComments from "../components/item/ItemCommentContainer";
 import { useEffect } from "react";
@@ -12,6 +12,8 @@ const Item = () => {
   const items = useCollectionStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
   const setComments = useCollectionStore((state) => state.setComments);
+  const loading = useNonPersistStore((state) => state.loading);
+  const setLoading = useNonPersistStore((state) => state.setLoading);
 
   const item = items.find((item) => item._id === itemID);
   const parentCollection = collections?.find(
@@ -21,15 +23,18 @@ const Item = () => {
   const { handleFail } = useErrorHandler();
 
   useEffect(() => {
+    setLoading(true);
     getComments(itemID)
       .then((data) => {
         setComments(data);
+        setLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
+        setLoading(false);
       });
-  }, [handleFail, itemID, setComments]);
+  }, [handleFail, itemID, setComments, setLoading]);
 
   if (!item || !parentCollectionName) {
     return <Heading>Empty item</Heading>;
@@ -39,7 +44,7 @@ const Item = () => {
     <Box padding={{ base: 2, md: 5 }}>
       <ItemAbout item={item} parentCollectionName={parentCollectionName} />
       <Divider marginY={5} />
-      <ItemComments />
+      {loading ? <Text>Loading...</Text> : <ItemComments />}
     </Box>
   );
 };

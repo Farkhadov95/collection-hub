@@ -39,7 +39,7 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
   );
 
   const { handleFail } = useErrorHandler();
-  const [postImage, setPostImage] = useState({ myFile: "" });
+  const [postImage, setPostImage] = useState({ myFile: collection?.image });
 
   const form = useForm<collectionFormData>({
     defaultValues: {

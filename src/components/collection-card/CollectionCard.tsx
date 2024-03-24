@@ -25,6 +25,7 @@ import { Collection } from "../../types/types";
 import useErrorHandler from "../../hooks/useError";
 import EditCollectionCard from "./EditCollectionCard";
 import placeholderImage from "../../assets/placeholder.jpg";
+import { useTranslation } from "react-i18next";
 
 type CollectionsItemProp = {
   collection: Collection;
@@ -44,6 +45,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   );
 
   const { colorMode } = useColorMode();
+  const { t } = useTranslation();
 
   const handleDelete = () => {
     deleteCollection(collection._id)
@@ -74,7 +76,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
           <Box>
             <Heading size="sm">{collection.name}</Heading>
             <Text fontWeight={"bold"} fontSize={"small"}>
-              Created by: {collection.userName}
+              {t("collection.createdBy")} {collection.userName}
             </Text>
             <Badge colorScheme="green" fontSize={"2xs"}>
               {collection.topic}
@@ -95,7 +97,9 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
                   />
 
                   <MenuList>
-                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    <MenuItem onClick={handleDelete}>
+                      {t("tools.delete")}
+                    </MenuItem>
                     <MenuItem>
                       <EditCollectionCard collection={collection} />
                     </MenuItem>
@@ -130,7 +134,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
           variant="outline"
           colorScheme="green"
         >
-          Open
+          {t("tools.open")}
         </Button>
       </CardFooter>
     </Card>

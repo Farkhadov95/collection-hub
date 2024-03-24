@@ -15,6 +15,7 @@ import { DevTool } from "@hookform/devtools";
 import { loginUser } from "../services/user";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const form = useForm<user>();
@@ -22,6 +23,7 @@ const Login = () => {
   const { errors } = formState;
   const { handleUserFail } = useErrorHandler();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const userError = useNonPersistStore((state) => state.userError);
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
@@ -55,7 +57,7 @@ const Login = () => {
         gap={1}
       >
         <Box marginBottom={5}>
-          <Heading as={"h2"}>Login</Heading>
+          <Heading as={"h2"}>{t("nav.logInTitle")}</Heading>
           <Text
             paddingX={1}
             color={"red.300"}
@@ -87,7 +89,7 @@ const Login = () => {
           </Text>
         </FormControl>
         <FormControl isRequired>
-          <FormLabel>Password</FormLabel>
+          <FormLabel>{t("nav.password")}</FormLabel>
           <Input
             border={"1px solid"}
             placeholder="Password"
@@ -105,10 +107,10 @@ const Login = () => {
         </FormControl>
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Button as={NavLink} to={"/signup"} variant={"outline"}>
-            or Sign Up
+            {t("nav.orSignUp")}
           </Button>
           <Button type="submit" variant={"outline"} colorScheme="green">
-            Sign In
+            {t("nav.logIn")}
           </Button>
         </HStack>
       </Box>

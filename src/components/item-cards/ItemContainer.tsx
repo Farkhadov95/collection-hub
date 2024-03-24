@@ -6,12 +6,14 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getItems } from "../../services/service";
 import useErrorHandler from "../../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 const ItemContainer = () => {
   const collectionID = useParams().id || "";
   const userItems = useCollectionStore((state) => state.userItems);
   const setUserItems = useCollectionStore((state) => state.setUserItems);
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
 
   useEffect(() => {
     getItems(collectionID)
@@ -30,9 +32,7 @@ const ItemContainer = () => {
       <CollectionTools />
       {userItems.length === 0 && (
         <HStack justifyContent={"center"} paddingTop={"100px"}>
-          <Heading fontSize={"large"}>
-            No Items in this collection yet! Add some!
-          </Heading>
+          <Heading fontSize={"large"}>{t("item.noItems")}</Heading>
         </HStack>
       )}
       <SimpleGrid

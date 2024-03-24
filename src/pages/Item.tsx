@@ -6,6 +6,7 @@ import ItemComments from "../components/item/ItemCommentContainer";
 import { useEffect } from "react";
 import { getComments } from "../services/comment";
 import useErrorHandler from "../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 const Item = () => {
   const itemID = useParams().id || "";
@@ -21,6 +22,7 @@ const Item = () => {
   );
   const parentCollectionName = parentCollection?.name;
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setLoading(true);
@@ -37,7 +39,7 @@ const Item = () => {
   }, [handleFail, itemID, setComments, setLoading]);
 
   if (!item || !parentCollectionName) {
-    return <Heading>Empty item</Heading>;
+    return <Heading>{t("item.noItem")}</Heading>;
   }
 
   return (

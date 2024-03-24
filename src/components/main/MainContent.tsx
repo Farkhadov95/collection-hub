@@ -4,7 +4,6 @@ import {
   Heading,
   SimpleGrid,
   HStack,
-  Text,
   Button,
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../../store/store";
@@ -14,6 +13,7 @@ import CollectionsItem from "../collection-card/CollectionCard";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
 import { ItemType } from "../../types/types";
+import { useTranslation } from "react-i18next";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);
@@ -21,6 +21,7 @@ const MainContent = () => {
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
@@ -75,7 +76,7 @@ const MainContent = () => {
     >
       <HStack mb={{ base: 2, md: 5 }}>
         <Heading fontSize={{ base: "medium", md: "large" }}>
-          Popular tags:{" "}
+          {t("main.popularTags")}{" "}
         </Heading>
         <HStack flexWrap={"wrap"} gap={1}>
           {uniqueTags.map((tag: string, index: number) => (
@@ -106,13 +107,13 @@ const MainContent = () => {
               ))}
             </SimpleGrid>
           ) : (
-            <Heading>No Items on selected tags</Heading>
+            <Heading>{t("main.noTags")}</Heading>
           )}
         </HStack>
       )}
       <Box>
         <Heading fontSize={{ base: "medium", md: "large" }}>
-          Top 5 Latest Items:
+          {t("main.latest5Items")}
         </Heading>
         <HStack marginY={{ base: 2, md: 5 }} justifyContent={"center"}>
           {items.length !== 0 ? (
@@ -126,13 +127,13 @@ const MainContent = () => {
                   .map((item) => <ItemCard key={item._id} item={item} />)}
             </SimpleGrid>
           ) : (
-            <Heading>No Items</Heading>
+            <Heading>{t("main.noItems")}</Heading>
           )}
         </HStack>
       </Box>
       <Box>
         <Heading fontSize={{ base: "medium", md: "large" }}>
-          Top 5 Largest Collections:
+          {t("main.largest5Collections")}
         </Heading>
         <HStack marginY={{ base: 2, md: 5 }} justifyContent={"center"}>
           {collections.length !== 0 ? (
@@ -145,7 +146,7 @@ const MainContent = () => {
               ))}
             </SimpleGrid>
           ) : (
-            <Text>No Collection</Text>
+            <Heading>{t("main.noCollections")}</Heading>
           )}
         </HStack>
       </Box>

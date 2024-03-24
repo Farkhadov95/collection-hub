@@ -23,6 +23,7 @@ import useErrorHandler from "../../hooks/useError";
 import { Collection, collectionFormData } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { convertToBase64 } from "../../utils";
+import { useTranslation } from "react-i18next";
 
 type EditCollectionCard = {
   collection: Collection;
@@ -39,6 +40,7 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
   );
 
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
   const [postImage, setPostImage] = useState({ myFile: collection?.image });
 
   const form = useForm<collectionFormData>({
@@ -98,7 +100,7 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
   return (
     <>
       <Text display={"block"} width={"100%"} onClick={onOpen}>
-        Edit
+        {t("tools.edit")}
       </Text>
       <Drawer
         isOpen={isOpen}

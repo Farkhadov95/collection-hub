@@ -4,15 +4,17 @@ import About from "../components/collection/About";
 import Features from "../components/collection/features/Features";
 import { useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
+import { useTranslation } from "react-i18next";
 
 const Collection = () => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections?.find((c) => c._id === collectionID);
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const { t } = useTranslation();
 
   if (!currentCollection) {
-    return <Heading>Empty collection</Heading>;
+    return <Heading>{t("collection.noCollection")}</Heading>;
   }
 
   console.log(collections);

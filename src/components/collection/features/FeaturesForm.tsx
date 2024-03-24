@@ -5,6 +5,7 @@ import { useCollectionStore } from "../../../store/store";
 import { updateCollection } from "../../../services/service";
 import { Collection } from "../../../types/types";
 import useErrorHandler from "../../../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 type PropertiesFormProps = {
   currentCollection: Collection;
@@ -16,6 +17,7 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const { handleFail } = useErrorHandler();
   const collections = useCollectionStore((state) => state.collections);
   const setCollections = useCollectionStore((state) => state.setCollections);
+  const { t } = useTranslation();
 
   const clearForm = () => {
     setSelectedType("");
@@ -73,20 +75,20 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
     availableTypes().length > 0 && (
       <HStack>
         <Select
-          placeholder="Select type"
+          placeholder={t("collection.selectType")}
           required
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
         >
           {availableTypes().map((type) => (
             <option key={type} value={type}>
-              {type[0].toUpperCase() + type.slice(1)}
+              {t(`types.${type}`)}
             </option>
           ))}
         </Select>
         <Input
           type="text"
-          placeholder="Name"
+          placeholder={t("collection.selectName")}
           required
           value={name}
           onChange={(e) => setName(e.target.value)}

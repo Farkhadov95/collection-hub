@@ -2,14 +2,16 @@ import { HStack, Heading, VStack } from "@chakra-ui/react";
 import PropertiesForm from "../features/FeaturesForm";
 import { Collection } from "../../../types/types";
 import FeaturesItem from "../features/FeaturesItem";
+import { useTranslation } from "react-i18next";
 
 type FeaturesProp = {
   currentCollection: Collection;
 };
 
 const Features = ({ currentCollection }: FeaturesProp) => {
+  const { t } = useTranslation();
   if (!currentCollection) {
-    return <Heading>Empty collection</Heading>;
+    return <Heading>{t("collection.noCollection")}</Heading>;
   }
 
   const features = currentCollection?.itemFields;
@@ -22,7 +24,7 @@ const Features = ({ currentCollection }: FeaturesProp) => {
         flexDirection={{ base: "column", sm: "row" }}
         alignItems={{ base: "flex-start", md: "center" }}
       >
-        <Heading fontSize={"medium"}>Custom Fields: </Heading>
+        <Heading fontSize={"medium"}>{t("collection.customFields")} </Heading>
         <PropertiesForm currentCollection={currentCollection} />
       </HStack>
       {features && (

@@ -15,6 +15,7 @@ import { currentUser, newUserForm } from "../types/types";
 import { registerUser } from "../services/user";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
   const form = useForm<newUserForm>();
@@ -22,6 +23,7 @@ const SignUp = () => {
   const { errors } = formState;
   const navigate = useNavigate();
   const { handleUserFail } = useErrorHandler();
+  const { t } = useTranslation();
 
   const userError = useNonPersistStore((state) => state.userError);
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
@@ -61,7 +63,7 @@ const SignUp = () => {
         gap={1}
       >
         <Box marginBottom={5}>
-          <Heading as={"h2"}>Sign Up</Heading>
+          <Heading as={"h2"}>{t("nav.signUpTitle")}</Heading>
           <Text
             paddingX={1}
             color={"red.300"}
@@ -72,7 +74,7 @@ const SignUp = () => {
           </Text>
         </Box>
         <FormControl isRequired>
-          <FormLabel htmlFor="username">Name</FormLabel>
+          <FormLabel htmlFor="username">{t("nav.name")}</FormLabel>
           <Input
             id="username"
             type={"text"}
@@ -114,7 +116,7 @@ const SignUp = () => {
           </Text>
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel htmlFor="password">{t("nav.password")}</FormLabel>
           <Input
             id="password"
             type={"password"}
@@ -133,7 +135,9 @@ const SignUp = () => {
           </Text>
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="conf_password">Confirm Password</FormLabel>
+          <FormLabel htmlFor="conf_password">
+            {t("nav.confirmPassword")}
+          </FormLabel>
           <Input
             id="conf_password"
             type={"password"}
@@ -160,10 +164,10 @@ const SignUp = () => {
 
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Button as={NavLink} to={"/login"} variant={"outline"}>
-            or Sign In
+            {t("nav.orLogIn")}
           </Button>
           <Button type="submit" variant={"outline"} colorScheme="green">
-            Sign Up
+            {t("nav.signUp")}
           </Button>
         </HStack>
       </Box>

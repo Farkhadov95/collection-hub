@@ -7,18 +7,22 @@ import NavLinks from "./NavLinks";
 import NavbarDrawer from "./NavbarDrawer";
 import { Link } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
+import LanguageSwitch from "./LanguageSwitch";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
+  const { t } = useTranslation();
   return (
     <>
       <Flex justifyContent={"space-between"} marginBottom={{ base: 2, md: 5 }}>
         <Logo />
         <HStack
-          spacing={5}
+          spacing={2}
           display={{ base: "none", lg: "flex" }}
           width={"50%"}
         >
+          <LanguageSwitch />
           <ColorModeSwitch />
           <SearchBar />
           {currentUser.isAdmin && (
@@ -30,7 +34,7 @@ const Navbar = () => {
               to={"/admin"}
               leftIcon={<GrUserAdmin />}
             >
-              Admin
+              {t("nav.admin")}
             </Button>
           )}
         </HStack>

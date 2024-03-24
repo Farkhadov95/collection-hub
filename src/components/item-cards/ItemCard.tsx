@@ -26,6 +26,7 @@ import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import useErrorHandler from "../../hooks/useError";
 import { deleteItem } from "../../services/service";
+import { useTranslation } from "react-i18next";
 
 type ItemProps = {
   item: ItemType;
@@ -41,6 +42,8 @@ const ItemCard = ({ item }: ItemProps) => {
   const setUserItems = useCollectionStore((state) => state.setUserItems);
 
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
+
   const collection = collections.find(
     (collection) => collection._id === item.collectionID
   );
@@ -78,7 +81,7 @@ const ItemCard = ({ item }: ItemProps) => {
           <Box>
             <Heading size="sm">{item.name}</Heading>
             <Text fontWeight={"bold"} fontSize={"small"}>
-              Collection: {collection?.name}
+              {t("item.collection")} {collection?.name}
             </Text>
             <HStack mt={2} spacing={1} flexWrap={"wrap"}>
               {tagsToArray[0] !== "" &&
@@ -107,9 +110,11 @@ const ItemCard = ({ item }: ItemProps) => {
                   />
 
                   <MenuList>
-                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    <MenuItem onClick={handleDelete}>
+                      {t("tools.delete")}
+                    </MenuItem>
                     <MenuItem as={Link} to={`/item/edit/${item._id}`}>
-                      Edit
+                      {t("tools.edit")}
                     </MenuItem>
                   </MenuList>
                 </>
@@ -144,7 +149,7 @@ const ItemCard = ({ item }: ItemProps) => {
           variant="outline"
           colorScheme="yellow"
         >
-          Open
+          {t("tools.open")}
         </Button>
       </CardFooter>
     </Card>

@@ -13,6 +13,7 @@ import { FaEdit } from "react-icons/fa";
 import { ItemType } from "../../types/types";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
+import { useTranslation } from "react-i18next";
 
 type ItemAboutProp = {
   item: ItemType;
@@ -21,6 +22,7 @@ type ItemAboutProp = {
 
 const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
   const tagsToArray = item?.tags.split(" ");
+  const { t } = useTranslation();
   return (
     <HStack
       justifyContent={"space-between"}
@@ -31,7 +33,9 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
         <HStack justifyContent={"space-between"} width={"100%"}>
           <Box>
             <Heading fontSize={"x-large"}>{item?.name}</Heading>
-            <Text fontWeight={"bold"}>Collection: {parentCollectionName} </Text>
+            <Text fontWeight={"bold"}>
+              {t("item.collection")} {parentCollectionName}{" "}
+            </Text>
           </Box>
         </HStack>
         <Text>{item?.description}</Text>
@@ -42,7 +46,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
         </HStack>
         <Box>
           <Text fontWeight={"bold"} mb={1}>
-            Additional information:{" "}
+            {t("item.additionalInfo")}{" "}
           </Text>
           {item.fields.map((field, index) => {
             return (
@@ -55,7 +59,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
         </Box>
       </VStack>
 
-      <VStack height={"200px"} justifyContent={"space-between"}>
+      <VStack height={"300px"} justifyContent={"space-between"}>
         <Button
           variant={"outline"}
           colorScheme="white"
@@ -63,7 +67,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
           to={`/item/edit/${item._id}`}
           leftIcon={<FaEdit />}
         >
-          Edit
+          {t("tools.edit")}
         </Button>
         <LikeButton item={item} />
       </VStack>

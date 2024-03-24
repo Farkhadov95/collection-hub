@@ -8,6 +8,7 @@ import { useCollectionStore } from "../../store/store";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { newComment } from "../../types/types";
+import { useTranslation } from "react-i18next";
 
 const URL = "https://collection-hub-server.adaptable.app/";
 
@@ -26,6 +27,7 @@ const ItemComments = () => {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
   const commentsContainerRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = (formData: newComment) => {
@@ -61,7 +63,9 @@ const ItemComments = () => {
 
   return (
     <Box>
-      <Heading fontSize={"large"}>{comments.length} Comments:</Heading>
+      <Heading fontSize={"large"}>
+        {comments.length} {t("item.comments")}
+      </Heading>
       <Box
         ref={commentsContainerRef}
         display="flex"
@@ -76,7 +80,7 @@ const ItemComments = () => {
             <ItemComment key={`${comment._id}-${index}`} comment={comment} />
           ))
         ) : (
-          <Text fontWeight={"bold"}>No Comments yet.</Text>
+          <Text fontWeight={"bold"}>{t("item.noComments")}</Text>
         )}
       </Box>
 
@@ -97,7 +101,7 @@ const ItemComments = () => {
               {errors.comment?.message}
             </Text>
             <Button type="submit" variant={"outline"} colorScheme={"green"}>
-              Submit
+              {t("tools.submit")}
             </Button>
           </VStack>
         </form>

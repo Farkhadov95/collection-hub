@@ -25,6 +25,7 @@ import { collectionFormData } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useState } from "react";
 import { convertToBase64 } from "../../utils";
+import { useTranslation } from "react-i18next";
 
 const AddCollectionCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,6 +33,7 @@ const AddCollectionCard = () => {
   const userCollections = useCollectionStore((state) => state.userCollections);
 
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
   const setCollections = useCollectionStore((state) => state.setCollections);
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
@@ -88,7 +90,7 @@ const AddCollectionCard = () => {
     <>
       <Button variant="outline" onClick={onOpen}>
         <Icon as={IoMdAdd} />
-        <Text paddingLeft={1}>Create</Text>
+        <Text paddingLeft={1}>{t("tools.create")}</Text>
       </Button>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
@@ -96,13 +98,13 @@ const AddCollectionCard = () => {
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader borderBottomWidth="1px">
-              Create a new collection
+              {t("collection.createNew")}
             </DrawerHeader>
 
             <DrawerBody>
               <Stack spacing="24px">
                 <FormControl isRequired>
-                  <FormLabel>Topic</FormLabel>
+                  <FormLabel>{t("collectionTopic.topic")}</FormLabel>
                   <Select
                     {...register("topic", {
                       required: {
@@ -112,20 +114,30 @@ const AddCollectionCard = () => {
                     })}
                     placeholder="Select topic"
                   >
-                    <option value="books">Books</option>
-                    <option value="movies">Movies</option>
-                    <option value="coins">Coins</option>
-                    <option value="music">Music</option>
-                    <option value="games">Games</option>
-                    <option value="furniture">Furniture</option>
-                    <option value="other">Other</option>
+                    <option value="books">{t("collectionTopic.books")}</option>
+                    <option value="movies">
+                      {t("collectionTopic.movies")}
+                    </option>
+                    <option value="music">{t("collectionTopic.music")}</option>
+                    <option value="games">{t("collectionTopic.games")}</option>
+                    <option value="sport">{t("collectionTopic.sport")}</option>
+                    <option value="science">
+                      {t("collectionTopic.science")}
+                    </option>
+                    <option value="art">{t("collectionTopic.art")}</option>
+                    <option value="history">
+                      {t("collectionTopic.history")}
+                    </option>
+                    <option value="other">{t("collectionTopic.other")}</option>
                   </Select>
                   <Text ml={"auto"} fontSize={"small"} color={"red.300"} px="2">
                     {errors.topic?.message}
                   </Text>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel htmlFor="username">Name</FormLabel>
+                  <FormLabel htmlFor="username">
+                    {t("collection.selectName")}
+                  </FormLabel>
                   <Input
                     {...register("name", {
                       required: {
@@ -142,7 +154,9 @@ const AddCollectionCard = () => {
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel htmlFor="desc">Description</FormLabel>
+                  <FormLabel htmlFor="desc">
+                    {t("collection.description")}
+                  </FormLabel>
                   <Textarea
                     {...register("description", {
                       required: {
@@ -158,7 +172,7 @@ const AddCollectionCard = () => {
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel htmlFor="image">Image</FormLabel>
+                  <FormLabel htmlFor="image">{t("collection.image")}</FormLabel>
                   <Input
                     name="myFile"
                     type="file"
@@ -176,10 +190,10 @@ const AddCollectionCard = () => {
 
             <DrawerFooter borderTopWidth="1px">
               <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
+                {t("tools.cancel")}
               </Button>
               <Button type="submit" colorScheme="green">
-                Submit
+                {t("tools.submit")}
               </Button>
             </DrawerFooter>
           </DrawerContent>

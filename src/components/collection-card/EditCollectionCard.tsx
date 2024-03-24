@@ -112,12 +112,14 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader borderBottomWidth="1px">Edit collection</DrawerHeader>
+            <DrawerHeader borderBottomWidth="1px">
+              {t("collection.editCollectionTitle")}
+            </DrawerHeader>
 
             <DrawerBody>
               <Stack spacing="24px">
                 <FormControl isRequired>
-                  <FormLabel>Topic</FormLabel>
+                  <FormLabel>{t("collectionTopic.topic")}</FormLabel>
                   <Select
                     {...register("topic", {
                       required: {
@@ -125,15 +127,23 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
                         message: "Please select topic",
                       },
                     })}
-                    placeholder="Select topic"
+                    placeholder={t("collectionTopic.selectTopic")}
                   >
-                    <option value="books">Books</option>
-                    <option value="movies">Movies</option>
-                    <option value="coins">Coins</option>
-                    <option value="music">Music</option>
-                    <option value="games">Games</option>
-                    <option value="furniture">Furniture</option>
-                    <option value="other">Other</option>
+                    <option value="books">{t("collectionTopic.books")}</option>
+                    <option value="movies">
+                      {t("collectionTopic.movies")}
+                    </option>
+                    <option value="music">{t("collectionTopic.music")}</option>
+                    <option value="games">{t("collectionTopic.games")}</option>
+                    <option value="sport">{t("collectionTopic.sport")}</option>
+                    <option value="science">
+                      {t("collectionTopic.science")}
+                    </option>
+                    <option value="art">{t("collectionTopic.art")}</option>
+                    <option value="history">
+                      {t("collectionTopic.history")}
+                    </option>
+                    <option value="other">{t("collectionTopic.other")}</option>
                   </Select>
                   <Text ml={"auto"} fontSize={"small"} color={"red.300"} px="2">
                     {errors.topic?.message}
@@ -141,7 +151,9 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel htmlFor="username">Name</FormLabel>
+                  <FormLabel htmlFor="username">
+                    {t("collection.selectName")}
+                  </FormLabel>
                   <Input
                     {...register("name", {
                       required: {
@@ -158,7 +170,9 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
                 </FormControl>
 
                 <FormControl isRequired>
-                  <FormLabel htmlFor="desc">Description</FormLabel>
+                  <FormLabel htmlFor="desc">
+                    {t("collection.description")}
+                  </FormLabel>
                   <Textarea
                     {...register("description", {
                       required: {
@@ -174,7 +188,7 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel htmlFor="image">Image</FormLabel>
+                  <FormLabel htmlFor="image">{t("collection.image")}</FormLabel>
                   <Input
                     name="myFile"
                     type="file"
@@ -192,10 +206,10 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
 
             <DrawerFooter borderTopWidth="1px">
               <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
+                {t("tools.cancel")}
               </Button>
               <Button type="submit" colorScheme="green">
-                Update
+                {t("tools.update")}
               </Button>
             </DrawerFooter>
           </DrawerContent>

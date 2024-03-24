@@ -79,7 +79,7 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
               {t("collection.createdBy")} {collection.userName}
             </Text>
             <Badge colorScheme="green" fontSize={"2xs"}>
-              {collection.topic}
+              {t(`collectionTopic.${collection.topic}`)}
             </Badge>
           </Box>
           {isAuth && (

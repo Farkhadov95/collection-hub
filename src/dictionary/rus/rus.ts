@@ -1,4 +1,5 @@
 export const nav = {
+    hello: "Привет,",
     myCollections: "Мои коллекции",
     signUpTitle: "Регистрация",
     signUp: "Зарегистрироваться",
@@ -29,6 +30,7 @@ export const tools = {
     submit: 'Отправить',
     create: 'Создать',
     cancel: 'Отмена',
+    update: 'Обновить',
     sortBy: 'Сортировка:',
     sortOld: 'Сначала старые',
     sortNew: 'Сначала новые',
@@ -61,8 +63,26 @@ export const collection = {
     noCollection: "Нет коллекции.",
     customFields: "Дополнительные поля:",
     selectType: "Выберите тип:",
-    selectName: "Название",
+    selectName: "Название:",
+    description: "Описание:",
+    image: "Изображение:",
     createdBy: 'Автор:',
+    editCollectionTitle: 'Редактировать коллекцию',
+    createNew: 'Создать новую коллекцию',
+}
+
+export const collectionTopic = {
+    topic: 'Тема:',
+    selectTopic: 'Выберите тему',
+    books: 'Книги',
+    movies: 'Фильмы',
+    music: 'Музыка',
+    games: 'Игры',
+    sport: 'Спорт',
+    science: 'Наука',
+    art: 'Искусство',
+    history: 'История',
+    other: 'Другое',
 }
 
 
@@ -72,5 +92,6 @@ export const dictionaryRUS = {
     tools: tools,
     types: types,
     item: item,
-    collection: collection
+    collection: collection,
+    collectionTopic: collectionTopic,
 }

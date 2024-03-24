@@ -1,4 +1,5 @@
 export const nav = {
+    hello: "Hello,",
     myCollections: "My collections",
     signUpTitle: "Sign Up",
     signUp: "Sign up",
@@ -29,6 +30,7 @@ export const tools = {
     submit: 'Submit',
     create: 'Create',
     cancel: 'Cancel',
+    update: 'Update',
     sortBy: 'Sort by:',
     sortOld: 'Old first',
     sortNew: 'New first',
@@ -61,8 +63,26 @@ export const collection = {
     noCollection: 'No collection.',
     customFields: 'Custom fields:',
     selectType: 'Select type:',
-    selectName: 'Name',
+    selectName: 'Name:',
+    description: 'Description:',
+    image: 'Image:',
     createdBy: 'Created by:',
+    editCollectionTitle: 'Edit collection',
+    createNew: 'Create new collection',
+}
+
+export const collectionTopic = {
+    topic: 'Topic:',
+    selectTopic: 'Select topic',
+    books: 'Books',
+    movies: 'Movies',
+    music: 'Music',
+    games: 'Games',
+    sport: 'Sport',
+    science: 'Science',
+    art: 'Art',
+    history: 'History',
+    other: 'Other',
 }
 
 export const dictionaryENG = {
@@ -71,5 +91,6 @@ export const dictionaryENG = {
     tools: tools,
     types: types,
     item: item,
-    collection: collection
+    collection: collection,
+    collectionTopic: collectionTopic,
 }

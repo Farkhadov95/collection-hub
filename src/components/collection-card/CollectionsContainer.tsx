@@ -1,10 +1,11 @@
-import { Box, HStack, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { HStack, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import CollectionCard from "./CollectionCard";
 import CollectionsItemCreate from "./AddCollectionCard";
 import { useEffect } from "react";
 import { getUserCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 const CollectionContainer = () => {
   const userCollections = useCollectionStore((state) => state.userCollections);
@@ -13,6 +14,7 @@ const CollectionContainer = () => {
   );
   const currentUser = useCollectionStore((state) => state.currentUser);
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
 
   useEffect(() => {
     getUserCollection(currentUser._id)
@@ -27,9 +29,13 @@ const CollectionContainer = () => {
 
   return (
     <>
-      <Box>
-        <HStack marginBottom={5} justifyContent={"space-between"}>
-          <Heading fontSize="2xl">My Collections</Heading>
+      <VStack>
+        <HStack
+          marginBottom={5}
+          justifyContent={"space-between"}
+          width={"100%"}
+        >
+          <Heading fontSize="2xl">{t("nav.myCollections")}</Heading>
           <CollectionsItemCreate />
         </HStack>
         {userCollections.length !== 0 ? (
@@ -42,11 +48,9 @@ const CollectionContainer = () => {
             ))}
           </SimpleGrid>
         ) : (
-          <Box>
-            <Text>No Collection</Text>
-          </Box>
+          <Heading>{t("main.noCollections")}</Heading>
         )}
-      </Box>
+      </VStack>
     </>
   );
 };

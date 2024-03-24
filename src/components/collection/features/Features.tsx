@@ -1,7 +1,7 @@
 import { HStack, Heading, VStack } from "@chakra-ui/react";
-import PropertiesForm from "./FeaturesForm";
+import PropertiesForm from "../features/FeaturesForm";
 import { Collection } from "../../../types/types";
-import FeaturesItem from "./FeaturesItem";
+import FeaturesItem from "../features/FeaturesItem";
 
 type FeaturesProp = {
   currentCollection: Collection;

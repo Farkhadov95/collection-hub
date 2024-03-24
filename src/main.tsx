@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme.ts";
 import { RouterProvider } from "react-router-dom";
-import router from "./routing/Routes.tsx";
+import router from "../src/routing/Routes.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 
 const SearchBar = () => {
   const [formData, setFormData] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [searchComments, setSearchComments] = useState<commentSearch[]>([]);
   const { handleFail } = useErrorHandler();
 
@@ -29,6 +30,7 @@ const SearchBar = () => {
         .then((data) => {
           console.log(data);
           setSearchComments(data);
+          setIsOpen(true);
         })
         .catch((err) => {
           const errorMessage = err.message.toString();
@@ -39,7 +41,10 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} style={{ flexGrow: "1" }}>
+    <form
+      onSubmit={(e) => handleSubmit(e)}
+      style={{ flexGrow: "1", position: "relative" }}
+    >
       <HStack spacing={2} flexGrow={"1"}>
         <Input
           name="search"
@@ -54,17 +59,20 @@ const SearchBar = () => {
           icon={<IoSearch />}
         />
       </HStack>
-      <VStack
-        bgColor={"gray.600"}
-        mt={1}
-        divider={<Divider />}
-        borderRadius={"0 0 10px 10px"}
-        padding={2}
-        alignItems={"start"}
-      >
-        <Text fontSize={"small"}>Comments ({searchComments.length})</Text>
-        {searchComments &&
-          searchComments.slice(0, 2).map((comment) => (
+      {isOpen && (
+        <VStack
+          bgColor={"gray.600"}
+          mt={1}
+          divider={<Divider />}
+          borderRadius={"0 0 10px 10px"}
+          padding={2}
+          alignItems={"start"}
+          position={"absolute"}
+          width={"100%"}
+          zIndex={1}
+        >
+          <Text fontSize={"small"}>Comments ({searchComments.length})</Text>
+          {searchComments.slice(0, 2).map((comment) => (
             <HStack
               key={comment._id}
               overflow={"hidden"}
@@ -77,7 +85,8 @@ const SearchBar = () => {
               </Text>
             </HStack>
           ))}
-      </VStack>
+        </VStack>
+      )}
     </form>
   );
 };

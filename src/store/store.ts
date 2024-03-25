@@ -54,19 +54,23 @@ export const useCollectionStore = create<CollectionStore>()(
   type nonPersistStore = {
     userError: string,
     error: string,
-    loading: boolean,
+    commentLoading: boolean,
+    featuresLoading: boolean,
     setUserError: (userError: string) => void,
     setError: (error: string) => void,
-    setLoading: (loading: boolean) => void,
+    setCommentLoading: (loading: boolean) => void,
+    setFeaturesLoading: (loading: boolean) => void,
   }
 
   export const useNonPersistStore = create<nonPersistStore>((set) => ({
     userError: "",
     error: "",
-    loading: false,
+    commentLoading: false,
+    featuresLoading: false,
     setUserError: (userError: string) => set({ userError }),
     setError: (error: string) => set({ error }),
-    setLoading: (loading: boolean) => set({ loading }),
+    setCommentLoading: (commentLoading: boolean) => set({ commentLoading }),
+    setFeaturesLoading: (featuresLoading: boolean) => set({ featuresLoading }),
   }))
 
   if (process.env.NODE_ENV === "development") {

@@ -1,7 +1,7 @@
 import { HStack, Select, Input, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { useCollectionStore } from "../../../store/store";
+import { useCollectionStore, useNonPersistStore } from "../../../store/store";
 import { updateCollection } from "../../../services/service";
 import { Collection } from "../../../types/types";
 import useErrorHandler from "../../../hooks/useError";
@@ -17,6 +17,9 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
   const { handleFail } = useErrorHandler();
   const collections = useCollectionStore((state) => state.collections);
   const setCollections = useCollectionStore((state) => state.setCollections);
+  const setFeaturesLoading = useNonPersistStore(
+    (state) => state.setFeaturesLoading
+  );
   const { t } = useTranslation();
 
   const clearForm = () => {
@@ -34,6 +37,7 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
         ],
       };
 
+      setFeaturesLoading(true);
       await updateCollection(updatedCollection)
         .then((data) => {
           clearForm();
@@ -41,10 +45,12 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
           setCollections(
             collections.map((c) => (c._id === data._id ? data : c))
           );
+          setFeaturesLoading(false);
         })
         .catch((err) => {
           const errorMessage = err.message.toString();
           handleFail(errorMessage);
+          setFeaturesLoading(false);
         });
     }
   };

@@ -13,8 +13,10 @@ const Item = () => {
   const items = useCollectionStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
   const setComments = useCollectionStore((state) => state.setComments);
-  const loading = useNonPersistStore((state) => state.loading);
-  const setLoading = useNonPersistStore((state) => state.setLoading);
+  const commentLoading = useNonPersistStore((state) => state.commentLoading);
+  const setCommentLoading = useNonPersistStore(
+    (state) => state.setCommentLoading
+  );
 
   const item = items.find((item) => item._id === itemID);
   const parentCollection = collections?.find(
@@ -29,18 +31,18 @@ const Item = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
+    setCommentLoading(true);
     getComments(itemID)
       .then((data) => {
         setComments(data);
-        setLoading(false);
+        setCommentLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
-        setLoading(false);
+        setCommentLoading(false);
       });
-  }, [handleFail, itemID, setComments, setLoading]);
+  }, [handleFail, itemID, setComments, setCommentLoading]);
 
   if (!item || !parentCollectionName) {
     return <Heading>{t("item.noItem")}</Heading>;
@@ -50,7 +52,7 @@ const Item = () => {
     <Box padding={{ base: 2, md: 5 }}>
       <ItemAbout item={item} parentCollectionName={parentCollectionName} />
       <Divider marginY={5} />
-      {loading ? <Text>Loading...</Text> : <ItemComments />}
+      {commentLoading ? <Text>Loading...</Text> : <ItemComments />}
     </Box>
   );
 };

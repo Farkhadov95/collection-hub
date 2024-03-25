@@ -1,56 +1,26 @@
-import { Button, HStack } from "@chakra-ui/react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
-import { useCollectionStore } from "../store/store";
-import { useTranslation } from "react-i18next";
+import { HStack } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
+import MyCollectionsButton from "./buttons/MyCollectionsButton";
+import LogoutButton from "./buttons/LogoutButton";
+import LoginButton from "./buttons/LoginButton";
 
 const NavLinks = () => {
   const location = useLocation();
   const { pathname } = location;
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
   const token = localStorage.getItem("X-Auth-Token");
 
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
       {token && pathname !== "/login" && pathname !== "/signup" && (
-        <Button variant={"ghost"} as={Link} to={"/user"} fontWeight={"bold"}>
-          {t("nav.myCollections")}
-        </Button>
+        <MyCollectionsButton />
       )}
 
       {token && pathname !== "/login" && pathname !== "/signup" && (
-        <Button
-          variant={"outline"}
-          leftIcon={<IoLogOutOutline />}
-          fontWeight={"bold"}
-          onClick={() => {
-            setCurrentUser({
-              _id: "",
-              username: "",
-              email: "",
-              isAdmin: false,
-            });
-            navigate("/");
-            localStorage.removeItem("X-Auth-Token");
-          }}
-        >
-          {t("nav.logOut")}
-        </Button>
+        <LogoutButton />
       )}
 
       {!token && pathname !== "/login" && pathname !== "/signup" && (
-        <Button
-          variant={"outline"}
-          leftIcon={<IoLogInOutline />}
-          fontWeight={"bold"}
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          {t("nav.logIn")}
-        </Button>
+        <LoginButton />
       )}
     </HStack>
   );

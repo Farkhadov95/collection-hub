@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Drawer,
   DrawerBody,
@@ -9,19 +8,33 @@ import {
   DrawerHeader,
   DrawerOverlay,
   IconButton,
-  Text,
-  Stack,
   useDisclosure,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchBar from "./SearchBar";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import LanguageSwitch from "./LanguageSwitch";
+import { useCollectionStore } from "../store/store";
+import AdminButton from "./buttons/AdminButton";
+import { useTranslation } from "react-i18next";
+import LogOutButton from "./buttons/LogoutButton";
+import LoginButton from "./buttons/LoginButton";
+import MyCollectionsButton from "./buttons/MyCollectionsButton";
 
 const NavbarDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
+  const currentUser = useCollectionStore((state) => state.currentUser);
   const firstField = useRef<HTMLInputElement>(null);
+
+  const location = useLocation();
+  const { pathname } = location;
+  const token = localStorage.getItem("X-Auth-Token");
+
   return (
     <>
       <IconButton
@@ -41,29 +54,37 @@ const NavbarDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Main Menu</DrawerHeader>
 
-          <DrawerBody position={"relative"}>
-            <Stack spacing="24px" marginTop={5}>
-              <Box>
-                <SearchBar />
-              </Box>
+          <DrawerBody
+            display={"flex"}
+            flex={1}
+            flexDirection={"column"}
+            justifyContent={"space-between"}
+            my={5}
+          >
+            <VStack alignItems={"end"} spacing={5}>
+              <SearchBar />
+              {token && pathname !== "/login" && pathname !== "/signup" && (
+                <MyCollectionsButton onClose={onClose} />
+              )}
+              {currentUser.isAdmin && <AdminButton />}
+            </VStack>
 
-              <Box display={"flex"} justifyContent={"end"}>
-                <Text as={Link} to={"/user"} fontWeight={"bold"}>
-                  My Collections
-                </Text>
-              </Box>
-              <Box position={"absolute"} bottom={5} right={5}>
-                <ColorModeSwitch />
-              </Box>
-            </Stack>
+            <HStack justifyContent={"end"} gap={3}>
+              <LanguageSwitch />
+              <ColorModeSwitch />
+            </HStack>
           </DrawerBody>
 
-          <DrawerFooter borderTopWidth="1px">
-            <Button variant={"outline"} colorScheme="red" mr={3}>
-              Log Out
-            </Button>
+          <DrawerFooter borderTopWidth="1px" gap={3}>
+            {token && pathname !== "/login" && pathname !== "/signup" && (
+              <LogOutButton />
+            )}
+
+            {!token && pathname !== "/login" && pathname !== "/signup" && (
+              <LoginButton onClose={onClose} />
+            )}
             <Button variant="outline" onClick={onClose}>
-              Cancel
+              {t("tools.cancel")}
             </Button>
           </DrawerFooter>
         </DrawerContent>

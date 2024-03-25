@@ -125,13 +125,11 @@ const ItemCard = ({ item }: ItemProps) => {
         </Flex>
       </CardHeader>
       <CardBody paddingTop={0}>
-        <Text maxHeight={"50px"} overflow={"hidden"}>
-          <Markdown>
-            {item.description.length > 50
-              ? item.description.slice(0, 48).concat("  ...")
-              : item.description}
-          </Markdown>
-        </Text>
+        <Markdown>
+          {item.description.length > 50
+            ? item.description.slice(0, 48).concat("  ...")
+            : item.description}
+        </Markdown>
       </CardBody>
       <Image
         height={"300px"}

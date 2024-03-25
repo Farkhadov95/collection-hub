@@ -1,4 +1,4 @@
-import { Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
+import { Heading, Image, Box, Flex } from "@chakra-ui/react";
 import { Collection } from "../../types/types";
 import placeholderImage from "../../assets/placeholder.jpg";
 import Markdown from "react-markdown";
@@ -22,14 +22,14 @@ const About = ({ currentCollection }: AboutProp) => {
         paddingRight={{ md: 10 }}
       >
         <Heading size={"lg"}>{currentCollection.name}</Heading>
-        <Text
+        <Box
           width={"100%"}
           textAlign={"justify"}
           marginTop={{ base: 2, md: "none" }}
           marginBottom={{ base: 5, md: "none" }}
         >
           <Markdown>{currentCollection.description}</Markdown>
-        </Text>
+        </Box>
       </Flex>
       <Box width={"300px"}>
         <Image

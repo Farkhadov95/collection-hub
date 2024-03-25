@@ -1,18 +1,15 @@
-import { Button, Flex, HStack } from "@chakra-ui/react";
-import { GrUserAdmin } from "react-icons/gr";
+import { Flex, HStack } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import NavbarDrawer from "./NavbarDrawer";
-import { Link } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
 import LanguageSwitch from "./LanguageSwitch";
-import { useTranslation } from "react-i18next";
+import AdminButton from "./buttons/AdminButton";
 
 const Navbar = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
-  const { t } = useTranslation();
   return (
     <>
       <Flex justifyContent={"space-between"} marginBottom={{ base: 2, md: 5 }}>
@@ -25,18 +22,7 @@ const Navbar = () => {
           <LanguageSwitch />
           <ColorModeSwitch />
           <SearchBar />
-          {currentUser.isAdmin && (
-            <Button
-              variant={"ghost"}
-              colorScheme="green"
-              fontWeight={"bold"}
-              as={Link}
-              to={"/admin"}
-              leftIcon={<GrUserAdmin />}
-            >
-              {t("nav.admin")}
-            </Button>
-          )}
+          {currentUser.isAdmin && <AdminButton />}
         </HStack>
         <HStack display={{ base: "none", lg: "flex" }}>
           <NavLinks />

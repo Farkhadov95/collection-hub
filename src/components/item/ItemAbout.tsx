@@ -8,13 +8,14 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { ItemType } from "../../types/types";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
+import { useCollectionStore } from "../../store/store";
 
 type ItemAboutProp = {
   item: ItemType;
@@ -24,6 +25,13 @@ type ItemAboutProp = {
 const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
   const tagsToArray = item?.tags.split(" ");
   const { t } = useTranslation();
+  const itemID = useParams().id;
+  const items = useCollectionStore((state) => state.items);
+  const currentItem = items?.find((c) => c._id === itemID);
+  const currentUser = useCollectionStore((state) => state.currentUser);
+
+  const isAuth = currentUser._id === currentItem?.userID || currentUser.isAdmin;
+
   return (
     <HStack
       justifyContent={"space-between"}
@@ -60,18 +68,21 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
         </Box>
       </VStack>
 
-      <VStack height={"300px"} justifyContent={"space-between"}>
-        <Button
-          variant={"outline"}
-          colorScheme="white"
-          as={Link}
-          to={`/item/edit/${item._id}`}
-          leftIcon={<FaEdit />}
-        >
-          {t("tools.edit")}
-        </Button>
-        <LikeButton item={item} />
-      </VStack>
+      {isAuth && (
+        <VStack height={"300px"} justifyContent={"space-between"}>
+          <Button
+            variant={"outline"}
+            colorScheme="white"
+            as={Link}
+            to={`/item/edit/${item._id}`}
+            leftIcon={<FaEdit />}
+          >
+            {t("tools.edit")}
+          </Button>
+          <LikeButton item={item} />
+        </VStack>
+      )}
+
       <Box width={"300px"}>
         <Image
           height={"300px"}

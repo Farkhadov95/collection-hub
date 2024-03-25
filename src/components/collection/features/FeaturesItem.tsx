@@ -5,6 +5,7 @@ import { deleteCollectionFeature } from "../../../services/service";
 import { useParams } from "react-router-dom";
 import { FieldType } from "../../../types/types";
 import useErrorHandler from "../../../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 type PropertiesItemProp = {
   feature: FieldType;
@@ -17,6 +18,7 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
 
   const currentCollection = collections.find((c) => c._id === collectionID);
   const { handleFail } = useErrorHandler();
+  const { t } = useTranslation();
 
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
@@ -65,7 +67,7 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
     >
       <HStack position={"relative"}>
         <Badge colorScheme="green" fontSize={"2xs"}>
-          {feature.fieldType}
+          {t(`types.${feature.fieldType}`)}
         </Badge>
         <Text fontWeight={"bold"}>{feature.fieldName}</Text>
         <IconButton

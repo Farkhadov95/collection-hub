@@ -14,6 +14,7 @@ import { ItemType } from "../../types/types";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
+import Markdown from "react-markdown";
 
 type ItemAboutProp = {
   item: ItemType;
@@ -38,7 +39,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
             </Text>
           </Box>
         </HStack>
-        <Text>{item?.description}</Text>
+        <Markdown>{item?.description}</Markdown>
         <HStack>
           {tagsToArray?.map((tag, index) => (
             <Tag key={index}>{tag}</Tag>

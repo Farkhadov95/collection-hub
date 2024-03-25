@@ -26,6 +26,7 @@ import useErrorHandler from "../../hooks/useError";
 import EditCollectionCard from "./EditCollectionCard";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
+import Markdown from "react-markdown";
 
 type CollectionsItemProp = {
   collection: Collection;
@@ -111,11 +112,11 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         </Flex>
       </CardHeader>
       <CardBody paddingTop={0}>
-        <Text>
+        <Markdown>
           {collection.description.length > 50
             ? collection.description.slice(0, 48).concat("  ...")
             : collection.description}
-        </Text>
+        </Markdown>
       </CardBody>
       <Image
         height={"300px"}

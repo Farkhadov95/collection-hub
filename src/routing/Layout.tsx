@@ -8,7 +8,7 @@ const Layout = () => {
   const error = useNonPersistStore((state) => state.error);
 
   return (
-    <Box padding={5}>
+    <Box padding={5} width={{ base: "100%", xl: "80%" }} margin={"auto"}>
       <Navbar />
       <Divider />
       {error && <ErrorMessage />}

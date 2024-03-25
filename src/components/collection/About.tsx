@@ -1,6 +1,7 @@
 import { Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
 import { Collection } from "../../types/types";
 import placeholderImage from "../../assets/placeholder.jpg";
+import Markdown from "react-markdown";
 
 type AboutProp = {
   currentCollection: Collection;
@@ -27,7 +28,7 @@ const About = ({ currentCollection }: AboutProp) => {
           marginTop={{ base: 2, md: "none" }}
           marginBottom={{ base: 5, md: "none" }}
         >
-          {currentCollection.description}
+          <Markdown>{currentCollection.description}</Markdown>
         </Text>
       </Flex>
       <Box width={"300px"}>

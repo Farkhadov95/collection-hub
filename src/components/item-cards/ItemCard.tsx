@@ -27,6 +27,7 @@ import placeholderImage from "../../assets/placeholder.jpg";
 import useErrorHandler from "../../hooks/useError";
 import { deleteItem } from "../../services/service";
 import { useTranslation } from "react-i18next";
+import Markdown from "react-markdown";
 
 type ItemProps = {
   item: ItemType;
@@ -125,9 +126,11 @@ const ItemCard = ({ item }: ItemProps) => {
       </CardHeader>
       <CardBody paddingTop={0}>
         <Text maxHeight={"50px"} overflow={"hidden"}>
-          {item.description.length > 50
-            ? item.description.slice(0, 48).concat("  ...")
-            : item.description}
+          <Markdown>
+            {item.description.length > 50
+              ? item.description.slice(0, 48).concat("  ...")
+              : item.description}
+          </Markdown>
         </Text>
       </CardBody>
       <Image

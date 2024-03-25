@@ -11,11 +11,12 @@ import {
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { getAllItems, getCollections } from "../../services/service";
-import CollectionsItem from "../collection-card/CollectionCard";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
 import { ItemType } from "../../types/types";
 import { useTranslation } from "react-i18next";
+import MainItemSwiper from "./MainSwiper";
+import MainSwiper from "./MainSwiper";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);
@@ -85,7 +86,10 @@ const MainContent = () => {
         padding={3}
         borderRadius={10}
       >
-        <HStack mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}>
+        <HStack
+          mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
+          alignItems={"flex-start"}
+        >
           <Heading fontSize={{ base: "medium", md: "large" }}>
             {t("main.popularTags")}{" "}
           </Heading>
@@ -106,70 +110,44 @@ const MainContent = () => {
             ))}
           </HStack>
         </HStack>
-        {
+
+        {filteredItems.length > 0 ? (
           <Collapse
             in={isSelectedTag}
             transition={{ enter: { duration: 0.5 } }}
           >
-            <HStack
-              transition={""}
-              marginBottom={{ base: 2, md: 5 }}
-              justifyContent={"center"}
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
+              spacing={5}
             >
-              {filteredItems.length > 0 ? (
-                <SimpleGrid
-                  columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
-                  spacing={5}
-                >
-                  {filteredItems.slice(0, 5).map((item) => (
-                    <ItemCard key={item._id} item={item} />
-                  ))}
-                </SimpleGrid>
-              ) : (
-                <Heading>{t("main.noTags")}</Heading>
-              )}
-            </HStack>
+              {filteredItems.map((item) => (
+                <ItemCard key={item._id} item={item} />
+              ))}
+            </SimpleGrid>
           </Collapse>
-        }
+        ) : (
+          <Heading>{t("main.noTags")}</Heading>
+        )}
       </Box>
-      <Box>
+      <Box mt={5}>
         <Heading fontSize={{ base: "medium", md: "large" }}>
           {t("main.latest5Items")}
         </Heading>
-        <HStack marginY={{ base: 2, md: 5 }} justifyContent={"center"}>
-          {items.length !== 0 ? (
-            <SimpleGrid
-              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
-              spacing={5}
-            >
-              {sortedItems &&
-                sortedItems
-                  .slice(0, 5)
-                  .map((item) => <ItemCard key={item._id} item={item} />)}
-            </SimpleGrid>
-          ) : (
-            <Heading>{t("main.noItems")}</Heading>
-          )}
-        </HStack>
+        {items.length !== 0 ? (
+          <MainItemSwiper items={sortedItems} />
+        ) : (
+          <Heading>{t("main.noItems")}</Heading>
+        )}
       </Box>
-      <Box>
+      <Box mt={5}>
         <Heading fontSize={{ base: "medium", md: "large" }}>
           {t("main.largest5Collections")}
         </Heading>
-        <HStack marginY={{ base: 2, md: 5 }} justifyContent={"center"}>
-          {collections.length !== 0 ? (
-            <SimpleGrid
-              columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 5 }}
-              spacing={5}
-            >
-              {collections.slice(0, 10).map((collection) => (
-                <CollectionsItem key={collection._id} collection={collection} />
-              ))}
-            </SimpleGrid>
-          ) : (
-            <Heading>{t("main.noCollections")}</Heading>
-          )}
-        </HStack>
+        {collections.length !== 0 ? (
+          <MainSwiper collections={collections} />
+        ) : (
+          <Heading>{t("main.noCollections")}</Heading>
+        )}
       </Box>
     </Stack>
   );

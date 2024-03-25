@@ -18,9 +18,9 @@ export const main = {
     popularTags: "Popular tags:",
     latest5Items: 'Top 5 latest items:',
     largest5Collections: 'Top 5 largest collections:',
-    noTags: 'No Items on selected tags',
-    noItems: 'No Items',
-    noCollections: 'No Collections',
+    noTags: 'No items on selected tags',
+    noItems: 'No items',
+    noCollections: 'No collections',
 }
 
 export const tools = {

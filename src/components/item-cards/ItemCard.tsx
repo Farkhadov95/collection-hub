@@ -72,19 +72,50 @@ const ItemCard = ({ item }: ItemProps) => {
 
   return (
     <Card
-      maxW="md"
+      maxW={"400px"}
+      height={"580px"}
       bgColor={colorMode === "dark" ? "gray.700" : "gray.50"}
       overflow={"hidden"}
     >
       <Box height={2} bgColor={"yellow.400"} />
-      <CardHeader>
+      <CardHeader width={"100%"} overflow={"hidden"}>
         <Flex justifyContent={"space-between"}>
-          <Box>
-            <Heading size="sm">{item.name}</Heading>
+          <Box width={"100%"}>
+            <HStack width={"100%"} justifyContent={"space-between"}>
+              <Heading size="xs" width={"160px"}>
+                {item.name}
+              </Heading>
+              {isAuth && (
+                <Menu>
+                  {({ isOpen }) => (
+                    <>
+                      <MenuButton
+                        as={IconButton}
+                        size="sm"
+                        isActive={isOpen}
+                        variant="ghost"
+                        colorScheme="gray"
+                        aria-label="See menu"
+                        icon={<BsThreeDotsVertical />}
+                      />
+
+                      <MenuList>
+                        <MenuItem onClick={handleDelete}>
+                          {t("tools.delete")}
+                        </MenuItem>
+                        <MenuItem as={Link} to={`/item/edit/${item._id}`}>
+                          {t("tools.edit")}
+                        </MenuItem>
+                      </MenuList>
+                    </>
+                  )}
+                </Menu>
+              )}
+            </HStack>
             <Text fontWeight={"bold"} fontSize={"small"}>
               {t("item.collection")} {collection?.name}
             </Text>
-            <HStack mt={2} spacing={1} flexWrap={"wrap"}>
+            <HStack mt={2} spacing={1} width={"200px"}>
               {tagsToArray[0] !== "" &&
                 tagsToArray.slice(0, 3).map((tag: string, index) => (
                   <Tag
@@ -96,35 +127,14 @@ const ItemCard = ({ item }: ItemProps) => {
                 ))}
             </HStack>
           </Box>
-          {isAuth && (
-            <Menu>
-              {({ isOpen }) => (
-                <>
-                  <MenuButton
-                    as={IconButton}
-                    size="sm"
-                    isActive={isOpen}
-                    variant="ghost"
-                    colorScheme="gray"
-                    aria-label="See menu"
-                    icon={<BsThreeDotsVertical />}
-                  />
-
-                  <MenuList>
-                    <MenuItem onClick={handleDelete}>
-                      {t("tools.delete")}
-                    </MenuItem>
-                    <MenuItem as={Link} to={`/item/edit/${item._id}`}>
-                      {t("tools.edit")}
-                    </MenuItem>
-                  </MenuList>
-                </>
-              )}
-            </Menu>
-          )}
         </Flex>
       </CardHeader>
-      <CardBody paddingTop={0}>
+      <CardBody
+        paddingTop={0}
+        height={"50px"}
+        overflow={"hidden"}
+        fontSize={"sm"}
+      >
         <Markdown>
           {item.description.length > 50
             ? item.description.slice(0, 48).concat("  ...")

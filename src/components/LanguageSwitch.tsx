@@ -20,7 +20,7 @@ const LanguageSwitch = () => {
       fontSize={"small"}
       fontWeight={"bold"}
     >
-      {isEnglish ? "EN" : "RU"}
+      {isEnglish ? "RU" : "EN"}
     </Button>
   );
 };

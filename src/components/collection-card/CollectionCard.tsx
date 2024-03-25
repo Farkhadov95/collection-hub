@@ -67,7 +67,8 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
 
   return (
     <Card
-      maxW="md"
+      maxW={"400px"}
+      height={"580px"}
       bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}
       overflow={"hidden"}
     >
@@ -111,7 +112,12 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
           )}
         </Flex>
       </CardHeader>
-      <CardBody paddingTop={0}>
+      <CardBody
+        paddingTop={0}
+        height={"50px"}
+        overflow={"hidden"}
+        fontSize={"sm"}
+      >
         <Markdown>
           {collection.description.length > 50
             ? collection.description.slice(0, 48).concat("  ...")

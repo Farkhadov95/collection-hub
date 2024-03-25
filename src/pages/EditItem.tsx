@@ -25,7 +25,7 @@ import {
   OptItemData,
   FieldRenderType,
 } from "../types/types";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { updateItem } from "../services/service";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
@@ -44,6 +44,10 @@ const EditItem = () => {
 
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const form = useForm<ReqItemData>({
     defaultValues: {

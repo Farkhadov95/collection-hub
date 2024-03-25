@@ -15,7 +15,7 @@ const CollectionTools = () => {
     currentUser._id === currentCollection?.userID || currentUser.isAdmin;
 
   return (
-    <HStack justifyContent={"space-between"}>
+    <HStack justifyContent={"space-between"} mb={5}>
       <HStack>
         <Select placeholder={t("tools.sortBy")}>
           <option value="old">{t("tools.sortOld")}</option>

@@ -1,12 +1,14 @@
-import { Box, Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const NotFound = () => {
+  const { t } = useTranslation();
   return (
-    <Box padding={5}>
+    <HStack padding={5} justify={"center"} height={"30vh"}>
       <Text fontSize={"x-large"} fontWeight={"bold"}>
-        404: Not Found
+        {t("tools.pageNotFound")}
       </Text>
-    </Box>
+    </HStack>
   );
 };
 

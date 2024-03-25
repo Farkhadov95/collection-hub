@@ -17,6 +17,7 @@ import { ItemType } from "../../types/types";
 import { useTranslation } from "react-i18next";
 import MainItemSwiper from "./MainSwiper";
 import MainSwiper from "./MainSwiper";
+import SkeletonsGrid from "../skeletons/SkeletonsGrid";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);
@@ -29,16 +30,20 @@ const MainContent = () => {
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     Promise.all([getCollections(), getAllItems()])
       .then(([collectionsRes, itemsRes]) => {
         setCollections(collectionsRes);
         setItems(itemsRes);
+        setIsLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
+        setIsLoading(false);
       });
   }, [handleFail, setCollections, setItems]);
 
@@ -130,20 +135,24 @@ const MainContent = () => {
         )}
       </Box>
       <Box mt={5}>
-        <Heading fontSize={{ base: "medium", md: "large" }}>
+        <Heading fontSize={{ base: "medium", md: "large" }} mb={3}>
           {t("main.latest5Items")}
         </Heading>
-        {items.length !== 0 ? (
+        {isLoading ? (
+          <SkeletonsGrid />
+        ) : items.length !== 0 ? (
           <MainItemSwiper items={sortedItems} />
         ) : (
           <Heading>{t("main.noItems")}</Heading>
         )}
       </Box>
       <Box mt={5}>
-        <Heading fontSize={{ base: "medium", md: "large" }}>
+        <Heading fontSize={{ base: "medium", md: "large" }} mb={3}>
           {t("main.largest5Collections")}
         </Heading>
-        {collections.length !== 0 ? (
+        {isLoading ? (
+          <SkeletonsGrid />
+        ) : collections.length !== 0 ? (
           <MainSwiper collections={collections} />
         ) : (
           <Heading>{t("main.noCollections")}</Heading>

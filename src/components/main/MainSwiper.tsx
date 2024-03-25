@@ -19,7 +19,7 @@ const MainSwiper = ({ items, collections }: MainSwiperProp) => {
   }
 
   return (
-    <Box mt={3}>
+    <Box>
       <Swiper
         modules={[Autoplay]}
         autoplay

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { createItem } from "../services/service";
 import { IoIosArrowBack } from "react-icons/io";
 import { OptItemData, ReqItemData, newItem } from "../types/types";
@@ -35,6 +35,10 @@ const AddItem = () => {
   const setItems = useCollectionStore((state) => state.setItems);
   const navigate = useNavigate();
   const { handleFail } = useErrorHandler();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const form = useForm<ReqItemData>({
     defaultValues: {

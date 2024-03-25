@@ -1,11 +1,12 @@
 import { HStack, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import CollectionCard from "./CollectionCard";
 import CollectionsItemCreate from "./AddCollectionCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUserCollection } from "../../services/service";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
+import SkeletonsGrid from "../skeletons/SkeletonsGrid";
 
 const CollectionContainer = () => {
   const userCollections = useCollectionStore((state) => state.userCollections);
@@ -14,16 +15,20 @@ const CollectionContainer = () => {
   );
   const currentUser = useCollectionStore((state) => state.currentUser);
   const { handleFail } = useErrorHandler();
+  const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
+    setIsLoading(true);
     getUserCollection(currentUser._id)
       .then((res) => {
         setUserCollections(res);
+        setIsLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
+        setIsLoading(false);
       });
   }, [currentUser._id, handleFail, setUserCollections]);
 
@@ -38,7 +43,9 @@ const CollectionContainer = () => {
           <Heading fontSize="2xl">{t("nav.myCollections")}</Heading>
           <CollectionsItemCreate />
         </HStack>
-        {userCollections.length !== 0 ? (
+        {isLoading ? (
+          <SkeletonsGrid />
+        ) : userCollections.length !== 0 ? (
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
             spacing={5}

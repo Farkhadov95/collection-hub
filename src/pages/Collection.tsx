@@ -5,6 +5,7 @@ import Features from "../components/collection/features/Features";
 import { useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const Collection = () => {
   const collectionID = useParams().id;
@@ -13,11 +14,13 @@ const Collection = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (!currentCollection) {
     return <Heading>{t("collection.noCollection")}</Heading>;
   }
-
-  console.log(collections);
 
   const isAuth =
     currentUser._id === currentCollection?.userID || currentUser.isAdmin;

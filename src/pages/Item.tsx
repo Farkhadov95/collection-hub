@@ -25,6 +25,10 @@ const Item = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     getComments(itemID)
       .then((data) => {

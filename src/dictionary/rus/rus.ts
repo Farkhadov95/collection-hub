@@ -40,6 +40,7 @@ export const tools = {
     filterImage: 'Есть изображение',
     filterLikes: 'Есть Лайки',
     filterComments: 'Есть Комментарии',
+    pageNotFound: '404: Страница не найдена'
 }
 
 export const types = {

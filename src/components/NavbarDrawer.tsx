@@ -63,9 +63,12 @@ const NavbarDrawer = () => {
           >
             <VStack alignItems={"end"} spacing={5}>
               <SearchBar />
-              {token && pathname !== "/login" && pathname !== "/signup" && (
-                <MyCollectionsButton onClose={onClose} />
-              )}
+              {token &&
+                pathname !== "/login" &&
+                pathname !== "/signup" &&
+                pathname !== "/user" && (
+                  <MyCollectionsButton onClose={onClose} />
+                )}
               {currentUser.isAdmin && <AdminButton />}
             </VStack>
 

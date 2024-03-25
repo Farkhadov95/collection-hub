@@ -232,6 +232,11 @@ const EditItem = () => {
                         value: true,
                         message: "Tags are required",
                       },
+                      pattern: {
+                        value: /^[\w\s-]+$/,
+                        message:
+                          "Tags can only contain letters, numbers, spaces, and hyphens",
+                      },
                     })}
                     required={true}
                     type={"text"}

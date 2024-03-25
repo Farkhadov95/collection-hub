@@ -11,9 +11,10 @@ const NavLinks = () => {
 
   return (
     <HStack justifyContent={"space-between"} spacing={10}>
-      {token && pathname !== "/login" && pathname !== "/signup" && (
-        <MyCollectionsButton />
-      )}
+      {token &&
+        pathname !== "/login" &&
+        pathname !== "/signup" &&
+        pathname !== "/user" && <MyCollectionsButton />}
 
       {token && pathname !== "/login" && pathname !== "/signup" && (
         <LogoutButton />

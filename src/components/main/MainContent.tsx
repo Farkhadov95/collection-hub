@@ -5,6 +5,8 @@ import {
   SimpleGrid,
   HStack,
   Button,
+  useColorMode,
+  Collapse,
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
@@ -22,6 +24,7 @@ const MainContent = () => {
   const setItems = useCollectionStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
+  const { colorMode } = useColorMode();
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
@@ -67,6 +70,8 @@ const MainContent = () => {
     setFilteredItems(filteredItemsByTag);
   }, [selectedTags, items]);
 
+  const isSelectedTag = selectedTags.length > 0;
+
   return (
     <Stack
       borderRadius={10}
@@ -74,43 +79,59 @@ const MainContent = () => {
       padding={{ base: 0, md: 5 }}
       marginTop={5}
     >
-      <HStack mb={{ base: 2, md: 5 }}>
-        <Heading fontSize={{ base: "medium", md: "large" }}>
-          {t("main.popularTags")}{" "}
-        </Heading>
-        <HStack flexWrap={"wrap"} gap={1}>
-          {uniqueTags.map((tag: string, index: number) => (
-            <Button
-              variant={"outline"}
-              colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
-              borderRadius={10}
-              key={index}
-              fontSize={{ base: "small", md: "medium" }}
-              height={"fit-content"}
-              paddingY={1}
-              onClick={() => handleSelectTag(tag)}
-            >
-              {tag}
-            </Button>
-          ))}
+      <Box
+        bgColor={colorMode === "dark" ? "gray.600" : "gray.200"}
+        boxSizing="border-box"
+        padding={3}
+        borderRadius={10}
+      >
+        <HStack mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}>
+          <Heading fontSize={{ base: "medium", md: "large" }}>
+            {t("main.popularTags")}{" "}
+          </Heading>
+          <HStack flexWrap={"wrap"} gap={1}>
+            {uniqueTags.map((tag: string, index: number) => (
+              <Button
+                variant={"outline"}
+                colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
+                borderRadius={10}
+                key={index}
+                fontSize={{ base: "small", md: "medium" }}
+                height={"fit-content"}
+                paddingY={1}
+                onClick={() => handleSelectTag(tag)}
+              >
+                {tag}
+              </Button>
+            ))}
+          </HStack>
         </HStack>
-      </HStack>
-      {selectedTags.length > 0 && (
-        <HStack marginBottom={{ base: 2, md: 5 }} justifyContent={"center"}>
-          {filteredItems.length > 0 ? (
-            <SimpleGrid
-              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
-              spacing={5}
+        {
+          <Collapse
+            in={isSelectedTag}
+            transition={{ enter: { duration: 0.5 } }}
+          >
+            <HStack
+              transition={""}
+              marginBottom={{ base: 2, md: 5 }}
+              justifyContent={"center"}
             >
-              {filteredItems.slice(0, 5).map((item) => (
-                <ItemCard key={item._id} item={item} />
-              ))}
-            </SimpleGrid>
-          ) : (
-            <Heading>{t("main.noTags")}</Heading>
-          )}
-        </HStack>
-      )}
+              {filteredItems.length > 0 ? (
+                <SimpleGrid
+                  columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 5 }}
+                  spacing={5}
+                >
+                  {filteredItems.slice(0, 5).map((item) => (
+                    <ItemCard key={item._id} item={item} />
+                  ))}
+                </SimpleGrid>
+              ) : (
+                <Heading>{t("main.noTags")}</Heading>
+              )}
+            </HStack>
+          </Collapse>
+        }
+      </Box>
       <Box>
         <Heading fontSize={{ base: "medium", md: "large" }}>
           {t("main.latest5Items")}

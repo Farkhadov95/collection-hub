@@ -34,13 +34,15 @@ const CollectionContainer = () => {
 
   return (
     <>
-      <VStack>
+      <VStack alignItems={"start"}>
         <HStack
           marginBottom={5}
           justifyContent={"space-between"}
           width={"100%"}
         >
-          <Heading fontSize="2xl">{t("nav.myCollections")}</Heading>
+          <Heading fontSize={{ base: "xl", md: "2xl" }}>
+            {t("nav.myCollections")}
+          </Heading>
           <CollectionsItemCreate />
         </HStack>
         {isLoading ? (

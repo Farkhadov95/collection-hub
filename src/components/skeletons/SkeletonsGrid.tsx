@@ -4,7 +4,11 @@ import CardSkeleton from "./CardSkeleton";
 const SkeletonsGrid = () => {
   const skeletons = [...Array(4)];
   return (
-    <SimpleGrid columns={4} gap={5} width={"100%"}>
+    <SimpleGrid
+      columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
+      gap={5}
+      width={"100%"}
+    >
       {skeletons.map((_, i) => (
         <CardSkeleton key={i} />
       ))}

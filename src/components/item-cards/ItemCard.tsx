@@ -115,7 +115,7 @@ const ItemCard = ({ item }: ItemProps) => {
             <Text fontWeight={"bold"} fontSize={"small"}>
               {t("item.collection")} {collection?.name}
             </Text>
-            <HStack mt={2} spacing={1} width={"200px"}>
+            <HStack mt={2} spacing={1}>
               {tagsToArray[0] !== "" &&
                 tagsToArray.slice(0, 3).map((tag: string, index) => (
                   <Tag

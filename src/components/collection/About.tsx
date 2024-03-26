@@ -16,7 +16,7 @@ const About = ({ currentCollection }: AboutProp) => {
     >
       <Flex
         flexDirection={"column"}
-        justifyContent={"space-around"}
+        justifyContent={"space-between"}
         width={"100%"}
         boxSizing={"border-box"}
         paddingRight={{ md: 10 }}

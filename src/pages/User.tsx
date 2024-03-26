@@ -8,7 +8,7 @@ const User = () => {
   const { colorMode } = useColorMode();
   const { t } = useTranslation();
   return (
-    <Box padding={5}>
+    <Box padding={{ base: 0, md: 5 }} mt={{ base: 2, md: 0 }}>
       <HStack
         mb={5}
         boxSizing={"border-box"}
@@ -17,7 +17,7 @@ const User = () => {
         bgColor={colorMode === "dark" ? "gray.700" : "gray.100"}
         borderRadius={10}
       >
-        <Heading fontSize={"xx-large"}>
+        <Heading fontSize={{ base: "large", md: "xx-large" }}>
           {t("nav.hello")} {currentUser.username}
         </Heading>
         <Badge colorScheme="green" fontSize={"2xs"} height={"fit-content"}>

@@ -50,10 +50,11 @@ const FeatureDelete = ({ feature, handleDelete }: FeatureDeleteProps) => {
             This will delete the field from all items in the collection.
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
+            <Button variant={"outline"} ref={cancelRef} onClick={onClose}>
               No
             </Button>
             <Button
+              variant={"outline"}
               colorScheme="red"
               ml={3}
               onClick={() => {

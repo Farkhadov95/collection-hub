@@ -6,7 +6,8 @@ enum ApiRoutes {
   collections = 'collections/',
   collection = 'collection/',
   items = 'items/',
-  search = 'search',
+  searchComments = 'search/comment',
+  searchItems = 'search/item',
   like='like/'
 }
 
@@ -168,9 +169,23 @@ export const deleteCollectionFeature = async (
   return data;
 }
 
-export const searchData = async (searchText: string) => {
+export const searchComments = async (searchText: string) => {
   try {
-    const res = await fetch(`${URL}${ApiRoutes.search}?query=${encodeURIComponent(searchText)}`);
+    const res = await fetch(`${URL}${ApiRoutes.searchComments}?query=${encodeURIComponent(searchText)}`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('There was a problem with your search request:', error);
+    throw error;
+  }
+}
+
+export const searchItems = async (searchText: string) => {
+  try {
+    const res = await fetch(`${URL}${ApiRoutes.searchItems}?query=${encodeURIComponent(searchText)}`);
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
     }

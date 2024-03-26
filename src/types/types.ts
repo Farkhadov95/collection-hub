@@ -121,6 +121,14 @@ export type commentSearch = {
     createdAt: Date,
 }
 
+export type ItemSearch = {
+  _id: string,
+  score: string,
+  name: string,
+  tags: string,
+  description: string,
+}
+
 export type Comment = {
   _id: string;
   userID: string;

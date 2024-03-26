@@ -14,7 +14,7 @@ const Layout = () => {
       <Divider />
       {error && <ErrorMessage />}
       <Outlet />
-      <Divider mt={1} />
+      <Divider mt={5} />
       <Footer />
     </Box>
   );

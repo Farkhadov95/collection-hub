@@ -42,7 +42,8 @@ export const tools = {
     filterImage: 'Есть изображение',
     filterLikes: 'Есть Лайки',
     filterComments: 'Есть Комментарии',
-    pageNotFound: '404: Страница не найдена'
+    pageNotFound: '404: Страница не найдена',
+    seeAll: 'Смотреть все',
 }
 
 export const types = {

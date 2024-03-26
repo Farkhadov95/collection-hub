@@ -42,7 +42,8 @@ export const tools = {
     filterImage: 'Have Images',
     filterLikes: 'Have Likes',
     filterComments: 'Have Comments',
-    pageNotFound: '404: Page not found'
+    pageNotFound: '404: Page not found',
+    seeAll: 'Browse all',
 }
 
 export const types = {

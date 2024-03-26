@@ -31,7 +31,7 @@ const AllItems = () => {
   }, [handleFail, setItems]);
 
   return (
-    <VStack alignItems={"start"} mt={5}>
+    <VStack alignItems={"start"} mt={5} padding={{ base: 0, md: 5 }}>
       <Heading fontSize={{ base: "large", md: "x-large" }} mb={5}>
         {t("main.allItems")}
       </Heading>

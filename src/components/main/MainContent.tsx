@@ -142,7 +142,7 @@ const MainContent = () => {
             variant="link"
             textDecoration={"underline"}
           >
-            Смотреть все
+            {t("tools.seeAll")}
           </Button>
         </HStack>
         {isLoading ? (
@@ -164,7 +164,7 @@ const MainContent = () => {
             variant="link"
             textDecoration={"underline"}
           >
-            Смотреть все
+            {t("tools.seeAll")}
           </Button>
         </HStack>
         {isLoading ? (

@@ -14,6 +14,8 @@ const LikeButton = ({ item }: LikeButtonProps) => {
   const currentUser = useCollectionStore((state) => state.currentUser);
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
+  const userItems = useCollectionStore((state) => state.userItems);
+  const setUserItems = useCollectionStore((state) => state.setUserItems);
   const [isLoading, setIsLoading] = useState(false);
   const { handleFail } = useErrorHandler();
 
@@ -25,6 +27,14 @@ const LikeButton = ({ item }: LikeButtonProps) => {
       .then((res) => {
         setItems(
           items.map((item) => {
+            if (item._id === res._id) {
+              return res;
+            }
+            return item;
+          })
+        );
+        setUserItems(
+          userItems.map((item) => {
             if (item._id === res._id) {
               return res;
             }

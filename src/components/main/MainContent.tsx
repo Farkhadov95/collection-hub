@@ -82,7 +82,9 @@ const MainContent = () => {
       marginTop={5}
     >
       <Box
-        bgColor={colorMode === "dark" ? "gray.700" : "gray.200"}
+        bgColor={
+          colorMode === "dark" ? "RGBA(255, 255, 255, 0.16)" : "gray.200"
+        }
         boxSizing="border-box"
         padding={5}
         borderRadius={10}
@@ -116,7 +118,7 @@ const MainContent = () => {
             transition={{ enter: { duration: 0.5 } }}
           >
             <SimpleGrid
-              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
+              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
               spacing={5}
             >
               {filteredItems.map((item) => (

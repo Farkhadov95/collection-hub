@@ -44,7 +44,8 @@ const ItemContainer = () => {
         <SkeletonsGrid />
       ) : (
         <SimpleGrid
-          columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 4 }}
+          width={"fit-content"}
+          columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
           spacing={5}
         >
           {userItems &&

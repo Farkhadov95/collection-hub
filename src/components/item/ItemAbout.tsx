@@ -86,7 +86,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
       <Box width={"300px"}>
         <Image
           height={"300px"}
-          width={"100%"}
+          width={"auto"}
           alt={item.name}
           objectFit="cover"
           objectPosition={item.image ? "0 0" : "center"}

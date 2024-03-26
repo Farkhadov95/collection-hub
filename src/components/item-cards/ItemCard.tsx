@@ -72,6 +72,7 @@ const ItemCard = ({ item }: ItemProps) => {
 
   return (
     <Card
+      minW={"250px"}
       maxW={"400px"}
       height={"580px"}
       bgColor={colorMode === "dark" ? "gray.700" : "gray.50"}
@@ -115,7 +116,7 @@ const ItemCard = ({ item }: ItemProps) => {
             <Text fontWeight={"bold"} fontSize={"small"}>
               {t("item.collection")} {collection?.name}
             </Text>
-            <HStack mt={2} spacing={1}>
+            <HStack mt={2} spacing={1} overflow={"hidden"}>
               {tagsToArray[0] !== "" &&
                 tagsToArray.slice(0, 3).map((tag: string, index) => (
                   <Tag

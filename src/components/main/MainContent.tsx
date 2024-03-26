@@ -83,12 +83,13 @@ const MainContent = () => {
     >
       <Box
         bgColor={
-          colorMode === "dark" ? "RGBA(255, 255, 255, 0.16)" : "gray.200"
+          colorMode === "dark" ? "RGBA(255, 255, 255, 0.36)" : "gray.200"
         }
         boxSizing="border-box"
         padding={5}
         borderRadius={10}
         width={"fit-content"}
+        boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
       >
         <HStack mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}>
           <Heading fontSize={{ base: "medium", md: "large" }}>

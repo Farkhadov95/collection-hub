@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import { useNonPersistStore } from "../store/store";
+import Footer from "../components/Footer";
 
 const Layout = () => {
   const error = useNonPersistStore((state) => state.error);
@@ -13,6 +14,8 @@ const Layout = () => {
       <Divider />
       {error && <ErrorMessage />}
       <Outlet />
+      <Divider />
+      <Footer />
     </Box>
   );
 };

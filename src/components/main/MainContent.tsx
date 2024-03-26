@@ -118,7 +118,7 @@ const MainContent = () => {
             transition={{ enter: { duration: 0.5 } }}
           >
             <SimpleGrid
-              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
               spacing={5}
             >
               {filteredItems.map((item) => (

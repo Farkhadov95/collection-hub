@@ -82,15 +82,13 @@ const MainContent = () => {
       marginTop={5}
     >
       <Box
-        bgColor={colorMode === "dark" ? "gray.600" : "gray.200"}
+        bgColor={colorMode === "dark" ? "gray.700" : "gray.200"}
         boxSizing="border-box"
-        padding={3}
+        padding={5}
         borderRadius={10}
+        width={"fit-content"}
       >
-        <HStack
-          mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
-          alignItems={"flex-start"}
-        >
+        <HStack mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}>
           <Heading fontSize={{ base: "medium", md: "large" }}>
             {t("main.popularTags")}{" "}
           </Heading>

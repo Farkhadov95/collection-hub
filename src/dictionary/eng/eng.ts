@@ -21,6 +21,8 @@ export const main = {
     noTags: 'No items on selected tags',
     noItems: 'No items',
     noCollections: 'No collections',
+    allItems: 'All items',
+    allCollections: 'All collections',
 }
 
 export const tools = {

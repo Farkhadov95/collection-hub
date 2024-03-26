@@ -21,6 +21,8 @@ export const main = {
     noTags: 'Нет подходящих предметов',
     noItems: 'Нет предметов',
     noCollections: 'Нет коллекций',
+    allItems: 'Все предметы',
+    allCollections: 'Все коллекции',
 }
 
 export const tools = {

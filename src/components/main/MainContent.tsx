@@ -18,6 +18,8 @@ import { useTranslation } from "react-i18next";
 import MainItemSwiper from "./MainSwiper";
 import MainSwiper from "./MainSwiper";
 import SkeletonsGrid from "../skeletons/SkeletonsGrid";
+import { Link } from "react-router-dom";
+import { sortedItems } from "../../utils";
 
 const MainContent = () => {
   const collections = useCollectionStore((state) => state.collections);
@@ -30,7 +32,7 @@ const MainContent = () => {
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -46,12 +48,6 @@ const MainContent = () => {
         setIsLoading(false);
       });
   }, [handleFail, setCollections, setItems]);
-
-  const sortedItems = items.sort((a, b) => {
-    const dateA = new Date(a.createdAt);
-    const dateB = new Date(b.createdAt);
-    return dateB.getTime() - dateA.getTime();
-  });
 
   const tagsSet = new Set<string>();
   items.forEach((item) => {
@@ -135,21 +131,41 @@ const MainContent = () => {
         )}
       </Box>
       <Box mt={5}>
-        <Heading fontSize={{ base: "medium", md: "large" }} mb={3}>
-          {t("main.latest5Items")}
-        </Heading>
+        <HStack justifyContent={"space-between"} mb={5}>
+          <Heading fontSize={{ base: "medium", md: "large" }}>
+            {t("main.latest5Items")}
+          </Heading>
+          <Button
+            as={Link}
+            to={"items/all"}
+            variant="link"
+            textDecoration={"underline"}
+          >
+            Смотреть все
+          </Button>
+        </HStack>
         {isLoading ? (
           <SkeletonsGrid />
         ) : items.length !== 0 ? (
-          <MainItemSwiper items={sortedItems} />
+          <MainItemSwiper items={sortedItems(items)} />
         ) : (
           <Heading>{t("main.noItems")}</Heading>
         )}
       </Box>
       <Box mt={5}>
-        <Heading fontSize={{ base: "medium", md: "large" }} mb={3}>
-          {t("main.largest5Collections")}
-        </Heading>
+        <HStack justifyContent={"space-between"} mb={5}>
+          <Heading fontSize={{ base: "medium", md: "large" }}>
+            {t("main.largest5Collections")}
+          </Heading>
+          <Button
+            as={Link}
+            to={"collections/all"}
+            variant="link"
+            textDecoration={"underline"}
+          >
+            Смотреть все
+          </Button>
+        </HStack>
         {isLoading ? (
           <SkeletonsGrid />
         ) : collections.length !== 0 ? (

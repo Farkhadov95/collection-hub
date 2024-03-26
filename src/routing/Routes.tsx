@@ -12,6 +12,8 @@ import Admin from "../pages/Admin";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminRoutes from "./AdminRoutes";
 import EditItem from "../pages/EditItem";
+import AllCollections from "../pages/AllCollections";
+import AllItems from "../pages/AllItems";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "collections/:id",
         element: <Collection />,
+      },
+      {
+        path: "collections/all",
+        element: <AllCollections />,
+      },
+      {
+        path: "items/all",
+        element: <AllItems />,
       },
       {
         path: "item/:id",

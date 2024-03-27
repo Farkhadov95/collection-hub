@@ -85,6 +85,7 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
           required
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
+          fontSize={{ base: "sm", md: "medium" }}
         >
           {availableTypes().map((type) => (
             <option key={type} value={type}>
@@ -95,6 +96,7 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
         <Input
           type="text"
           placeholder={t("collection.selectName")}
+          fontSize={{ base: "sm", md: "medium" }}
           required
           value={name}
           onChange={(e) => setName(e.target.value)}

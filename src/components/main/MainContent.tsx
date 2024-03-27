@@ -91,7 +91,11 @@ const MainContent = () => {
         width={"fit-content"}
         boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
       >
-        <HStack mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}>
+        <HStack
+          mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
+          flexDirection={{ base: "column", sm: "row" }}
+          alignItems={{ base: "flex-start" }}
+        >
           <Heading fontSize={{ base: "medium", md: "large" }}>
             {t("main.popularTags")}{" "}
           </Heading>
@@ -141,6 +145,7 @@ const MainContent = () => {
             to={"items/all"}
             variant="link"
             textDecoration={"underline"}
+            fontSize={{ base: "small", md: "medium" }}
           >
             {t("tools.seeAll")}
           </Button>
@@ -163,6 +168,7 @@ const MainContent = () => {
             to={"collections/all"}
             variant="link"
             textDecoration={"underline"}
+            fontSize={{ base: "small", md: "medium" }}
           >
             {t("tools.seeAll")}
           </Button>

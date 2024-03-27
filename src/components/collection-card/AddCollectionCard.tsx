@@ -90,7 +90,9 @@ const AddCollectionCard = () => {
     <>
       <Button variant="outline" onClick={onOpen}>
         <Icon as={IoMdAdd} />
-        <Text paddingLeft={1}>{t("tools.create")}</Text>
+        <Text paddingLeft={1} fontSize={{ base: "sm", sm: "medium" }}>
+          {t("tools.create")}
+        </Text>
       </Button>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />

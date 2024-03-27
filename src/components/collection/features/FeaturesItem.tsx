@@ -69,13 +69,16 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
       border={"1px solid"}
       boxSizing={"border-box"}
       borderRadius={10}
-      padding={{ base: 1, md: 2 }}
+      paddingX={{ base: 2 }}
+      paddingY={{ base: 1, md: 2 }}
     >
       <HStack position={"relative"}>
         <Badge colorScheme="green" fontSize={"2xs"}>
           {t(`types.${feature.fieldType}`)}
         </Badge>
-        <Text fontWeight={"bold"}>{feature.fieldName}</Text>
+        <Text fontWeight={"bold"} fontSize={{ base: "sm", md: "medium" }}>
+          {feature.fieldName}
+        </Text>
         <FeatureDelete feature={feature} handleDelete={handleDelete} />
       </HStack>
     </Box>

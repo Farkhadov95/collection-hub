@@ -10,9 +10,11 @@ type AboutProp = {
 const About = ({ currentCollection }: AboutProp) => {
   return (
     <Flex
-      height={{ base: "400px", sm: "350px", md: "300px" }}
+      mt={{ base: 3, md: 0 }}
+      height={"fit-content"}
       flexDirection={{ base: "column", md: "row" }}
       justifyContent={{ base: "center", md: "space-between" }}
+      alignItems={{ base: "center", md: "normal" }}
     >
       <Flex
         flexDirection={"column"}

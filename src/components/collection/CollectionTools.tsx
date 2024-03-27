@@ -17,13 +17,19 @@ const CollectionTools = () => {
   return (
     <HStack justifyContent={"space-between"} mb={5}>
       <HStack>
-        <Select placeholder={t("tools.sortBy")}>
+        <Select
+          placeholder={t("tools.sortBy")}
+          fontSize={{ base: "sm", md: "medium" }}
+        >
           <option value="old">{t("tools.sortOld")}</option>
           <option value="new">{t("tools.sortNew")}</option>
           <option value="nameAZ">{t("tools.sortNameAZ")}</option>
           <option value="nameZA">{t("tools.sortNameZA")}</option>
         </Select>
-        <Select placeholder={t("tools.filterBy")}>
+        <Select
+          placeholder={t("tools.filterBy")}
+          fontSize={{ base: "sm", md: "medium" }}
+        >
           <option value="image">{t("tools.filterImage")}</option>
           <option value="likes">{t("tools.filterLikes")}</option>
           <option value="comments">{t("tools.filterComments")}</option>
@@ -35,8 +41,10 @@ const CollectionTools = () => {
           to={`/collections/${collectionID}/create`}
           variant="outline"
         >
-          <Icon as={IoMdAdd} />
-          <Text paddingLeft={1}>{t("tools.create")}</Text>
+          <Icon as={IoMdAdd} display={{ base: "none", sm: "initial" }} />
+          <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
+            {t("tools.create")}
+          </Text>
         </Button>
       )}
     </HStack>

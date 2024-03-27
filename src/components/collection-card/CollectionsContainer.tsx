@@ -40,7 +40,7 @@ const CollectionContainer = () => {
           justifyContent={"space-between"}
           width={"100%"}
         >
-          <Heading fontSize={{ base: "xl", md: "2xl" }}>
+          <Heading fontSize={{ base: "medium", md: "large" }}>
             {t("nav.myCollections")}
           </Heading>
           <CollectionsItemCreate />

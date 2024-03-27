@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, HStack, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import CollectionTools from "../collection/CollectionTools";
 import ItemCard from "./ItemCard";
 import { useCollectionStore } from "../../store/store";
@@ -23,7 +23,6 @@ const ItemContainer = () => {
       .then((res) => {
         setUserItems(res);
         setIsLoading(false);
-        console.log(res);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
@@ -36,9 +35,11 @@ const ItemContainer = () => {
     <Box marginTop={5}>
       <CollectionTools />
       {userItems.length === 0 && (
-        <HStack justifyContent={"center"} paddingTop={"100px"}>
-          <Heading fontSize={"large"}>{t("item.noItems")}</Heading>
-        </HStack>
+        <VStack padding={"10%"}>
+          <HStack justifyContent={"center"}>
+            <Heading fontSize={"large"}>{t("item.noItems")}</Heading>
+          </HStack>
+        </VStack>
       )}
       {isLoading ? (
         <SkeletonsGrid />

@@ -43,8 +43,6 @@ const SearchResults = () => {
     return foundItems;
   };
 
-  console.log(searchedItems);
-
   return (
     <VStack alignItems={"start"} mt={5} padding={{ base: 0, md: 5 }}>
       <Heading fontSize={{ base: "large", md: "x-large" }}>

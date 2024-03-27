@@ -57,6 +57,7 @@ export const types = {
 export const item = {
     collection: 'Collection:',
     additionalInfo: 'Additional information:',
+    collections: 'Collections:',
     items: 'Items:',
     comments: 'Comments:',
     noComments: 'No comments yet.',

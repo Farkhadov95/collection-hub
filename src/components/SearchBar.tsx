@@ -24,6 +24,7 @@ import {
 import { IoMdClose } from "react-icons/io";
 import { useOutsideClick } from "@chakra-ui/react";
 import { useNonPersistStore } from "../store/store";
+import { useTranslation } from "react-i18next";
 
 const SearchBar = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const SearchBar = () => {
   const [formData, setFormData] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   const searchedItems = useNonPersistStore((state) => state.searchedItems);
   const setSearchedItems = useNonPersistStore(
@@ -157,7 +159,7 @@ const SearchBar = () => {
                 whiteSpace={"nowrap"}
                 color={colorMode === "dark" ? "green.200" : "green.500"}
               >
-                Collections ({searchedCollections.length})
+                {t("item.collections")} ({searchedCollections.length})
               </Text>
               <Divider />
 
@@ -191,7 +193,7 @@ const SearchBar = () => {
                   >
                     {collection.name}
                   </Text>
-                  <Tag colorScheme="green">
+                  <Tag colorScheme="green" size={"sm"}>
                     {`${getPercent(collection.normalizedScore)}%`}
                   </Tag>
                 </HStack>
@@ -206,7 +208,7 @@ const SearchBar = () => {
                 whiteSpace={"nowrap"}
                 color={colorMode === "dark" ? "green.200" : "green.500"}
               >
-                Items ({searchedItems.length})
+                {t("item.items")} ({searchedItems.length})
               </Text>
               <Divider />
             </HStack>
@@ -227,7 +229,7 @@ const SearchBar = () => {
                   >
                     {item.name}
                   </Text>
-                  <Tag colorScheme="green">
+                  <Tag colorScheme="green" size={"sm"}>
                     {`${getPercent(item.normalizedScore)}%`}
                   </Tag>
                 </HStack>
@@ -242,7 +244,7 @@ const SearchBar = () => {
                 whiteSpace={"nowrap"}
                 color={colorMode === "dark" ? "green.200" : "green.500"}
               >
-                Comments ({searchedComments.length})
+                {t("item.comments")} ({searchedComments.length})
               </Text>
               <Divider />
             </HStack>
@@ -258,7 +260,7 @@ const SearchBar = () => {
                 >
                   {comment.comment}
                 </Text>
-                <Tag colorScheme="green">
+                <Tag colorScheme="green" size={"sm"}>
                   {`${getPercent(comment.normalizedScore)}%`}
                 </Tag>
               </HStack>

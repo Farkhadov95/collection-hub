@@ -57,8 +57,9 @@ export const types = {
 export const item = {
     collection: 'Коллекция:',
     additionalInfo: 'Дополнительная информация:',
-    items: 'Предметов:',
-    comments: 'Комментариев:',
+    collections: "Коллекции:",
+    items: 'Предметы:',
+    comments: 'Комментарии:',
     noComments: 'Пока комментариев нет.',
     commentRequired: 'Комментарий обязателен',
     noItem: 'Нет предмета',

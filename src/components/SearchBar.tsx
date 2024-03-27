@@ -10,20 +10,28 @@ import {
   InputGroup,
   InputRightElement,
   useColorMode,
+  Tag,
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import useErrorHandler from "../hooks/useError";
-import { Link, useNavigate } from "react-router-dom";
-import { searchComments, searchItems } from "../services/service";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  searchComments,
+  searchItems,
+  searchCollections,
+} from "../services/service";
 import { IoMdClose } from "react-icons/io";
 import { useOutsideClick } from "@chakra-ui/react";
 import { useNonPersistStore } from "../store/store";
 
 const SearchBar = () => {
+  const location = useLocation();
+  const { pathname } = location;
   const [formData, setFormData] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const searchedItems = useNonPersistStore((state) => state.searchedItems);
   const setSearchedItems = useNonPersistStore(
     (state) => state.setSearchedItems
@@ -33,6 +41,13 @@ const SearchBar = () => {
   );
   const setSearchedComments = useNonPersistStore(
     (state) => state.setSearchedComments
+  );
+
+  const searchedCollections = useNonPersistStore(
+    (state) => state.searchedCollections
+  );
+  const setSearchedCollections = useNonPersistStore(
+    (state) => state.setSearchedCollections
   );
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
@@ -51,8 +66,13 @@ const SearchBar = () => {
     e.preventDefault();
     if (formData) {
       setIsLoading(true);
-      Promise.all([searchItems(formData), searchComments(formData)])
-        .then(([items, comments]) => {
+      Promise.all([
+        searchCollections(formData),
+        searchItems(formData),
+        searchComments(formData),
+      ])
+        .then(([collections, items, comments]) => {
+          setSearchedCollections(collections);
           setSearchedItems(items);
           setSearchedComments(comments);
           setIsOpen(true);
@@ -71,14 +91,21 @@ const SearchBar = () => {
     setIsOpen(false);
     setSearchedComments([]);
     setSearchedItems([]);
+    setSearchedCollections([]);
   };
 
-  const handleRedirect = (itemID: string) => {
-    navigate(`/item/${itemID}`);
+  const handleRedirect = (id: string, category: "item" | "collections") => {
+    navigate(`/${category}/${id}`);
     handleClear();
   };
 
   const { colorMode } = useColorMode();
+
+  const getPercent = (num: number) => {
+    return (Math.round((num + Number.EPSILON) * 100) / 100) * 100;
+  };
+
+  console.log(searchedCollections);
 
   return (
     <form
@@ -133,10 +160,11 @@ const SearchBar = () => {
                 whiteSpace={"nowrap"}
                 color={colorMode === "dark" ? "green.200" : "green.500"}
               >
-                Items ({searchedItems.length})
+                Collections ({searchedCollections.length})
               </Text>
               <Divider />
-              {searchedItems.length > 3 && (
+
+              {pathname !== "/search" && (
                 <Text
                   as={Link}
                   to={`/search`}
@@ -153,12 +181,59 @@ const SearchBar = () => {
               alignItems={"start"}
               divider={<StackDivider />}
             >
+              {searchedCollections.slice(0, 3).map((collection) => (
+                <HStack
+                  key={collection._id}
+                  width={"100%"}
+                  justifyContent={"space-between"}
+                >
+                  <Text
+                    onClick={() =>
+                      handleRedirect(collection._id, "collections")
+                    }
+                  >
+                    {collection.name}
+                  </Text>
+                  <Tag colorScheme="green">
+                    {`${getPercent(collection.normalizedScore)}%`}
+                  </Tag>
+                </HStack>
+              ))}
+            </VStack>
+          </Box>
+
+          <Box width={"100%"}>
+            <HStack mb={1}>
+              <Text
+                fontSize={"small"}
+                whiteSpace={"nowrap"}
+                color={colorMode === "dark" ? "green.200" : "green.500"}
+              >
+                Items ({searchedItems.length})
+              </Text>
+              <Divider />
+            </HStack>
+            <VStack
+              width={"100%"}
+              alignItems={"start"}
+              divider={<StackDivider />}
+            >
               {searchedItems.slice(0, 3).map((item) => (
-                <Box key={item._id} width={"100%"}>
-                  <Text onClick={() => handleRedirect(item._id)} width={"100%"}>
+                <HStack
+                  key={item._id}
+                  width={"100%"}
+                  justifyContent={"space-between"}
+                >
+                  <Text
+                    onClick={() => handleRedirect(item._id, "item")}
+                    width={"100%"}
+                  >
                     {item.name}
                   </Text>
-                </Box>
+                  <Tag colorScheme="green">
+                    {`${getPercent(item.normalizedScore)}%`}
+                  </Tag>
+                </HStack>
               ))}
             </VStack>
           </Box>
@@ -175,14 +250,21 @@ const SearchBar = () => {
               <Divider />
             </HStack>
             {searchedComments.slice(0, 3).map((comment) => (
-              <Box key={comment._id} width={"100%"}>
+              <HStack
+                key={comment._id}
+                width={"100%"}
+                justifyContent={"space-between"}
+              >
                 <Text
-                  onClick={() => handleRedirect(comment.itemID)}
+                  onClick={() => handleRedirect(comment.itemID, "item")}
                   width={"100%"}
                 >
                   {comment.comment}
                 </Text>
-              </Box>
+                <Tag colorScheme="green">
+                  {`${getPercent(comment.normalizedScore)}%`}
+                </Tag>
+              </HStack>
             ))}
           </Box>
         </VStack>

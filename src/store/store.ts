@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Collection, ItemType, currentUser, userInfo, Comment, ItemSearch, commentSearch } from "../types/types";
+import { Collection, ItemType, currentUser, userInfo, Comment, ItemSearch, CommentSearch, CollectionSearch } from "../types/types";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 
 const emptyCurrentUser = {
@@ -57,13 +57,15 @@ export const useCollectionStore = create<CollectionStore>()(
     commentLoading: boolean,
     featuresLoading: boolean,
     searchedItems: ItemSearch[],
-    searchedComments: commentSearch[],
+    searchedComments: CommentSearch[],
+    searchedCollections: CollectionSearch[],
     setUserError: (userError: string) => void,
     setError: (error: string) => void,
     setCommentLoading: (loading: boolean) => void,
     setFeaturesLoading: (loading: boolean) => void,
     setSearchedItems: (searchedItems: ItemSearch[]) => void,
-    setSearchedComments: (searchedComments: commentSearch[]) => void,
+    setSearchedComments: (searchedComments: CommentSearch[]) => void,
+    setSearchedCollections: (searchedCollections: CollectionSearch[]) => void,
   }
 
   export const useNonPersistStore = create<nonPersistStore>((set) => ({
@@ -73,12 +75,14 @@ export const useCollectionStore = create<CollectionStore>()(
     featuresLoading: false,
     searchedItems: [],
     searchedComments: [],
+    searchedCollections: [],
     setUserError: (userError: string) => set({ userError }),
     setError: (error: string) => set({ error }),
     setCommentLoading: (commentLoading: boolean) => set({ commentLoading }),
     setFeaturesLoading: (featuresLoading: boolean) => set({ featuresLoading }),
     setSearchedItems: (searchedItems: ItemSearch[]) => set({ searchedItems }),
-    setSearchedComments: (searchedComments: commentSearch[]) => set({ searchedComments }),
+    setSearchedComments: (searchedComments: CommentSearch[]) => set({ searchedComments }),
+    setSearchedCollections: (searchedCollections: CollectionSearch[]) => set({ searchedCollections }),
   }))
 
   if (process.env.NODE_ENV === "development") {

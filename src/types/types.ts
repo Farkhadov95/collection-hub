@@ -109,24 +109,35 @@ export type currentUser = {
   isAdmin: boolean,
 }
 
-export type commentSearch = {
+export type CommentSearch = {
     _id: string,
     userID: string,
     username: string,
     collectionID: string,
     itemID: string,
-    score: number,
     comment: string,
+    score: number,
+    maxScore: number,
+    normalizedScore: number,
     updatedAt: Date,
     createdAt: Date,
 }
 
 export type ItemSearch = {
   _id: string,
-  score: string,
   name: string,
-  tags: string,
-  description: string,
+  score: string,
+  maxScore: number,
+  normalizedScore: number,
+}
+
+
+export type CollectionSearch = {
+  _id: string,
+  name: string,
+  score: string,
+  maxScore: number,
+  normalizedScore: number,
 }
 
 export type Comment = {

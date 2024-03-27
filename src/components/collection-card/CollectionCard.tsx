@@ -113,16 +113,13 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         </Flex>
       </CardHeader>
       <CardBody
-        paddingTop={0}
+        paddingY={0}
+        mb={5}
         height={"50px"}
         overflow={"hidden"}
         fontSize={"sm"}
       >
-        <Markdown>
-          {collection.description.length > 50
-            ? collection.description.slice(0, 48).concat("  ...")
-            : collection.description}
-        </Markdown>
+        <Markdown>{collection.description}</Markdown>
       </CardBody>
       <Image
         height={"300px"}

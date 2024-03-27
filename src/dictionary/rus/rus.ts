@@ -12,6 +12,7 @@ export const nav = {
     name: "Имя",
     password: "Пароль",
     confirmPassword: "Подтвердите пароль",
+    mainMenu: 'Основное меню'
 }
 
 export const main = {

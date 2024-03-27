@@ -12,6 +12,7 @@ export const nav = {
     name: "Name",
     password: "Password",
     confirmPassword: "Confirm password",
+    mainMenu: 'Main menu'
 }
 
 export const main = {

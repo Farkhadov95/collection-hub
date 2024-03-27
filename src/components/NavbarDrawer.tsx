@@ -52,7 +52,9 @@ const NavbarDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">Main Menu</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">
+            {t("nav.mainMenu")}
+          </DrawerHeader>
 
           <DrawerBody
             display={"flex"}

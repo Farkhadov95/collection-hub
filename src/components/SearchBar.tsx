@@ -52,6 +52,7 @@ const SearchBar = () => {
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
   const resultRef = useRef(null);
+  const { colorMode } = useColorMode();
 
   useOutsideClick({
     ref: resultRef,
@@ -99,13 +100,9 @@ const SearchBar = () => {
     handleClear();
   };
 
-  const { colorMode } = useColorMode();
-
   const getPercent = (num: number) => {
     return (Math.round((num + Number.EPSILON) * 100) / 100) * 100;
   };
-
-  console.log(searchedCollections);
 
   return (
     <form

@@ -135,6 +135,7 @@ const MainContent = () => {
             <SimpleGrid
               columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
               spacing={5}
+              mt={{ base: 2, sm: 0 }}
             >
               {filteredItems.map((item) => (
                 <ItemCard key={item._id} item={item} />

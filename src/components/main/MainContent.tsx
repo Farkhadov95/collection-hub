@@ -7,6 +7,7 @@ import {
   Button,
   useColorMode,
   Collapse,
+  Spinner,
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
@@ -33,6 +34,7 @@ const MainContent = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,6 +42,7 @@ const MainContent = () => {
       .then(([collectionsRes, itemsRes]) => {
         setCollections(collectionsRes);
         setItems(itemsRes);
+        generateTags(itemsRes);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -49,12 +52,15 @@ const MainContent = () => {
       });
   }, [handleFail, setCollections, setItems]);
 
-  const tagsSet = new Set<string>();
-  items.forEach((item) => {
-    const tagsArray = item.tags.split(" ");
-    tagsArray.forEach((tag) => tagsSet.add(tag));
-  });
-  const uniqueTags = Array.from(tagsSet);
+  const generateTags = (items: ItemType[]) => {
+    const tagsSet = new Set<string>();
+    items.forEach((item) => {
+      const tagsArray = item.tags.split(" ");
+      tagsArray.forEach((tag) => tagsSet.add(tag));
+    });
+    const uniqueTags = Array.from(tagsSet);
+    setTags(uniqueTags);
+  };
 
   const handleSelectTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -100,20 +106,24 @@ const MainContent = () => {
             {t("main.popularTags")}{" "}
           </Heading>
           <HStack flexWrap={"wrap"} gap={1}>
-            {uniqueTags.map((tag: string, index: number) => (
-              <Button
-                variant={"outline"}
-                colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
-                borderRadius={10}
-                key={index}
-                fontSize={{ base: "small", md: "medium" }}
-                height={"fit-content"}
-                paddingY={1}
-                onClick={() => handleSelectTag(tag)}
-              >
-                {tag}
-              </Button>
-            ))}
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              tags.map((tag: string, index: number) => (
+                <Button
+                  variant={"outline"}
+                  colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
+                  borderRadius={10}
+                  key={index}
+                  fontSize={{ base: "small", md: "medium" }}
+                  height={"fit-content"}
+                  paddingY={1}
+                  onClick={() => handleSelectTag(tag)}
+                >
+                  {tag}
+                </Button>
+              ))
+            )}
           </HStack>
         </HStack>
 

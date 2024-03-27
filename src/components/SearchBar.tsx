@@ -120,16 +120,18 @@ const SearchBar = () => {
             value={formData}
             onChange={handleChange}
           />
-          <InputRightElement>
-            <IconButton
-              icon={<IoMdClose />}
-              variant={"ghost"}
-              colorScheme="green"
-              size="18rem"
-              aria-label={"clear"}
-              onClick={handleClear}
-            />
-          </InputRightElement>
+          {formData.length > 0 && (
+            <InputRightElement>
+              <IconButton
+                icon={<IoMdClose />}
+                variant={"ghost"}
+                colorScheme="green"
+                size="18rem"
+                aria-label={"clear"}
+                onClick={handleClear}
+              />
+            </InputRightElement>
+          )}
         </InputGroup>
         <IconButton
           isLoading={isLoading}

@@ -94,7 +94,7 @@ const MainContent = () => {
         <HStack
           mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
           flexDirection={{ base: "column", sm: "row" }}
-          alignItems={{ base: "flex-start" }}
+          alignItems={{ base: "flex-start", sm: "center" }}
         >
           <Heading fontSize={{ base: "medium", md: "large" }}>
             {t("main.popularTags")}{" "}

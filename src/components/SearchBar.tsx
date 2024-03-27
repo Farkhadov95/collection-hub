@@ -14,18 +14,26 @@ import {
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import useErrorHandler from "../hooks/useError";
-import { commentSearch, ItemSearch } from "../types/types";
 import { Link, useNavigate } from "react-router-dom";
 import { searchComments, searchItems } from "../services/service";
 import { IoMdClose } from "react-icons/io";
 import { useOutsideClick } from "@chakra-ui/react";
+import { useNonPersistStore } from "../store/store";
 
 const SearchBar = () => {
   const [formData, setFormData] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [searchedComments, setSearchedComments] = useState<commentSearch[]>([]);
-  const [searchedItems, setSearchedItems] = useState<ItemSearch[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const searchedItems = useNonPersistStore((state) => state.searchedItems);
+  const setSearchedItems = useNonPersistStore(
+    (state) => state.setSearchedItems
+  );
+  const searchedComments = useNonPersistStore(
+    (state) => state.searchedComments
+  );
+  const setSearchedComments = useNonPersistStore(
+    (state) => state.setSearchedComments
+  );
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
   const resultRef = useRef(null);
@@ -61,6 +69,8 @@ const SearchBar = () => {
   const handleClear = () => {
     setFormData("");
     setIsOpen(false);
+    setSearchedComments([]);
+    setSearchedItems([]);
   };
 
   const handleRedirect = (itemID: string) => {
@@ -108,7 +118,6 @@ const SearchBar = () => {
           ref={resultRef}
           bgColor={colorMode === "dark" ? "gray.600" : "gray.300"}
           mt={1}
-          divider={<Divider />}
           borderRadius={"0 0 10px 10px"}
           padding={2}
           alignItems={"start"}
@@ -118,7 +127,7 @@ const SearchBar = () => {
           zIndex={1000}
         >
           <Box width={"100%"}>
-            <HStack>
+            <HStack mb={1}>
               <Text
                 fontSize={"small"}
                 whiteSpace={"nowrap"}
@@ -130,6 +139,7 @@ const SearchBar = () => {
               {searchedItems.length > 3 && (
                 <Text
                   as={Link}
+                  to={`/search`}
                   fontSize={"small"}
                   color={colorMode === "dark" ? "green.200" : "green.500"}
                   whiteSpace={"nowrap"}
@@ -154,7 +164,7 @@ const SearchBar = () => {
           </Box>
 
           <Box width={"100%"}>
-            <HStack>
+            <HStack mb={1}>
               <Text
                 fontSize={"small"}
                 whiteSpace={"nowrap"}
@@ -163,16 +173,6 @@ const SearchBar = () => {
                 Comments ({searchedComments.length})
               </Text>
               <Divider />
-              {searchedComments.length > 3 && (
-                <Text
-                  as={Link}
-                  fontSize={"small"}
-                  color={colorMode === "dark" ? "green.200" : "green.500"}
-                  whiteSpace={"nowrap"}
-                >
-                  See all
-                </Text>
-              )}
             </HStack>
             {searchedComments.slice(0, 3).map((comment) => (
               <Box key={comment._id} width={"100%"}>

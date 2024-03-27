@@ -23,6 +23,7 @@ export const main = {
     noCollections: 'Нет коллекций',
     allItems: 'Все предметы',
     allCollections: 'Все коллекции',
+    searchResults: 'Результаты поиска',
 }
 
 export const tools = {
@@ -56,6 +57,7 @@ export const types = {
 export const item = {
     collection: 'Коллекция:',
     additionalInfo: 'Дополнительная информация:',
+    items: 'Предметов:',
     comments: 'Комментариев:',
     noComments: 'Пока комментариев нет.',
     commentRequired: 'Комментарий обязателен',

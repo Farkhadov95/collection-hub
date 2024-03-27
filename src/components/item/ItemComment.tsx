@@ -1,4 +1,12 @@
-import { Text, HStack, Box, Card, CardBody, Heading } from "@chakra-ui/react";
+import {
+  Text,
+  HStack,
+  Box,
+  Card,
+  CardBody,
+  Heading,
+  useColorMode,
+} from "@chakra-ui/react";
 import moment from "moment";
 import { Comment } from "../../types/types";
 
@@ -9,9 +17,10 @@ type ItemCommentProp = {
 const ItemComment = ({ comment }: ItemCommentProp) => {
   const createdTime = comment.createdAt;
   const formattedTime = moment(createdTime).fromNow();
+  const { colorMode } = useColorMode();
 
   return (
-    <Card>
+    <Card bgColor={colorMode === "dark" ? "gray.600" : "gray.300"}>
       <CardBody>
         <Box>
           <HStack spacing={3} alignItems={"baseline"}>

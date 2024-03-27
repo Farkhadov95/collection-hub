@@ -14,6 +14,7 @@ import AdminRoutes from "./AdminRoutes";
 import EditItem from "../pages/EditItem";
 import AllCollections from "../pages/AllCollections";
 import AllItems from "../pages/AllItems";
+import SearchResults from "../pages/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "item/:id",
         element: <Item />,
+      },
+      {
+        path: "search",
+        element: <SearchResults />,
       },
       {
         path: "collections/:id/create",

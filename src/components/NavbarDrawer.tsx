@@ -64,7 +64,7 @@ const NavbarDrawer = () => {
             my={5}
           >
             <VStack alignItems={"end"} spacing={5}>
-              <SearchBar />
+              <SearchBar onClose={onClose} />
               {token &&
                 pathname !== "/login" &&
                 pathname !== "/signup" &&

@@ -165,6 +165,10 @@ const AddCollectionCard = () => {
                         value: true,
                         message: "Please enter description",
                       },
+                      maxLength: {
+                        value: 500,
+                        message: "Maximum length - 500 characters",
+                      },
                     })}
                     id="desc"
                   />

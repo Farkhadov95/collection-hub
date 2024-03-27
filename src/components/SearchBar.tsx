@@ -26,7 +26,11 @@ import { useOutsideClick } from "@chakra-ui/react";
 import { useNonPersistStore } from "../store/store";
 import { useTranslation } from "react-i18next";
 
-const SearchBar = () => {
+type SearchBarProps = {
+  onClose?: () => void;
+};
+
+const SearchBar = ({ onClose }: SearchBarProps) => {
   const location = useLocation();
   const { pathname } = location;
   const [formData, setFormData] = useState("");
@@ -95,6 +99,7 @@ const SearchBar = () => {
     setSearchedComments([]);
     setSearchedItems([]);
     setSearchedCollections([]);
+    if (onClose) onClose();
   };
 
   const handleRedirect = (id: string, category: "item" | "collections") => {

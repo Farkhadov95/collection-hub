@@ -220,6 +220,10 @@ const AddItem = () => {
                         value: true,
                         message: "Description is required",
                       },
+                      maxLength: {
+                        value: 500,
+                        message: "Maximum length - 500 characters",
+                      },
                     })}
                     id="desc"
                     required={true}

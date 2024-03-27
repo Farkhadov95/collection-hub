@@ -93,6 +93,10 @@ const ItemComments = () => {
                   value: true,
                   message: "Comment is required",
                 },
+                maxLength: {
+                  value: 300,
+                  message: "Maximum length - 300 characters",
+                },
               })}
               border={"1px solid"}
               borderColor={errors.comment ? "red.300" : "gray.300"}

@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/store";
-import { IoIosArrowBack } from "react-icons/io";
 import useErrorHandler from "../hooks/useError";
 import {
   ItemType,
@@ -30,6 +29,8 @@ import { updateItem } from "../services/service";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { convertToBase64 } from "../utils";
+import BackButton from "../components/buttons/BackButton";
+import { useTranslation } from "react-i18next";
 
 const EditItem = () => {
   const itemID = useParams().id;
@@ -44,6 +45,7 @@ const EditItem = () => {
 
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -179,29 +181,25 @@ const EditItem = () => {
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <HStack justifyContent={"space-between"}>
-          <Heading size="lg">Edit Item</Heading>
+          <Heading size={{ base: "md", md: "lg" }}>
+            {t("item.editItem")}
+          </Heading>
           <HStack spacing={3}>
-            <Button
-              onClick={() => navigate(-1)}
-              variant={"outline"}
-              leftIcon={<IoIosArrowBack />}
-            >
-              Back
-            </Button>
+            <BackButton />
             <Button type="submit" variant={"outline"} colorScheme="green">
-              Save
+              {t("tools.save")}
             </Button>
           </HStack>
         </HStack>
         <Box>
           <Stack spacing={5} mt={5}>
-            <Heading fontSize={"large"}>Required fields:</Heading>
+            <Heading fontSize={"large"}>{t("item.requiredFields")}:</Heading>
 
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
               <VStack spacing={2} flexGrow={1} mr={5}>
                 <FormControl isRequired>
                   <HStack justify={"space-between"}>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t("nav.name")}</FormLabel>
                     <Text fontSize={"small"} paddingX={1} color={"red.300"}>
                       {errors.name?.message}
                     </Text>
@@ -221,7 +219,7 @@ const EditItem = () => {
                 </FormControl>
                 <FormControl isRequired>
                   <HStack justify={"space-between"}>
-                    <FormLabel htmlFor="tags">Tags</FormLabel>
+                    <FormLabel htmlFor="tags">{t("item.tags")}</FormLabel>
                     <Text fontSize={"small"} paddingX={1} color={"red.300"}>
                       {errors.tags?.message}
                     </Text>
@@ -250,7 +248,9 @@ const EditItem = () => {
               <Box flexGrow={1}>
                 <FormControl isRequired>
                   <HStack justify={"space-between"}>
-                    <FormLabel htmlFor="desc">Description</FormLabel>
+                    <FormLabel htmlFor="desc">
+                      {t("collection.description")}
+                    </FormLabel>
                     <Text fontSize={"small"} paddingX={1} color={"red.300"}>
                       {errors.description?.message}
                     </Text>
@@ -282,7 +282,7 @@ const EditItem = () => {
           <Divider my={5} />
 
           <Stack spacing={5}>
-            <Heading fontSize={"large"}>Optional fields:</Heading>
+            <Heading fontSize={"large"}>{t("item.optionalFields")}:</Heading>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
               <FormControl
                 border={"1px solid"}
@@ -304,9 +304,9 @@ const EditItem = () => {
                     marginRight={1}
                     height={"fit-content"}
                   >
-                    File
+                    {t("types.file")}
                   </Badge>
-                  Image
+                  {t("item.image")}
                 </FormLabel>
 
                 <Input
@@ -345,7 +345,7 @@ const EditItem = () => {
                       <>
                         <FormLabel alignItems={"center"}>
                           <Badge colorScheme="green" fontSize={"2xs"} mr={1}>
-                            {field.fieldType}
+                            {t(`types.${field.fieldType}`)}
                           </Badge>
                           {field.fieldName}
                         </FormLabel>

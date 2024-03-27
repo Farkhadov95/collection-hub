@@ -13,9 +13,9 @@ const ItemContainer = () => {
   const collectionID = useParams().id || "";
   const userItems = useCollectionStore((state) => state.userItems);
   const setUserItems = useCollectionStore((state) => state.setUserItems);
+  const [isLoading, setIsLoading] = useState(false);
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);

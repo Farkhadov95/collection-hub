@@ -1,13 +1,18 @@
-import { Heading, Image, Box, Flex } from "@chakra-ui/react";
+import { Heading, Image, Box, Flex, HStack } from "@chakra-ui/react";
 import { Collection } from "../../types/types";
 import placeholderImage from "../../assets/placeholder.jpg";
 import Markdown from "react-markdown";
+import { useCollectionStore } from "../../store/store";
+import EditCollectionCard from "../collection-card/EditCollectionCard";
 
 type AboutProp = {
   currentCollection: Collection;
 };
 
 const About = ({ currentCollection }: AboutProp) => {
+  const currentUser = useCollectionStore((state) => state.currentUser);
+  const isAuth =
+    currentUser._id === currentCollection?.userID || currentUser.isAdmin;
   return (
     <Flex
       mt={{ base: 3, md: 0 }}
@@ -23,7 +28,12 @@ const About = ({ currentCollection }: AboutProp) => {
         boxSizing={"border-box"}
         paddingRight={{ md: 10 }}
       >
-        <Heading size={"lg"}>{currentCollection.name}</Heading>
+        <HStack justifyContent={"space-between"}>
+          <Heading size={"lg"}>{currentCollection.name}</Heading>
+          {isAuth && (
+            <EditCollectionCard collection={currentCollection} isCard={false} />
+          )}
+        </HStack>
         <Box
           width={"100%"}
           textAlign={"justify"}

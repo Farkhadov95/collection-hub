@@ -35,6 +35,7 @@ export const tools = {
     create: 'Create',
     cancel: 'Cancel',
     update: 'Update',
+    save: 'Save',
     sortBy: 'Sort by:',
     sortOld: 'Old first',
     sortNew: 'New first',
@@ -53,6 +54,7 @@ export const types = {
     number: 'Number',
     date: 'Date',
     checkbox: 'Checkbox',
+    file: 'File',
 }
 
 export const item = {
@@ -65,6 +67,11 @@ export const item = {
     commentRequired: 'Comment is required.',
     noItem: 'No Item',
     noItems: 'No Items in this collection.',
+    editItem: 'Edit item',
+    requiredFields: 'Required fields',
+    optionalFields: 'Optional fields',
+    tags: 'Tags',
+    image: 'Image',
 }
 
 export const collection = {
@@ -72,7 +79,7 @@ export const collection = {
     customFields: 'Custom fields:',
     selectType: 'Select type:',
     selectName: 'Name:',
-    description: 'Description:',
+    description: 'Description',
     image: 'Image:',
     createdBy: 'Created by:',
     editCollectionTitle: 'Edit collection',

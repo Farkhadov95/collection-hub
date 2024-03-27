@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Heading,
   HStack,
   Tag,
@@ -8,14 +7,14 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
-import { Link, useParams } from "react-router-dom";
-import { FaEdit } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 import { ItemType } from "../../types/types";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
 import { useCollectionStore } from "../../store/store";
+import EditButton from "../buttons/EditItemButton";
 
 type ItemAboutProp = {
   item: ItemType;
@@ -34,65 +33,65 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
 
   return (
     <HStack
+      width={"100%"}
       justifyContent={"space-between"}
       flexDirection={{ base: "column", md: "row" }}
       gap={10}
     >
-      <VStack alignItems={"start"} spacing={5} width={{ base: "100%" }}>
-        <HStack justifyContent={"space-between"} width={"100%"}>
+      <VStack>
+        <VStack alignItems={"start"} spacing={5}>
           <Box>
             <Heading fontSize={"x-large"}>{item?.name}</Heading>
             <Text fontWeight={"bold"}>
               {t("item.collection")} {parentCollectionName}{" "}
             </Text>
           </Box>
-        </HStack>
-        <Markdown>{item?.description}</Markdown>
-        <HStack>
-          {tagsToArray?.map((tag, index) => (
-            <Tag key={index}>{tag}</Tag>
-          ))}
-        </HStack>
-        <Box>
-          <Text fontWeight={"bold"} mb={1}>
-            {t("item.additionalInfo")}{" "}
-          </Text>
-          {item.fields.map((field, index) => {
-            return (
+          <Box width={{ base: "250px", sm: "300px", lg: "600px", xl: "800px" }}>
+            <Markdown>{item?.description}</Markdown>
+          </Box>
+
+          <HStack>
+            {tagsToArray?.map((tag, index) => (
+              <Tag key={index}>{tag}</Tag>
+            ))}
+          </HStack>
+          <Box>
+            <Text fontWeight={"bold"} mb={1}>
+              {t("item.additionalInfo")}{" "}
+            </Text>
+            {item.fields.map((field, index) => (
               <HStack key={index}>
                 <Text fontWeight={"bold"}>{field.fieldName}:</Text>
                 <Text>{field.fieldValue}</Text>
               </HStack>
-            );
-          })}
-        </Box>
+            ))}
+          </Box>
+        </VStack>
       </VStack>
 
-      {isAuth && (
-        <VStack height={"300px"} justifyContent={"space-between"}>
-          <Button
-            variant={"outline"}
-            colorScheme="white"
-            as={Link}
-            to={`/item/edit/${item._id}`}
-            leftIcon={<FaEdit />}
-          >
-            {t("tools.edit")}
-          </Button>
-          <LikeButton item={item} />
-        </VStack>
-      )}
-
-      <Box width={"300px"}>
+      <VStack width={"250px"} alignItems={"end"}>
         <Image
           height={"300px"}
-          width={"auto"}
+          width={"100%"}
           alt={item.name}
           objectFit="cover"
           objectPosition={item.image ? "0 0" : "center"}
           src={item.image !== "" ? item.image : placeholderImage}
         />
-      </Box>
+        {isAuth && (
+          <HStack
+            justifyContent={"end"}
+            border={"1px solid"}
+            width={"100%"}
+            boxSizing="border-box"
+            paddingX={3}
+            borderRadius={10}
+          >
+            <EditButton itemID={item._id} />
+            <LikeButton item={item} />
+          </HStack>
+        )}
+      </VStack>
     </HStack>
   );
 };

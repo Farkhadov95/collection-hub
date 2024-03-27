@@ -35,6 +35,7 @@ export const tools = {
     create: 'Создать',
     cancel: 'Отмена',
     update: 'Обновить',
+    save: 'Сохранить',
     sortBy: 'Сортировка:',
     sortOld: 'Сначала старые',
     sortNew: 'Сначала новые',
@@ -53,6 +54,7 @@ export const types = {
     number: 'Число',
     date: 'Дата',
     checkbox: 'Чекбокс',
+    file: 'Файл',
 }
 
 export const item = {
@@ -65,6 +67,11 @@ export const item = {
     commentRequired: 'Комментарий обязателен',
     noItem: 'Нет предмета',
     noItems: 'Нет предметов в этой коллекций.',
+    editItem: 'Редактирование предмета',
+    requiredFields: 'Обязательные поля',
+    optionalFields: 'Дополнительные поля',
+    tags: 'Теги',
+    image: 'Изображение',
 }
 
 export const collection = {
@@ -72,7 +79,7 @@ export const collection = {
     customFields: "Дополнительные поля:",
     selectType: "Выберите тип:",
     selectName: "Название:",
-    description: "Описание:",
+    description: "Описание",
     image: "Изображение:",
     createdBy: 'Автор:',
     editCollectionTitle: 'Редактировать коллекцию',

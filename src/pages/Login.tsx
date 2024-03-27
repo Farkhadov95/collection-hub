@@ -11,7 +11,6 @@ import {
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, user } from "../types/types";
-import { DevTool } from "@hookform/devtools";
 import { loginUser } from "../services/user";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";
@@ -19,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const form = useForm<user>();
-  const { register, handleSubmit, control, formState } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const { handleUserFail } = useErrorHandler();
   const navigate = useNavigate();
@@ -114,7 +113,6 @@ const Login = () => {
           </Button>
         </HStack>
       </Box>
-      <DevTool control={control} />
     </>
   );
 };

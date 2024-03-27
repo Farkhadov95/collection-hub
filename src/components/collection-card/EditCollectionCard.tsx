@@ -15,6 +15,7 @@ import {
   Text,
   FormControl,
   Select,
+  IconButton,
 } from "@chakra-ui/react";
 import { ChangeEvent, useRef, useState } from "react";
 import { updateCollection } from "../../services/service";
@@ -24,12 +25,17 @@ import { Collection, collectionFormData } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { convertToBase64 } from "../../utils";
 import { useTranslation } from "react-i18next";
+import { FaEdit } from "react-icons/fa";
 
 type EditCollectionCard = {
   collection: Collection;
+  isCard: boolean;
 };
 
-const EditCollectionCard = ({ collection }: EditCollectionCard) => {
+const EditCollectionCard = ({
+  collection,
+  isCard = true,
+}: EditCollectionCard) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef<HTMLInputElement>(null);
   const collections = useCollectionStore((state) => state.collections);
@@ -99,9 +105,20 @@ const EditCollectionCard = ({ collection }: EditCollectionCard) => {
 
   return (
     <>
-      <Text display={"block"} width={"100%"} onClick={onOpen}>
-        {t("tools.edit")}
-      </Text>
+      {isCard ? (
+        <Text display={"block"} width={"100%"} onClick={onOpen}>
+          {t("tools.edit")}
+        </Text>
+      ) : (
+        <IconButton
+          aria-label="Edit"
+          variant={"ghost"}
+          colorScheme="white"
+          icon={<FaEdit />}
+          onClick={onOpen}
+        />
+      )}
+
       <Drawer
         isOpen={isOpen}
         placement="right"

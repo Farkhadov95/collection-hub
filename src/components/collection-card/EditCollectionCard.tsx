@@ -29,7 +29,7 @@ import { FaEdit } from "react-icons/fa";
 
 type EditCollectionCard = {
   collection: Collection;
-  isCard: boolean;
+  isCard?: boolean;
 };
 
 const EditCollectionCard = ({

@@ -113,7 +113,7 @@ export const admin = {
     unmakeAdmin: 'Unmake admin',
     deleteUser: 'Delete user',
     active: 'Active',
-    inactive: 'Inactive',
+    inactive: 'Disabled',
 }
 
 export const dictionaryENG = {

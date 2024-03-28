@@ -17,8 +17,8 @@ export const nav = {
 
 export const main = {
     popularTags: "Popular tags:",
-    latest5Items: 'Top 5 latest items:',
-    largest5Collections: 'Top 5 largest collections:',
+    latest5Items: 'Top 5 newest items:',
+    largest5Collections: 'Top 5 biggest collections:',
     noTags: 'No items on selected tags',
     noItems: 'No items',
     noCollections: 'No collections',

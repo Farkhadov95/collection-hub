@@ -13,11 +13,6 @@ type MainSwiperProp = {
 };
 
 const MainSwiper = ({ items, collections }: MainSwiperProp) => {
-  if (items && collections) {
-    console.log("Choose either items or collections, not both");
-    return;
-  }
-
   return (
     <Box>
       <Swiper

@@ -18,6 +18,12 @@ export const getCollections = async () => {
   return data;
 }
 
+export const getBiggestCollections = async () => {
+  const res = await fetch(`${URL}${ApiRoutes.collections}biggest`);
+  const data = await res.json();
+  return data;
+}
+
 export const getUserCollection = async (userId: string) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');

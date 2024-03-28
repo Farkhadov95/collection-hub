@@ -11,10 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
-import { getAllItems, getCollections } from "../../services/service";
+import {
+  getAllItems,
+  getBiggestCollections,
+  getCollections,
+} from "../../services/service";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
-import { ItemType } from "../../types/types";
+import { Collection, ItemType } from "../../types/types";
 import { useTranslation } from "react-i18next";
 import MainItemSwiper from "./MainSwiper";
 import MainSwiper from "./MainSwiper";
@@ -23,7 +27,6 @@ import { Link } from "react-router-dom";
 import { sortedItems } from "../../utils";
 
 const MainContent = () => {
-  const collections = useCollectionStore((state) => state.collections);
   const setCollections = useCollectionStore((state) => state.setCollections);
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
@@ -34,15 +37,17 @@ const MainContent = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [bigCollections, setBigCollections] = useState<Collection[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([getCollections(), getAllItems()])
-      .then(([collectionsRes, itemsRes]) => {
+    Promise.all([getCollections(), getAllItems(), getBiggestCollections()])
+      .then(([collectionsRes, itemsRes, biggestCollectionsRes]) => {
         setCollections(collectionsRes);
         setItems(itemsRes);
         generateTags(itemsRes);
+        setBigCollections(biggestCollectionsRes);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -186,8 +191,8 @@ const MainContent = () => {
         </HStack>
         {isLoading ? (
           <SkeletonsGrid />
-        ) : collections.length !== 0 ? (
-          <MainSwiper collections={collections} />
+        ) : bigCollections ? (
+          <MainSwiper collections={bigCollections} />
         ) : (
           <Heading>{t("main.noCollections")}</Heading>
         )}

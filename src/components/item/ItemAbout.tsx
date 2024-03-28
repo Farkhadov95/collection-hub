@@ -14,7 +14,7 @@ import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
 import { useCollectionStore } from "../../store/store";
-import EditButton from "../buttons/EditItemButton";
+import EditButton from "../buttons/EditButton";
 
 type ItemAboutProp = {
   item: ItemType;

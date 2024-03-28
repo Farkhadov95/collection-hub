@@ -81,7 +81,7 @@ export const convertToBase64 = (file: Blob) => {
 };
 
 export const sortedItems = (items: ItemType[]) => items.sort((a, b) => {
-const dateA = new Date(a.createdAt);
-const dateB = new Date(b.createdAt);
-return dateB.getTime() - dateA.getTime();
+  const dateA = new Date(a.createdAt);
+  const dateB = new Date(b.createdAt);
+  return dateB.getTime() - dateA.getTime();
 });

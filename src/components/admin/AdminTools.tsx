@@ -5,6 +5,7 @@ import { userInfo } from "../../types/types";
 import { deleteUsers, updateUsers } from "../../services/user";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
+import { useTranslation } from "react-i18next";
 
 type AdminToolsProp = {
   selected: userInfo[];
@@ -53,34 +54,55 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
     return isAdminCount > selected.length / 2;
   };
 
+  const { t } = useTranslation();
+
   return (
-    <>
-      <HStack spacing={2}>
-        {selectedMajority() ? (
-          <Button
-            variant="outline"
-            colorScheme="yellow"
-            onClick={() => handleStatusUpdate(false)}
-          >
-            <Icon as={MdBlockFlipped} />
-            <Text paddingLeft={1}>Remove Admin</Text>
-          </Button>
-        ) : (
-          <Button
-            variant="outline"
-            colorScheme="green"
-            onClick={() => handleStatusUpdate(true)}
-          >
-            <Icon as={IoMdAdd} />
-            <Text paddingLeft={1}>Make Admin</Text>
-          </Button>
-        )}
-        <Button variant="outline" colorScheme="red" onClick={handleUserDelete}>
-          <Icon as={MdDeleteForever} />
-          <Text paddingLeft={1}>Delete User</Text>
+    <HStack
+      spacing={2}
+      width={{ base: "100%", sm: "fit-content" }}
+      flexDirection={{ base: "column", sm: "row" }}
+      alignItems={{ base: "start", sm: "center" }}
+    >
+      {selectedMajority() ? (
+        <Button
+          variant="outline"
+          colorScheme="yellow"
+          onClick={() => handleStatusUpdate(false)}
+          boxSizing="border-box"
+          padding={2}
+        >
+          <Icon as={MdBlockFlipped} />
+          <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
+            {t("admin.unmakeAdmin")}
+          </Text>
         </Button>
-      </HStack>
-    </>
+      ) : (
+        <Button
+          variant="outline"
+          colorScheme="green"
+          onClick={() => handleStatusUpdate(true)}
+          boxSizing="border-box"
+          padding={2}
+        >
+          <Icon as={IoMdAdd} />
+          <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
+            {t("admin.makeAdmin")}
+          </Text>
+        </Button>
+      )}
+      <Button
+        variant="outline"
+        colorScheme="red"
+        onClick={handleUserDelete}
+        boxSizing="border-box"
+        padding={2}
+      >
+        <Icon as={MdDeleteForever} />
+        <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
+          {t("admin.deleteUser")}
+        </Text>
+      </Button>
+    </HStack>
   );
 };
 

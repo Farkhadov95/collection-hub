@@ -1,16 +1,10 @@
 import {
-  TableContainer,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Tfoot,
   Heading,
   Box,
   HStack,
-  Text,
   Checkbox,
+  Text,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import AdminTableItem from "./AdminTableItem";
 import AdminTools from "./AdminTools";
@@ -18,6 +12,7 @@ import { getAllUsers } from "../../services/user";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { userInfo } from "../../types/types";
+import { useTranslation } from "react-i18next";
 
 const AdminsTable = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
@@ -53,48 +48,44 @@ const AdminsTable = () => {
   };
 
   const isAllSelected = () => selected.length === users.length;
-
-  console.log(selected);
+  const { t } = useTranslation();
 
   return (
-    <Box padding={5}>
-      <HStack marginBottom={5} justifyContent={"space-between"}>
-        <Heading fontSize="2xl">All Admins</Heading>
+    <Box paddingX={{ base: 0, md: 5 }} paddingY={{ base: 2, md: 5 }}>
+      <HStack
+        flexDirection={{ base: "column", md: "row" }}
+        alignItems={{ base: "start", md: "center" }}
+        justifyContent={"space-between"}
+      >
+        <Heading fontSize={{ base: "large", lg: "2xl" }} paddingY={2}>
+          {t("admin.allAdmins")}
+        </Heading>
         <AdminTools selected={selected} setSelected={setSelected} />
       </HStack>
-      <TableContainer>
-        <Table variant="striped" colorScheme={"teal.200"}>
-          <Thead>
-            <Tr>
-              <Th>
-                <Checkbox
-                  onChange={(e) => handleSelectAll(!e.target.checked)}
-                  isChecked={isAllSelected()}
-                >
-                  <Text fontSize={"12px"}>Select all</Text>
-                </Checkbox>
-              </Th>
-              <Th>User ID</Th>
-              <Th>Username</Th>
-              <Th>Email</Th>
-              <Th>Registration Time</Th>
-              <Th>Admin</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {users &&
-              users.map((user) => (
-                <AdminTableItem
-                  user={user}
-                  key={user._id}
-                  handleSelect={handleSelect}
-                  selected={selected.includes(user)}
-                />
-              ))}
-          </Tbody>
-          <Tfoot></Tfoot>
-        </Table>
-      </TableContainer>
+      <HStack mt={5} mb={3} justifyContent={"space-between"}>
+        <Checkbox
+          onChange={(e) => handleSelectAll(!e.target.checked)}
+          isChecked={isAllSelected()}
+        >
+          <Text fontSize={{ base: "small", sm: "medium" }} fontWeight={"bold"}>
+            {t("admin.selectAll")}
+          </Text>
+        </Checkbox>
+        <Text fontSize={{ base: "small", sm: "medium" }} fontWeight={"bold"}>
+          {t("admin.totalUsers")}: {users.length}
+        </Text>
+      </HStack>
+      <SimpleGrid columns={{ base: 1, sm: 2, lg: 3, "2xl": 4 }} gap={2}>
+        {users &&
+          users.map((user) => (
+            <AdminTableItem
+              user={user}
+              key={user._id}
+              handleSelect={handleSelect}
+              selected={selected.includes(user)}
+            />
+          ))}
+      </SimpleGrid>
     </Box>
   );
 };

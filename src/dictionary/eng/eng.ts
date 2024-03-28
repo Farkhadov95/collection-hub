@@ -101,6 +101,21 @@ export const collectionTopic = {
     other: 'Other',
 }
 
+export const admin = {
+    userID: 'User ID',
+    username: 'Username',
+    regTime: 'Registration time',
+    admin: 'Admin',
+    allAdmins: 'All Admins',
+    selectAll: 'Select all',
+    totalUsers: 'Total users',
+    makeAdmin: 'Make admin',
+    unmakeAdmin: 'Unmake admin',
+    deleteUser: 'Delete user',
+    active: 'Active',
+    inactive: 'Inactive',
+}
+
 export const dictionaryENG = {
     nav: nav,
     main: main,
@@ -109,4 +124,5 @@ export const dictionaryENG = {
     item: item,
     collection: collection,
     collectionTopic: collectionTopic,
+    admin: admin
 }

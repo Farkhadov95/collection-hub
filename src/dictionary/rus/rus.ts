@@ -101,6 +101,21 @@ export const collectionTopic = {
     other: 'Другое',
 }
 
+export const admin = {
+    userID: 'ID пользователя',
+    username: 'Имя пользователя',
+    regTime: 'Время регистрации',
+    admin: 'Админ',
+    allAdmins: 'Все Админы',
+    selectAll: 'Выбрать всеx',
+    totalUsers: 'Всего',
+    makeAdmin: 'Сделать админом',
+    unmakeAdmin: 'Удалить админа',
+    deleteUser: 'Удалить пользователя',
+    active: 'Активен',
+    inactive: 'Неактивен',
+}
+
 
 export const dictionaryRUS = {
     nav: nav,
@@ -110,4 +125,5 @@ export const dictionaryRUS = {
     item: item,
     collection: collection,
     collectionTopic: collectionTopic,
+    admin: admin
 }

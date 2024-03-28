@@ -8,12 +8,15 @@ import { getItems } from "../../services/service";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
 import SkeletonsGrid from "../skeletons/SkeletonsGrid";
+import { handleItemFilter, handleSort } from "../../utils";
 
 const ItemContainer = () => {
   const collectionID = useParams().id || "";
   const userItems = useCollectionStore((state) => state.userItems);
   const setUserItems = useCollectionStore((state) => state.setUserItems);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortType, setSortType] = useState("");
+  const [filterType, setFilterType] = useState("");
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
 
@@ -33,7 +36,7 @@ const ItemContainer = () => {
 
   return (
     <Box marginTop={5}>
-      <CollectionTools />
+      <CollectionTools setSort={setSortType} setFilter={setFilterType} />
       {userItems.length === 0 && (
         <VStack padding={"10%"}>
           <HStack justifyContent={"center"}>
@@ -50,7 +53,10 @@ const ItemContainer = () => {
           spacing={5}
         >
           {userItems &&
-            userItems.map((item) => <ItemCard key={item._id} item={item} />)}
+            handleSort(
+              handleItemFilter(userItems, filterType) || [],
+              sortType
+            )?.map((item) => <ItemCard key={item._id} item={item} />)}
         </SimpleGrid>
       )}
     </Box>

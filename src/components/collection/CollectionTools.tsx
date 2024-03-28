@@ -4,7 +4,12 @@ import { NavLink, useParams } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
 import { useTranslation } from "react-i18next";
 
-const CollectionTools = () => {
+type CollectionToolsProps = {
+  setSort: (sorting: string) => void;
+  setFilter: (filtering: string) => void;
+};
+
+const CollectionTools = ({ setSort, setFilter }: CollectionToolsProps) => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections.find((c) => c._id === collectionID);
@@ -20,19 +25,20 @@ const CollectionTools = () => {
         <Select
           placeholder={t("tools.sortBy")}
           fontSize={{ base: "sm", md: "medium" }}
+          onChange={(e) => setSort(e.target.value)}
         >
-          <option value="old">{t("tools.sortOld")}</option>
-          <option value="new">{t("tools.sortNew")}</option>
+          <option value="newest">{t("tools.sortNew")}</option>
+          <option value="oldest">{t("tools.sortOld")}</option>
           <option value="nameAZ">{t("tools.sortNameAZ")}</option>
           <option value="nameZA">{t("tools.sortNameZA")}</option>
         </Select>
         <Select
           placeholder={t("tools.filterBy")}
           fontSize={{ base: "sm", md: "medium" }}
+          onChange={(e) => setFilter(e.target.value)}
         >
           <option value="image">{t("tools.filterImage")}</option>
           <option value="likes">{t("tools.filterLikes")}</option>
-          <option value="comments">{t("tools.filterComments")}</option>
         </Select>
       </HStack>
       {isAuth && (

@@ -26,7 +26,7 @@ export type Collection = {
   description: string,
   image: string,
   itemFields: FieldType[],
-  date: Date
+  createdAt: Date,
 }
 
 export type newCollection = {

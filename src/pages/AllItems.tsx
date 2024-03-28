@@ -1,4 +1,4 @@
-import { VStack, Heading, SimpleGrid } from "@chakra-ui/react";
+import { VStack, Heading, SimpleGrid, HStack, Select } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
 import { useCollectionStore } from "../store/store";
 import { useTranslation } from "react-i18next";
@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getAllItems } from "../services/service";
 import useErrorHandler from "../hooks/useError";
 import SkeletonsGrid from "../components/skeletons/SkeletonsGrid";
-import { sortedItems } from "../utils";
+import { handleSort } from "../utils";
 
 const AllItems = () => {
   const items = useCollectionStore((state) => state.items);
@@ -15,6 +15,7 @@ const AllItems = () => {
   const { handleFail } = useErrorHandler();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [sortType, setSortType] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,9 +33,22 @@ const AllItems = () => {
 
   return (
     <VStack alignItems={"start"} mt={5} padding={{ base: 0, md: 5 }}>
-      <Heading fontSize={{ base: "large", md: "x-large" }} mb={5}>
-        {t("main.allItems")}
-      </Heading>
+      <HStack width={"100%"} justifyContent={"space-between"} mb={5}>
+        <Heading fontSize={{ base: "large", md: "x-large" }}>
+          {t("main.allItems")}
+        </Heading>
+        <Select
+          width={"fit-content"}
+          placeholder={t("tools.sortDefault")}
+          fontSize={{ base: "sm", md: "medium" }}
+          onChange={(e) => setSortType(e.target.value)}
+        >
+          <option value="newest">{t("tools.sortNew")}</option>
+          <option value="oldest">{t("tools.sortOld")}</option>
+          <option value="nameAZ">{t("tools.sortNameAZ")}</option>
+          <option value="nameZA">{t("tools.sortNameZA")}</option>
+        </Select>
+      </HStack>
 
       {isLoading ? (
         <SkeletonsGrid />
@@ -43,7 +57,7 @@ const AllItems = () => {
           columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
           spacing={5}
         >
-          {sortedItems(items).map((item) => (
+          {handleSort(items, sortType).map((item) => (
             <ItemCard key={item._id} item={item} />
           ))}
         </SimpleGrid>

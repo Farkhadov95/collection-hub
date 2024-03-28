@@ -133,16 +133,16 @@ export const deleteUsers = async (users: userInfo[], userId: string) => {
   return data;
 }
 
-export const promoteMe = async (users: userInfo[], status: boolean) => {
+export const promoteMe = async (currentUserID: string, status: boolean) => {
   const token = localStorage.getItem('X-Auth-Token');
   if (!token) throw new Error('Unauthorized request');
-  
+
   const requestBody = {
-    users: users,
+    userID: currentUserID,
     status: status
   }
 
-  const res = await fetch(`${URL}${Routes.USERS}`, {
+  const res = await fetch(`${URL}${Routes.USERS}demo/me`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

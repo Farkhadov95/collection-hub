@@ -70,7 +70,7 @@ const EditCollectionCard = ({
       description: data.description,
       image: postImage.myFile,
       itemFields: collection.itemFields,
-      date: collection.date,
+      createdAt: collection.createdAt,
     };
     return result;
   };

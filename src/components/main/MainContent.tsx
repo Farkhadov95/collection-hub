@@ -18,7 +18,7 @@ import {
 } from "../../services/service";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
-import { Collection, ItemType } from "../../types/types";
+import { ItemType } from "../../types/types";
 import { useTranslation } from "react-i18next";
 import MainItemSwiper from "./MainSwiper";
 import MainSwiper from "./MainSwiper";
@@ -28,6 +28,12 @@ import { sortedItems } from "../../utils";
 
 const MainContent = () => {
   const setCollections = useCollectionStore((state) => state.setCollections);
+  const biggestCollections = useCollectionStore(
+    (state) => state.biggestCollections
+  );
+  const setBiggestCollections = useCollectionStore(
+    (state) => state.setBiggestCollections
+  );
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
@@ -37,7 +43,6 @@ const MainContent = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [bigCollections, setBigCollections] = useState<Collection[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
@@ -47,7 +52,7 @@ const MainContent = () => {
         setCollections(collectionsRes);
         setItems(itemsRes);
         generateTags(itemsRes);
-        setBigCollections(biggestCollectionsRes);
+        setBiggestCollections(biggestCollectionsRes);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -55,7 +60,7 @@ const MainContent = () => {
         handleFail(errorMessage);
         setIsLoading(false);
       });
-  }, [handleFail, setCollections, setItems]);
+  }, [handleFail, setBiggestCollections, setCollections, setItems]);
 
   const generateTags = (items: ItemType[]) => {
     const tagsSet = new Set<string>();
@@ -191,8 +196,8 @@ const MainContent = () => {
         </HStack>
         {isLoading ? (
           <SkeletonsGrid />
-        ) : bigCollections ? (
-          <MainSwiper collections={bigCollections} />
+        ) : biggestCollections ? (
+          <MainSwiper collections={biggestCollections} />
         ) : (
           <Heading>{t("main.noCollections")}</Heading>
         )}

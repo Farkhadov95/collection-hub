@@ -44,6 +44,12 @@ const EditCollectionCard = ({
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
   );
+  const biggestCollections = useCollectionStore(
+    (state) => state.biggestCollections
+  );
+  const setBiggestCollections = useCollectionStore(
+    (state) => state.setBiggestCollections
+  );
 
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
@@ -91,8 +97,12 @@ const EditCollectionCard = ({
         const cleanUserCollections = userCollections.filter(
           (c) => c._id !== data._id
         );
+        const cleanBiggestCollections = biggestCollections.filter(
+          (c) => c._id !== data._id
+        );
         setCollections([...cleanCollections, data]);
         setUserCollections([...cleanUserCollections, data]);
+        setBiggestCollections([...cleanBiggestCollections, data]);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();

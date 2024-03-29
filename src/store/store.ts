@@ -13,6 +13,7 @@ const emptyCurrentUser = {
 type CollectionStore = {
   currentUser: currentUser,
   collections: Collection[],
+  biggestCollections: Collection[],
   items: ItemType[],
   users: userInfo[],
   userCollections: Collection[],
@@ -20,6 +21,7 @@ type CollectionStore = {
   comments: Comment[],
   setCurrentUser: (user: currentUser) => void,
   setCollections: (collections: Collection[]) => void,
+  setBiggestCollections: (biggestCollections: Collection[]) => void,
   setItems: (items: ItemType[]) => void,
   setUsers: (users: userInfo[]) => void,
   setUserCollections: (collections: Collection[]) => void,
@@ -32,6 +34,7 @@ export const useCollectionStore = create<CollectionStore>()(
       (set) => ({
         currentUser: emptyCurrentUser,
         collections: [],
+        biggestCollections: [],
         items: [],
         users: [],
         userCollections: [],
@@ -39,6 +42,7 @@ export const useCollectionStore = create<CollectionStore>()(
         comments: [],
         setCurrentUser: (user: currentUser) => set({ currentUser: user }),
         setCollections: (collections: Collection[]) => set({ collections }),
+        setBiggestCollections: (biggestCollections: Collection[]) => set({ biggestCollections }),
         setItems: (items: ItemType[]) => set({ items }),
         setUsers: (users: userInfo[]) => set({ users }),
         setUserCollections: (userCollections: Collection[]) => set({ userCollections }),

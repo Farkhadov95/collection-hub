@@ -48,9 +48,9 @@ const MainSwiper = ({ items, collections }: MainSwiperProp) => {
             </SwiperSlide>
           ))}
 
-        {collections &&
-          collections.slice(0, 6).map((collection) => (
-            <SwiperSlide key={collection._id}>
+        {collections?.every((c) => c !== null) &&
+          collections.slice(0, 6).map((collection, index) => (
+            <SwiperSlide key={`${collection?._id}-${index}`}>
               <CollectionCard collection={collection} />
             </SwiperSlide>
           ))}

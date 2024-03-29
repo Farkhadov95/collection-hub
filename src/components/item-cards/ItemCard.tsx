@@ -83,7 +83,7 @@ const ItemCard = ({ item }: ItemProps) => {
         <Flex justifyContent={"space-between"}>
           <Box width={"100%"}>
             <HStack width={"100%"} justifyContent={"space-between"}>
-              <Heading size="xs" width={"160px"}>
+              <Heading size="xs" width={"160px"} noOfLines={2}>
                 {item.name}
               </Heading>
               {isAuth && (
@@ -118,11 +118,13 @@ const ItemCard = ({ item }: ItemProps) => {
               as={Link}
               to={`/collections/${collection?._id}`}
               fontWeight={"bold"}
+              noOfLines={1}
               _hover={{
                 color: "green.200",
               }}
             >
-              {t("item.collection")} {collection?.name}
+              {t("item.collection")}
+              {collection?.name}
             </Text>
             <HStack mt={2} spacing={1} overflow={"hidden"}>
               {tagsToArray[0] !== "" &&

@@ -44,6 +44,12 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
   );
+  const biggestCollections = useCollectionStore(
+    (state) => state.biggestCollections
+  );
+  const setBiggestCollections = useCollectionStore(
+    (state) => state.setBiggestCollections
+  );
 
   const { colorMode } = useColorMode();
   const { t } = useTranslation();
@@ -55,6 +61,9 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
         setItems(items.filter((c) => c.collectionID !== collection._id));
         setUserCollections(
           userCollections.filter((c) => c._id !== collection._id)
+        );
+        setBiggestCollections(
+          biggestCollections.filter((c) => c._id !== collection._id)
         );
       })
       .catch((err) => {
@@ -76,8 +85,10 @@ const CollectionCard = ({ collection }: CollectionsItemProp) => {
       <CardHeader>
         <Flex justifyContent={"space-between"}>
           <Box>
-            <Heading size="sm">{collection.name}</Heading>
-            <Text fontWeight={"bold"} fontSize={"small"}>
+            <Heading size="sm" noOfLines={2}>
+              {collection.name}
+            </Heading>
+            <Text fontWeight={"bold"} fontSize={"small"} noOfLines={1}>
               {t("collection.createdBy")} {collection.userName}
             </Text>
             <Badge colorScheme="green" fontSize={"2xs"}>

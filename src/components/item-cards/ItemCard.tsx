@@ -113,7 +113,15 @@ const ItemCard = ({ item }: ItemProps) => {
                 </Menu>
               )}
             </HStack>
-            <Text fontWeight={"bold"} fontSize={"small"}>
+            <Text
+              fontSize={"small"}
+              as={Link}
+              to={`/collections/${collection?._id}`}
+              fontWeight={"bold"}
+              _hover={{
+                color: "green.200",
+              }}
+            >
               {t("item.collection")} {collection?.name}
             </Text>
             <HStack mt={2} spacing={1} overflow={"hidden"}>
@@ -131,7 +139,8 @@ const ItemCard = ({ item }: ItemProps) => {
         </Flex>
       </CardHeader>
       <CardBody
-        paddingTop={0}
+        paddingY={0}
+        mb={5}
         height={"50px"}
         overflow={"hidden"}
         fontSize={"sm"}

@@ -1,4 +1,17 @@
-import { HStack, Button, Icon, Text } from "@chakra-ui/react";
+import {
+  HStack,
+  Button,
+  Icon,
+  Text,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { MdDeleteForever, MdBlockFlipped } from "react-icons/md";
 import { userInfo } from "../../types/types";
@@ -6,6 +19,7 @@ import { deleteUsers, updateUsers } from "../../services/user";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
+import { useRef } from "react";
 
 type AdminToolsProp = {
   selected: userInfo[];
@@ -18,6 +32,9 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
   const setUsers = useCollectionStore((state) => state.setUsers);
 
   const { handleFail } = useErrorHandler();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef(null);
+  const { t } = useTranslation();
 
   const handleStatusUpdate = (status: boolean) => {
     updateUsers(selected, status, currentUser._id)
@@ -54,8 +71,6 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
     return isAdminCount > selected.length / 2;
   };
 
-  const { t } = useTranslation();
-
   return (
     <HStack
       spacing={2}
@@ -70,6 +85,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
           onClick={() => handleStatusUpdate(false)}
           boxSizing="border-box"
           padding={2}
+          isDisabled={selected.length === 0}
         >
           <Icon as={MdBlockFlipped} />
           <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
@@ -83,6 +99,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
           onClick={() => handleStatusUpdate(true)}
           boxSizing="border-box"
           padding={2}
+          isDisabled={selected.length === 0}
         >
           <Icon as={IoMdAdd} />
           <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
@@ -90,18 +107,51 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
           </Text>
         </Button>
       )}
+
       <Button
         variant="outline"
         colorScheme="red"
-        onClick={handleUserDelete}
+        onClick={onOpen}
         boxSizing="border-box"
         padding={2}
+        isDisabled={selected.length === 0}
       >
         <Icon as={MdDeleteForever} />
         <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
           {t("admin.deleteUser")}
         </Text>
       </Button>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Delete User(s)?</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            Deleted user(s) will be permanently removed from the database with
+            all their data.
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              No
+            </Button>
+            <Button
+              variant={"outline"}
+              colorScheme="red"
+              ml={3}
+              onClick={handleUserDelete}
+            >
+              Yes
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </HStack>
   );
 };

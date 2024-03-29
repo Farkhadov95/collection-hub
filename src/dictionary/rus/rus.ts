@@ -81,18 +81,18 @@ export const item = {
 
 export const collection = {
     noCollection: "Нет коллекции.",
-    customFields: "Дополнительные поля:",
-    selectType: "Выберите тип:",
-    selectName: "Название:",
+    customFields: "Дополнительные поля",
+    selectType: "Выберите тип",
+    selectName: "Название",
     description: "Описание",
-    image: "Изображение:",
-    createdBy: 'Автор:',
+    image: "Изображение",
+    createdBy: 'Автор',
     editCollectionTitle: 'Редактировать коллекцию',
     createNew: 'Создать новую коллекцию',
 }
 
 export const collectionTopic = {
-    topic: 'Тема:',
+    topic: 'Тема',
     selectTopic: 'Выберите тему',
     books: 'Книги',
     movies: 'Фильмы',

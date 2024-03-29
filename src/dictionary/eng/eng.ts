@@ -81,18 +81,18 @@ export const item = {
 
 export const collection = {
     noCollection: 'No collection.',
-    customFields: 'Custom fields:',
-    selectType: 'Select type:',
-    selectName: 'Name:',
+    customFields: 'Custom fields',
+    selectType: 'Select type',
+    selectName: 'Name',
     description: 'Description',
-    image: 'Image:',
+    image: 'Image',
     createdBy: 'Created by:',
     editCollectionTitle: 'Edit collection',
     createNew: 'Create new collection',
 }
 
 export const collectionTopic = {
-    topic: 'Topic:',
+    topic: 'Topic',
     selectTopic: 'Select topic',
     books: 'Books',
     movies: 'Movies',

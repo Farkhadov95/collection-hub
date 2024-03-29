@@ -255,23 +255,29 @@ const SearchBar = ({ onClose }: SearchBarProps) => {
               </Text>
               <Divider />
             </HStack>
-            {searchedComments.slice(0, 3).map((comment) => (
-              <HStack
-                key={comment._id}
-                width={"100%"}
-                justifyContent={"space-between"}
-              >
-                <Text
-                  onClick={() => handleRedirect(comment.itemID, "item")}
+            <VStack
+              width={"100%"}
+              alignItems={"start"}
+              divider={<StackDivider />}
+            >
+              {searchedComments.slice(0, 3).map((comment) => (
+                <HStack
+                  key={comment._id}
                   width={"100%"}
+                  justifyContent={"space-between"}
                 >
-                  {comment.comment}
-                </Text>
-                <Tag colorScheme="green" size={"sm"}>
-                  {`${getPercent(comment.normalizedScore)}%`}
-                </Tag>
-              </HStack>
-            ))}
+                  <Text
+                    onClick={() => handleRedirect(comment.itemID, "item")}
+                    width={"100%"}
+                  >
+                    {comment.comment}
+                  </Text>
+                  <Tag colorScheme="green" size={"sm"}>
+                    {`${getPercent(comment.normalizedScore)}%`}
+                  </Tag>
+                </HStack>
+              ))}
+            </VStack>
           </Box>
         </VStack>
       )}

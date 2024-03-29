@@ -19,7 +19,7 @@ import { deleteUsers, updateUsers } from "../../services/user";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 type AdminToolsProp = {
   selected: userInfo[];
@@ -30,13 +30,14 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
   const currentUser = useCollectionStore((state) => state.currentUser);
   const users = useCollectionStore((state) => state.users);
   const setUsers = useCollectionStore((state) => state.setUsers);
-
+  const [isLoading, setIsLoading] = useState(false);
   const { handleFail } = useErrorHandler();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
   const { t } = useTranslation();
 
   const handleStatusUpdate = (status: boolean) => {
+    setIsLoading(true);
     updateUsers(selected, status, currentUser._id)
       .then((res) => {
         const newUsers = users.map((user) => {
@@ -45,10 +46,12 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
         });
         setUsers(newUsers);
         setSelected([]);
+        setIsLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
+        setIsLoading(false);
       });
   };
 
@@ -59,11 +62,14 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
   };
 
   const handleUserDelete = () => {
+    setIsLoading(true);
     deleteUsers(selected, currentUser._id)
       .then(() => {
         removeDeletedUsers();
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
+    setIsLoading(false);
   };
 
   const selectedMajority = () => {
@@ -86,6 +92,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
           boxSizing="border-box"
           padding={2}
           isDisabled={selected.length === 0}
+          isLoading={isLoading}
         >
           <Icon as={MdBlockFlipped} />
           <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
@@ -100,6 +107,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
           boxSizing="border-box"
           padding={2}
           isDisabled={selected.length === 0}
+          isLoading={isLoading}
         >
           <Icon as={IoMdAdd} />
           <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>
@@ -115,6 +123,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
         boxSizing="border-box"
         padding={2}
         isDisabled={selected.length === 0}
+        isLoading={isLoading}
       >
         <Icon as={MdDeleteForever} />
         <Text paddingLeft={1} fontSize={{ base: "sm", md: "medium" }}>

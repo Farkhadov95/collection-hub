@@ -63,7 +63,6 @@ export const updateCollection = async (collection: Collection) => {
       body: JSON.stringify(collection),
     });
     const data = await res.json();
-    console.log(data);
     return data;
 };
 
@@ -80,7 +79,6 @@ export const createCollection = async (newCollection: newCollection) => {
     body: JSON.stringify(newCollection)
   });
   const data = await res.json();
-  // console.log(data);
   return data;
 }
 
@@ -96,7 +94,6 @@ export const createItem = async (newItem: newItem) => {
     body: JSON.stringify(newItem)
   });
   const data = await res.json();
-  console.log(data);
   return data; 
 }
 
@@ -112,7 +109,6 @@ export const updateItem = async (updatedItem: ItemType) => {
     body: JSON.stringify(updatedItem),
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }
 
@@ -127,7 +123,6 @@ export const updateLike = async (itemID: string) => {
     }
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }
 

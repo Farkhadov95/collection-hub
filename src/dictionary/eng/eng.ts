@@ -48,6 +48,8 @@ export const tools = {
     filterComments: 'Have Comments',
     pageNotFound: '404: Page not found',
     seeAll: 'Browse all',
+    yes: 'Yes',
+    no: 'No',
 }
 
 export const types = {
@@ -73,6 +75,8 @@ export const item = {
     optionalFields: 'Optional fields',
     tags: 'Tags',
     image: 'Image',
+    deleteField: 'Delete field',
+    deleteFieldMsg: 'This will delete the field from all items in the collection.'
 }
 
 export const collection = {

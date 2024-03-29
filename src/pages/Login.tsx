@@ -33,7 +33,6 @@ const Login = () => {
   };
 
   const onSubmit = (data: user) => {
-    console.log("Form Submitted", data);
     loginUser(data, handleSuccess, handleUserFail);
   };
 

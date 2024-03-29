@@ -48,6 +48,8 @@ export const tools = {
     filterComments: 'Есть Комментарии',
     pageNotFound: '404: Страница не найдена',
     seeAll: 'Смотреть все',
+    yes: 'Да',
+    no: 'Нет',
 }
 
 export const types = {
@@ -73,6 +75,8 @@ export const item = {
     optionalFields: 'Дополнительные поля',
     tags: 'Теги',
     image: 'Изображение',
+    deleteField: 'Удалить поле',
+    deleteFieldMsg: "Это удалит данное поле со всех предметов коллекции."
 }
 
 export const collection = {

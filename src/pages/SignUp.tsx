@@ -29,13 +29,11 @@ const SignUp = () => {
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
   const handleSuccess = (data: currentUser) => {
-    console.log(data);
     setCurrentUser(data);
     navigate("/");
   };
 
   const onSubmit = (data: newUserForm) => {
-    console.log("Form Submitted", data);
     const adjustedData = {
       username: data.username,
       email: data.email,

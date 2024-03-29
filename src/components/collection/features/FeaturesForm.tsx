@@ -41,7 +41,6 @@ const FeaturesForm = ({ currentCollection }: PropertiesFormProps) => {
       await updateCollection(updatedCollection)
         .then((data) => {
           clearForm();
-          console.log("Collection updated successfully");
           setCollections(
             collections.map((c) => (c._id === data._id ? data : c))
           );

@@ -51,7 +51,6 @@ const ItemComments = () => {
   useEffect(() => {
     const socket = io(URL);
     socket.on("newComment", (data) => {
-      console.log(comments);
       setComments([...comments, data]);
     });
 

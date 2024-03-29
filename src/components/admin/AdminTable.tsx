@@ -13,11 +13,13 @@ import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { userInfo } from "../../types/types";
 import { useTranslation } from "react-i18next";
+import useErrorHandler from "../../hooks/useError";
 
 const AdminsTable = () => {
   const currentUser = useCollectionStore((state) => state.currentUser);
   const users = useCollectionStore((state) => state.users);
   const setUsers = useCollectionStore((state) => state.setUsers);
+  const { handleFail } = useErrorHandler();
 
   useEffect(() => {
     getAllUsers(currentUser._id)
@@ -25,9 +27,10 @@ const AdminsTable = () => {
         setUsers(res);
       })
       .catch((err) => {
-        console.log(err);
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
       });
-  }, [currentUser._id, setUsers]);
+  }, [currentUser._id, handleFail, setUsers]);
 
   const [selected, setSelected] = useState<userInfo[]>([]);
 

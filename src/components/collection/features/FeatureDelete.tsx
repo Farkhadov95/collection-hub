@@ -13,6 +13,7 @@ import {
 import { useRef } from "react";
 import { FieldType } from "../../../types/types";
 import { IoMdClose } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 
 type FeatureDeleteProps = {
   feature: FieldType;
@@ -22,6 +23,7 @@ type FeatureDeleteProps = {
 const FeatureDelete = ({ feature, handleDelete }: FeatureDeleteProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -43,15 +45,13 @@ const FeatureDelete = ({ feature, handleDelete }: FeatureDeleteProps) => {
 
         <AlertDialogContent>
           <AlertDialogHeader>
-            Delete field "{feature.fieldName}"?
+            {t("item.deleteField")} "{feature.fieldName}"?
           </AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>
-            This will delete the field from all items in the collection.
-          </AlertDialogBody>
+          <AlertDialogBody>{t("item.deleteFieldMsg")}</AlertDialogBody>
           <AlertDialogFooter>
             <Button variant={"outline"} ref={cancelRef} onClick={onClose}>
-              No
+              {t("tools.no")}
             </Button>
             <Button
               variant={"outline"}
@@ -62,7 +62,7 @@ const FeatureDelete = ({ feature, handleDelete }: FeatureDeleteProps) => {
                 onClose();
               }}
             >
-              Yes
+              {t("tools.yes")}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

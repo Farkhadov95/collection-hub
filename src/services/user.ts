@@ -32,7 +32,6 @@ export const registerUser = async (user: newUser, onSuccess: (currentUser: curre
         email: data.email,
         isAdmin: data.isAdmin,
       });
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Error registering user:', error);
@@ -66,7 +65,6 @@ export const loginUser = async (user: user, onSuccess: (currentUser: currentUser
         email: data.email,
         isAdmin: data.isAdmin,
       });
-      console.log(data);
       return data;
 
     } catch (error) {
@@ -112,7 +110,6 @@ export const updateUsers = async (users: userInfo[], status: boolean, userId: st
     body: JSON.stringify(requestBody)
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }
 
@@ -129,7 +126,6 @@ export const deleteUsers = async (users: userInfo[], userId: string) => {
     body: JSON.stringify(users)
   });
   const data = await res.text();
-  console.log(data);
   return data;
 }
 
@@ -150,6 +146,5 @@ export const promoteMe = async (currentUserID: string, status: boolean) => {
     body: JSON.stringify(requestBody)
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }

@@ -85,14 +85,12 @@ const EditCollectionCard = ({
 
   const onSubmit = (data: collectionFormData) => {
     const result = createData(data);
-    console.log(result);
     updateCollection(result)
       .then((data) => {
         const cleanCollections = collections.filter((c) => c._id !== data._id);
         const cleanUserCollections = userCollections.filter(
           (c) => c._id !== data._id
         );
-        console.log(data);
         setCollections([...cleanCollections, data]);
         setUserCollections([...cleanUserCollections, data]);
       })

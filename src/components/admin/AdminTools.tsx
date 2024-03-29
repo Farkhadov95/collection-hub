@@ -68,7 +68,10 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
         removeDeletedUsers();
         setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        const errorMessage = err.message.toString();
+        handleFail(errorMessage);
+      });
     setIsLoading(false);
   };
 

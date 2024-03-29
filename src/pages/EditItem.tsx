@@ -67,7 +67,6 @@ const EditItem = () => {
   };
 
   const updateInitialFieldsValue = () => {
-    console.log(currentCollection?.itemFields);
     const fields: FieldRenderType[] = [];
     currentCollection?.itemFields.map((field) => {
       if (field._id) {
@@ -97,9 +96,6 @@ const EditItem = () => {
     >
   ) => {
     const { name, value, id, type } = event.target;
-    console.log(event.target);
-
-    console.log(optFormData);
 
     setOptFormData((prevState) => {
       const existingFieldIndex = prevState.fields.findIndex(
@@ -159,7 +155,6 @@ const EditItem = () => {
   };
 
   const onSubmit = (reqData: ReqItemData) => {
-    console.log("Form ", reqData);
     const result: ItemType = createData(reqData, optFormData);
     updateItem(result)
       .then((data) => {

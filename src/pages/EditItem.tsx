@@ -83,6 +83,7 @@ const EditItem = () => {
 
   const [postImage, setPostImage] = useState({ myFile: currentItem?.image });
   const [postImageError, setPostImageError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [optFormData, setOptFormData] = useState<OptItemData>({
     fields: updateInitialFieldsValue() || [],
   });
@@ -156,15 +157,18 @@ const EditItem = () => {
 
   const onSubmit = (reqData: ReqItemData) => {
     const result: ItemType = createData(reqData, optFormData);
+    setIsLoading(true);
     updateItem(result)
       .then((data) => {
         const itemsWithout = items.filter((item) => item._id !== data._id);
         setItems([...itemsWithout, data]);
         navigate(-1);
+        setIsLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
+        setIsLoading(false);
       });
 
     setOptFormData({
@@ -181,7 +185,12 @@ const EditItem = () => {
           </Heading>
           <HStack spacing={3}>
             <BackButton />
-            <Button type="submit" variant={"outline"} colorScheme="green">
+            <Button
+              isLoading={isLoading}
+              type="submit"
+              variant={"outline"}
+              colorScheme="green"
+            >
               {t("tools.save")}
             </Button>
           </HStack>

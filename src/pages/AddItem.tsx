@@ -50,6 +50,7 @@ const AddItem = () => {
     },
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [postImage, setPostImage] = useState({ myFile: "" });
   const [optFormData, setOptFormData] = useState<OptItemData>({
     fields: [],
@@ -121,14 +122,17 @@ const AddItem = () => {
 
   const onSubmit = (reqData: ReqItemData) => {
     const result: newItem = createData(reqData, optFormData);
+    setIsLoading(true);
     createItem(result)
       .then((data) => {
         setItems([...items, data]);
         navigate(-1);
+        setIsLoading(false);
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
+        setIsLoading(false);
       });
 
     setOptFormData({
@@ -143,7 +147,12 @@ const AddItem = () => {
           <Heading size={{ base: "md", md: "lg" }}>Add New Item</Heading>
           <HStack spacing={3}>
             <BackButton />
-            <Button type="submit" variant={"outline"} colorScheme="green">
+            <Button
+              isLoading={isLoading}
+              type="submit"
+              variant={"outline"}
+              colorScheme="green"
+            >
               {t("tools.save")}
             </Button>
           </HStack>

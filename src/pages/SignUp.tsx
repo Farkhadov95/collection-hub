@@ -28,8 +28,9 @@ const SignUp = () => {
   const userError = useNonPersistStore((state) => state.userError);
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
-  const handleSuccess = (data: currentUser) => {
-    setCurrentUser(data);
+  const handleSuccess = (userData: currentUser, token: string) => {
+    localStorage.setItem("X-Auth-Token", token);
+    setCurrentUser(userData);
     navigate("/");
   };
 
@@ -39,7 +40,19 @@ const SignUp = () => {
       email: data.email,
       password: data.password,
     };
-    registerUser(adjustedData, handleSuccess, handleUserFail);
+    registerUser(adjustedData)
+      .then((data) =>
+        handleSuccess(
+          {
+            username: data.username,
+            email: data.email,
+            _id: data._id,
+            isAdmin: data.isAdmin,
+          },
+          data.token
+        )
+      )
+      .catch((err) => handleUserFail(err.message));
   };
 
   return (

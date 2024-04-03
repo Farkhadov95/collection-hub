@@ -27,13 +27,28 @@ const Login = () => {
   const userError = useNonPersistStore((state) => state.userError);
   const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
 
-  const handleSuccess = (data: currentUser) => {
-    setCurrentUser(data);
+  const handleSuccess = (userData: currentUser, token: string) => {
+    setCurrentUser(userData);
+    localStorage.setItem("X-Auth-Token", token);
     navigate("/");
   };
 
   const onSubmit = (data: user) => {
-    loginUser(data, handleSuccess, handleUserFail);
+    loginUser(data)
+      .then((data) => {
+        handleSuccess(
+          {
+            _id: data._id,
+            username: data.username,
+            email: data.email,
+            isAdmin: data.isAdmin,
+          },
+          data.token
+        );
+      })
+      .catch((err) => {
+        handleUserFail(err.message);
+      });
   };
 
   return (

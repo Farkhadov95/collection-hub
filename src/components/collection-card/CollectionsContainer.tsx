@@ -20,7 +20,7 @@ const CollectionContainer = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getUserCollection(currentUser._id)
+    getUserCollection()
       .then((res) => {
         setUserCollections(res);
         setIsLoading(false);

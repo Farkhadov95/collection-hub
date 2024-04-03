@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Collection, ItemType, currentUser, userInfo, Comment, ItemSearch, CommentSearch, CollectionSearch } from "../types/types";
+import { Collection } from "../types/collections";
+import { ItemType } from "../types/item";
+import { Comment } from "../types/comment";
+import { currentUser, userInfo} from "../types/user";
+import { ItemSearch, CommentSearch, CollectionSearch } from "../types/search";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 
 const emptyCurrentUser = {

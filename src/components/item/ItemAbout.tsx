@@ -9,7 +9,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
-import { ItemType } from "../../types/types";
+import { ItemType } from "../../types/item";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";

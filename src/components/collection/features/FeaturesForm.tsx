@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { useCollectionStore, useNonPersistStore } from "../../../store/store";
 import { updateCollection } from "../../../services/collection";
-import { Collection } from "../../../types/types";
+import { Collection } from "../../../types/collections";
 import useErrorHandler from "../../../hooks/useError";
 import { useTranslation } from "react-i18next";
 

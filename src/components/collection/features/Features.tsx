@@ -1,6 +1,6 @@
 import { HStack, Heading, Skeleton, VStack } from "@chakra-ui/react";
 import PropertiesForm from "../features/FeaturesForm";
-import { Collection } from "../../../types/types";
+import { Collection } from "../../../types/collections";
 import FeaturesItem from "../features/FeaturesItem";
 import { useTranslation } from "react-i18next";
 import { useNonPersistStore } from "../../../store/store";

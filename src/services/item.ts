@@ -1,4 +1,4 @@
-import { newItem, ItemType } from "../types/types";
+import { newItem, ItemType } from "../types/item";
 import api, { getHeaders } from "./api";
 
 enum ApiRoutes {

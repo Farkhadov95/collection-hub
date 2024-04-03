@@ -11,7 +11,7 @@ import AdminTools from "./AdminTools";
 import { getAllUsers } from "../../services/user";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
-import { userInfo } from "../../types/types";
+import { userInfo } from "../../types/user";
 import { useTranslation } from "react-i18next";
 import useErrorHandler from "../../hooks/useError";
 

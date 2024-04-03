@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { MdDeleteForever, MdBlockFlipped } from "react-icons/md";
-import { userInfo } from "../../types/types";
+import { userInfo } from "../../types/user";
 import { deleteUsers, updateUsers } from "../../services/user";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";

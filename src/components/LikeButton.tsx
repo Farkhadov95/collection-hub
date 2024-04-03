@@ -3,7 +3,7 @@ import { BiSolidLike, BiLike } from "react-icons/bi";
 import useErrorHandler from "../hooks/useError";
 import { updateLike } from "../services/item";
 import { useCollectionStore } from "../store/store";
-import { ItemType } from "../types/types";
+import { ItemType } from "../types/item";
 import { useState } from "react";
 
 type LikeButtonProps = {

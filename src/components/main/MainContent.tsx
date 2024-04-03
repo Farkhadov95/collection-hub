@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { getAllItems } from "../../services/item";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
-import { ItemType } from "../../types/types";
+import { ItemType } from "../../types/item";
 import { useTranslation } from "react-i18next";
 import MainItemSwiper from "./MainSwiper";
 import MainSwiper from "./MainSwiper";

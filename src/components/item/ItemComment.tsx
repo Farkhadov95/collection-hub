@@ -8,7 +8,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import moment from "moment";
-import { Comment } from "../../types/types";
+import { Comment } from "../../types/comment";
 
 type ItemCommentProp = {
   comment: Comment;

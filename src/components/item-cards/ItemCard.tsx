@@ -19,7 +19,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { ItemType } from "../../types/types";
+import { ItemType } from "../../types/item";
 import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
 import LikeButton from "../LikeButton";

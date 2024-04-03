@@ -23,7 +23,7 @@ import {
   ReqItemData,
   OptItemData,
   FieldRenderType,
-} from "../types/types";
+} from "../types/item";
 import { ChangeEvent, useEffect, useState } from "react";
 import { updateItem } from "../services/item";
 import { useForm } from "react-hook-form";

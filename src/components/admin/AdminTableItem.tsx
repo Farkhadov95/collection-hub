@@ -6,7 +6,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { userInfo } from "../../types/types";
+import { userInfo } from "../../types/user";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 

@@ -1,4 +1,5 @@
-import { Collection, ItemType } from "../../types/types";
+import { Collection } from "../../types/collections";
+import { ItemType } from "../../types/item";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ItemCard from "../item-cards/ItemCard";
 import "swiper/css";

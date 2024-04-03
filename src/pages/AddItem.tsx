@@ -19,7 +19,7 @@ import { useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, ChangeEvent, useEffect } from "react";
 import { createItem } from "../services/item";
-import { OptItemData, ReqItemData, newItem } from "../types/types";
+import { OptItemData, ReqItemData, newItem } from "../types/item";
 import useErrorHandler from "../hooks/useError";
 import { useForm } from "react-hook-form";
 import { convertToBase64 } from "../utils";

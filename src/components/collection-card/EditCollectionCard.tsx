@@ -21,7 +21,7 @@ import { ChangeEvent, useRef, useState } from "react";
 import { updateCollection } from "../../services/collection";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
-import { Collection, collectionFormData } from "../../types/types";
+import { Collection, collectionFormData } from "../../types/collections";
 import { useForm } from "react-hook-form";
 import { convertToBase64 } from "../../utils";
 import { useTranslation } from "react-i18next";

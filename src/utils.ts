@@ -1,4 +1,4 @@
-import { ItemType } from "./types/types";
+import { ItemType } from "./types/item";
 
 type SortableItem = {
   createdAt: Date;

@@ -1,6 +1,6 @@
 import { VStack, Heading, SimpleGrid, Box } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
-import { CollectionSearch, ItemSearch } from "../types/types";
+import { CollectionSearch, ItemSearch } from "../types/search";
 import { useTranslation } from "react-i18next";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import ItemComment from "../components/item/ItemComment";

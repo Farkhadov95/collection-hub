@@ -1,5 +1,4 @@
 import { Box, Button, Heading, Textarea, VStack, Text } from "@chakra-ui/react";
-import ItemComment from "./ItemComment";
 import { useForm } from "react-hook-form";
 import { postComment } from "../../services/comment";
 import { useParams } from "react-router-dom";
@@ -7,8 +6,9 @@ import useErrorHandler from "../../hooks/useError";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
-import { newComment } from "../../types/types";
+import { newComment } from "../../types/comment";
 import { useTranslation } from "react-i18next";
+import ItemComment from "./ItemComment";
 
 const URL = "https://collection-hub-server.adaptable.app/";
 

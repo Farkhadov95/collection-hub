@@ -1,4 +1,4 @@
-import { newComment } from "../types/types";
+import { newComment } from "../types/comment";
 import api, { getHeaders } from "./api";
 
 const commentsRoute = "comments/";

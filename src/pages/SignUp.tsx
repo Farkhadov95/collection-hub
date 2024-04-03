@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { NavLink, useNavigate } from "react-router-dom";
-import { currentUser, newUserForm } from "../types/types";
+import { currentUser, newUserForm } from "../types/user";
 import { registerUser } from "../services/user";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";

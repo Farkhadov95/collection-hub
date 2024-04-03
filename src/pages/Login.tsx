@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { currentUser, user } from "../types/types";
+import { currentUser, user } from "../types/user";
 import { loginUser } from "../services/user";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";

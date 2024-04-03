@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { useCollectionStore } from "../../store/store";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteCollection } from "../../services/collection";
-import { Collection } from "../../types/types";
+import { Collection } from "../../types/collections";
 import useErrorHandler from "../../hooks/useError";
 import EditCollectionCard from "./EditCollectionCard";
 import placeholderImage from "../../assets/placeholder.jpg";

@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import { FieldType } from "../../../types/types";
+import { FieldType } from "../../../types/collections";
 import { IoMdClose } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 

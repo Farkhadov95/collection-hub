@@ -2,7 +2,7 @@ import { HStack, Box, Badge, Text } from "@chakra-ui/react";
 import { useCollectionStore, useNonPersistStore } from "../../../store/store";
 import { deleteCollectionFeature } from "../../../services/collection";
 import { useParams } from "react-router-dom";
-import { FieldType } from "../../../types/types";
+import { FieldType } from "../../../types/collections";
 import useErrorHandler from "../../../hooks/useError";
 import { useTranslation } from "react-i18next";
 import FeatureDelete from "./FeatureDelete";

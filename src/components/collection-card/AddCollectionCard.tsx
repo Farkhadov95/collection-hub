@@ -21,7 +21,7 @@ import { IoMdAdd } from "react-icons/io";
 import { createCollection } from "../../services/collection";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
-import { collectionFormData } from "../../types/types";
+import { collectionFormData } from "../../types/collections";
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useState } from "react";
 import { convertToBase64 } from "../../utils";

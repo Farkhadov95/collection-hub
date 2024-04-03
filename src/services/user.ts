@@ -1,4 +1,4 @@
-import { newUser, user, userInfo } from "../types/types";
+import { newUser, user, userInfo } from "../types/user";
 import api, { getHeaders } from "./api";
 
 enum Routes {

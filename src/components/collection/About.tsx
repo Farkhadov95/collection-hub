@@ -1,5 +1,5 @@
 import { Heading, Image, Box, Flex, HStack, Text } from "@chakra-ui/react";
-import { Collection } from "../../types/types";
+import { Collection } from "../../types/collections";
 import placeholderImage from "../../assets/placeholder.jpg";
 import Markdown from "react-markdown";
 import { useCollectionStore } from "../../store/store";

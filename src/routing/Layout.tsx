@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import { useNonPersistStore } from "../store/store";
 import Footer from "../components/Footer";
+import { routes } from "./Routes";
 
 const Layout = () => {
   const error = useNonPersistStore((state) => state.error);
@@ -16,7 +17,7 @@ const Layout = () => {
       <Divider />
       {error && <ErrorMessage />}
       <Outlet />
-      {pathname !== "/login" && pathname !== "/signup" && (
+      {pathname !== `/${routes.login}` && pathname !== `/${routes.signup}` && (
         <>
           <Divider mt={5} />
           <Footer />

@@ -16,9 +16,24 @@ import AllCollections from "../pages/AllCollections";
 import AllItems from "../pages/AllItems";
 import SearchResults from "../pages/SearchResults";
 
+export const routes = {
+  main: "/",
+  collection: "collections/:id",
+  AllCollections: "collections/all",
+  AllItems: "items/all",
+  item: "item/:id",
+  search: "search",
+  addItem: "collections/:id/create",
+  login: "login",
+  signup: "signup",
+  admin: "admin",
+  user: "user",
+  editItem: "item/edit/:id",
+};
+
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: routes.main,
     element: <Layout />,
     children: [
       {
@@ -26,42 +41,42 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: "collections/:id",
+        path: routes.collection,
         element: <Collection />,
       },
       {
-        path: "collections/all",
+        path: routes.AllCollections,
         element: <AllCollections />,
       },
       {
-        path: "items/all",
+        path: routes.AllItems,
         element: <AllItems />,
       },
       {
-        path: "item/:id",
+        path: routes.item,
         element: <Item />,
       },
       {
-        path: "search",
+        path: routes.search,
         element: <SearchResults />,
       },
       {
-        path: "collections/:id/create",
+        path: routes.addItem,
         element: <AddItem />,
       },
       {
-        path: "login",
+        path: routes.login,
         element: <Login />,
       },
       {
-        path: "signup",
+        path: routes.signup,
         element: <SignUp />,
       },
       {
         element: <AdminRoutes />,
         children: [
           {
-            path: "admin",
+            path: routes.admin,
             element: <Admin />,
           },
         ],
@@ -70,11 +85,11 @@ const router = createBrowserRouter([
         element: <PrivateRoutes />,
         children: [
           {
-            path: "user",
+            path: routes.user,
             element: <User />,
           },
           {
-            path: "item/edit/:id",
+            path: routes.editItem,
             element: <EditItem />,
           },
         ],

@@ -9,12 +9,12 @@ import {
   Collapse,
   Spinner,
 } from "@chakra-ui/react";
-import { useCollectionStore } from "../../store/store";
-import { useEffect, useState } from "react";
 import {
   getBiggestCollections,
   getCollections,
 } from "../../services/collection";
+import { useCollectionStore } from "../../store/store";
+import { useEffect, useState } from "react";
 import { getAllItems } from "../../services/item";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
@@ -45,6 +45,16 @@ const MainContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
 
+  const generateTags = (items: ItemType[]) => {
+    const tagsSet = new Set<string>();
+    items.forEach((item) => {
+      const tagsArray = item.tags.split(" ");
+      tagsArray.forEach((tag) => tagsSet.add(tag));
+    });
+    const uniqueTags = Array.from(tagsSet);
+    setTags(uniqueTags);
+  };
+
   useEffect(() => {
     setIsLoading(true);
     Promise.all([getCollections(), getAllItems(), getBiggestCollections()])
@@ -61,16 +71,6 @@ const MainContent = () => {
         setIsLoading(false);
       });
   }, [handleFail, setBiggestCollections, setCollections, setItems]);
-
-  const generateTags = (items: ItemType[]) => {
-    const tagsSet = new Set<string>();
-    items.forEach((item) => {
-      const tagsArray = item.tags.split(" ");
-      tagsArray.forEach((tag) => tagsSet.add(tag));
-    });
-    const uniqueTags = Array.from(tagsSet);
-    setTags(uniqueTags);
-  };
 
   const handleSelectTag = (tag: string) => {
     if (selectedTags.includes(tag)) {

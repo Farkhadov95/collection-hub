@@ -11,11 +11,11 @@ enum ApiRoutes {
 }
 
 export const getCollections = async () => (
-  await api.get<Collection[]>(`${ApiRoutes.collections}`)
+  await api.get(ApiRoutes.collections)
 ).data;
 
 export const getBiggestCollections = async () => (
-  await api.get<Collection[]>(`${ApiRoutes.biggest_collections}`)
+  await api.get(ApiRoutes.biggest_collections)
 ).data;
 
 export const getUserCollection = async () => (
@@ -25,7 +25,7 @@ export const getUserCollection = async () => (
 ).data;
 
 export const updateCollection = async (collection: Collection) => (
-    await api.put<Collection[]>(`${ApiRoutes.collections}${collection._id}`, collection, {
+    await api.put(`${ApiRoutes.collections}${collection._id}`, collection, {
       headers: getHeaders()
     })
 ).data;

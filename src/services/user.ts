@@ -27,9 +27,9 @@ export const updateUsers = async (users: userInfo[], status: boolean) => {
     status: status
   }
 
-  return await api.put(Routes.USERS, requestBody, {
+  return (await api.put(Routes.USERS, requestBody, {
     headers: getHeaders()
-  })
+  })).data
 }
 
 export const deleteUsers = async (users: userInfo[]) => (

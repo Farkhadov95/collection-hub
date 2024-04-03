@@ -22,7 +22,7 @@ const AdminsTable = () => {
   const { handleFail } = useErrorHandler();
 
   useEffect(() => {
-    getAllUsers(currentUser._id)
+    getAllUsers()
       .then((res) => {
         setUsers(res);
       })

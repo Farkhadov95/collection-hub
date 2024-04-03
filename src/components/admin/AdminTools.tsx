@@ -27,7 +27,6 @@ type AdminToolsProp = {
 };
 
 const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
-  const currentUser = useCollectionStore((state) => state.currentUser);
   const users = useCollectionStore((state) => state.users);
   const setUsers = useCollectionStore((state) => state.setUsers);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +37,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
 
   const handleStatusUpdate = (status: boolean) => {
     setIsLoading(true);
-    updateUsers(selected, status, currentUser._id)
+    updateUsers(selected, status)
       .then((res) => {
         const newUsers = users.map((user) => {
           const matchingUser = res.find((u: userInfo) => u._id === user._id);
@@ -63,7 +62,7 @@ const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
 
   const handleUserDelete = () => {
     setIsLoading(true);
-    deleteUsers(selected, currentUser._id)
+    deleteUsers(selected)
       .then(() => {
         removeDeletedUsers();
         setIsLoading(false);

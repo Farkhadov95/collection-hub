@@ -1,18 +1,58 @@
 import { VStack, Heading, SimpleGrid, Box } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
-import { ItemSearch } from "../types/types";
+import { CollectionSearch, ItemSearch } from "../types/types";
 import { useTranslation } from "react-i18next";
 import { useCollectionStore, useNonPersistStore } from "../store/store";
 import ItemComment from "../components/item/ItemComment";
 import { Link } from "react-router-dom";
+import CollectionCard from "../components/collection-card/CollectionCard";
 
 const SearchResults = () => {
   const { t } = useTranslation();
   const items = useCollectionStore((state) => state.items);
+  const collections = useCollectionStore((state) => state.collections);
+  const searchCollections = useNonPersistStore(
+    (state) => state.searchedCollections
+  );
   const searchedItems = useNonPersistStore((state) => state.searchedItems);
   const searchedComments = useNonPersistStore(
     (state) => state.searchedComments
   );
+
+  const getCollectionIDs = (searchedCollections: CollectionSearch[]) => {
+    const collectionIDs = searchedCollections.map(
+      (collection) => collection._id
+    );
+    return collectionIDs;
+  };
+
+  const findCollectionById = (collectionIDs: string[]) => {
+    return collections.filter((c) => collectionIDs.includes(c._id) === true);
+  };
+
+  const displayCollections = (searchedCollections: CollectionSearch[]) => {
+    const collectionIDs = getCollectionIDs(searchedCollections);
+    const foundCollections = findCollectionById(collectionIDs);
+
+    const collectionScoresMap = new Map(
+      searchedCollections.map((collection) => [
+        collection._id,
+        collection.score,
+      ])
+    );
+
+    foundCollections.sort((a, b) => {
+      const scoreA = collectionScoresMap.get(a._id);
+      const scoreB = collectionScoresMap.get(b._id);
+
+      if (typeof scoreA === "number" && typeof scoreB === "number") {
+        return scoreB - scoreA;
+      }
+      return 0;
+    });
+
+    return foundCollections;
+  };
 
   const getItemIDs = (searchedItems: ItemSearch[]) => {
     const itemIDs = searchedItems.map((item) => item._id);
@@ -43,19 +83,39 @@ const SearchResults = () => {
     return foundItems;
   };
 
+  console.log(searchCollections);
+
   return (
     <VStack alignItems={"start"} mt={5} padding={{ base: 0, md: 5 }}>
       <Heading fontSize={{ base: "large", md: "x-large" }}>
         {t("main.searchResults")}:
       </Heading>
+
       <Box width={"100%"} mt={5}>
         <Heading fontSize={"large"}>
-          {searchedItems.length} {t("item.items")}
+          ({searchCollections.length}) {t("item.collections")}
         </Heading>
         {searchedItems.length > 0 && (
           <SimpleGrid
             mt={5}
-            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4 }}
+            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+            spacing={5}
+          >
+            {displayCollections(searchCollections).map((col) => (
+              <CollectionCard key={col._id} collection={col} />
+            ))}
+          </SimpleGrid>
+        )}
+      </Box>
+
+      <Box width={"100%"} mt={5}>
+        <Heading fontSize={"large"}>
+          ({searchedItems.length}) {t("item.items")}
+        </Heading>
+        {searchedItems.length > 0 && (
+          <SimpleGrid
+            mt={5}
+            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
             spacing={5}
           >
             {displayItems(searchedItems).map((item) => (
@@ -67,7 +127,7 @@ const SearchResults = () => {
 
       <Box width={"100%"} mt={5}>
         <Heading fontSize={"large"}>
-          {searchedComments.length} {t("item.comments")}
+          ({searchedComments.length}) {t("item.comments")}
         </Heading>
         {searchedComments.length > 0 && (
           <Box

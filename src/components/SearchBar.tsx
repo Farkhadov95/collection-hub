@@ -20,7 +20,7 @@ import {
   searchComments,
   searchItems,
   searchCollections,
-} from "../services/service";
+} from "../services/search";
 import { IoMdClose } from "react-icons/io";
 import { useOutsideClick } from "@chakra-ui/react";
 import { useNonPersistStore } from "../store/store";

@@ -18,7 +18,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { ChangeEvent, useRef, useState } from "react";
-import { updateCollection } from "../../services/service";
+import { updateCollection } from "../../services/collection";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { Collection, collectionFormData } from "../../types/types";

@@ -2,7 +2,7 @@ import { HStack, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import CollectionCard from "./CollectionCard";
 import CollectionsItemCreate from "./AddCollectionCard";
 import { useEffect, useState } from "react";
-import { getUserCollection } from "../../services/service";
+import { getUserCollection } from "../../services/collection";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";

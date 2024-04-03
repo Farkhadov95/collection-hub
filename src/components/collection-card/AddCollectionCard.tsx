@@ -18,7 +18,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
-import { createCollection } from "../../services/service";
+import { createCollection } from "../../services/collection";
 import { useCollectionStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { collectionFormData } from "../../types/types";

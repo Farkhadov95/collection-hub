@@ -3,12 +3,8 @@ import { newItem, ItemType } from "../types/types";
 const URL = "https://collection-hub-server.adaptable.app/";
 
 enum ApiRoutes {
-  collections = 'collections/',
   collection = 'collection/',
   items = 'items/',
-  searchComments = 'search/comment',
-  searchItems = 'search/item',
-  searchCollections = 'search/collection',
   like='like/'
 }
 

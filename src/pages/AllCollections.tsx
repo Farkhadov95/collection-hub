@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useCollectionStore } from "../store/store";
 import CollectionCard from "../components/collection-card/CollectionCard";
 import { useEffect, useState } from "react";
-import { getCollections } from "../services/service";
+import { getCollections } from "../services/collection";
 import useErrorHandler from "../hooks/useError";
 import SkeletonsGrid from "../components/skeletons/SkeletonsGrid";
 import { handleSort } from "../utils";

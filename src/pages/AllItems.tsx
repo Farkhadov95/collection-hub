@@ -3,7 +3,7 @@ import ItemCard from "../components/item-cards/ItemCard";
 import { useCollectionStore } from "../store/store";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { getAllItems } from "../services/service";
+import { getAllItems } from "../services/item";
 import useErrorHandler from "../hooks/useError";
 import SkeletonsGrid from "../components/skeletons/SkeletonsGrid";
 import { handleSort } from "../utils";

@@ -25,7 +25,7 @@ import { useCollectionStore } from "../../store/store";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import useErrorHandler from "../../hooks/useError";
-import { deleteItem } from "../../services/service";
+import { deleteItem } from "../../services/item";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
 

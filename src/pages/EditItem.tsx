@@ -25,7 +25,7 @@ import {
   FieldRenderType,
 } from "../types/types";
 import { ChangeEvent, useEffect, useState } from "react";
-import { updateItem } from "../services/service";
+import { updateItem } from "../services/item";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { convertToBase64 } from "../utils";

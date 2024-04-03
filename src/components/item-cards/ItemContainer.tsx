@@ -4,7 +4,7 @@ import ItemCard from "./ItemCard";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getItems } from "../../services/service";
+import { getItems } from "../../services/item";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
 import SkeletonsGrid from "../skeletons/SkeletonsGrid";

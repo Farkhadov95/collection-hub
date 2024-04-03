@@ -11,11 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { useCollectionStore } from "../../store/store";
 import { useEffect, useState } from "react";
-import {
-  getAllItems,
-  getBiggestCollections,
-  getCollections,
-} from "../../services/service";
+import { getBiggestCollections, getCollections } from "../../services/service";
+import { getAllItems } from "../../services/item";
 import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
 import { ItemType } from "../../types/types";

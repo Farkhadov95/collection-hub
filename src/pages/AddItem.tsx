@@ -18,7 +18,7 @@ import {
 import { useCollectionStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, ChangeEvent, useEffect } from "react";
-import { createItem } from "../services/service";
+import { createItem } from "../services/item";
 import { OptItemData, ReqItemData, newItem } from "../types/types";
 import useErrorHandler from "../hooks/useError";
 import { useForm } from "react-hook-form";

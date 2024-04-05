@@ -27,7 +27,6 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { updateItem } from "../services/item";
 import { useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import { convertToBase64 } from "../utils";
 import BackButton from "../components/buttons/BackButton";
 import { useTranslation } from "react-i18next";
@@ -88,7 +87,7 @@ const EditItem = () => {
     fields: updateInitialFieldsValue() || [],
   });
 
-  const { register, control, handleSubmit, formState } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
   const handleInputChange = (
@@ -369,7 +368,6 @@ const EditItem = () => {
             </SimpleGrid>
           </Stack>
         </Box>
-        <DevTool control={control} />
       </form>
     </Box>
   );

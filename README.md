@@ -29,4 +29,4 @@ Here's what makes CollectionHub special:
 
 https://collection-hub.vercel.app
 
-For a demo, a **"Promote me"** button was added to the footer, so the user can gain Admin rights and have full access to all features of the app.
+For demo only, a **"Promote me"** button was added to the footer, so the user can gain Admin rights and have full access to all features of the app.

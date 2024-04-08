@@ -14,7 +14,7 @@ Here's what makes CollectionHub special:
 ## Features
 
 - State Management using **Zustand**.
-- Navigation using React **Router**.
+- Navigation using **React Router**.
 - **Full-Text Search** to find collections, items or comments.
 - Multi-language support using **i18next**.
 - User Interface using **Chakra UI** .

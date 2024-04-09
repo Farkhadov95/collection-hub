@@ -14,7 +14,7 @@ import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
 import EditButton from "../buttons/EditButton";
 
 type ItemAboutProp = {
@@ -29,7 +29,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
   const items = useCollectionStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
   const currentItem = items?.find((c) => c._id === itemID);
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
 
   const isAuth = currentUser._id === currentItem?.userID || currentUser.isAdmin;
   const collection = collections.find(

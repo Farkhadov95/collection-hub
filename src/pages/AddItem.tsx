@@ -15,7 +15,7 @@ import {
   Checkbox,
   Text,
 } from "@chakra-ui/react";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore, useUserStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, ChangeEvent, useEffect } from "react";
 import { createItem } from "../services/item";
@@ -30,7 +30,7 @@ const AddItem = () => {
   const collectionID = useParams().id || "";
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections.find((c) => c._id === collectionID);
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
 
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);

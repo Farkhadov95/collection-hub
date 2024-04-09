@@ -3,7 +3,7 @@ import CollectionCard from "./CollectionCard";
 import CollectionsItemCreate from "./AddCollectionCard";
 import { useEffect, useState } from "react";
 import { getUserCollection } from "../../services/collection";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
 import SkeletonsGrid from "../skeletons/SkeletonsGrid";
@@ -13,7 +13,7 @@ const CollectionContainer = () => {
   const setUserCollections = useCollectionStore(
     (state) => state.setUserCollections
   );
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const { handleFail } = useErrorHandler();
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();

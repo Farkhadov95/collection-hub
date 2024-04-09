@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useCollectionStore } from "../store/store";
+import { useUserStore } from "../store/store";
 import { routes } from "./Routes";
 
 const PrivateRoutes = () => {
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   if (currentUser._id === "") return <Navigate to={`/${routes.login}`} />;
   return <Outlet />;
 };

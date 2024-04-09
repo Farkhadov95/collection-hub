@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, user } from "../types/user";
 import { loginUser } from "../services/user";
-import { useCollectionStore, useNonPersistStore } from "../store/store";
+import { useUserStore, useNonPersistStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
 
@@ -25,7 +25,7 @@ const Login = () => {
   const { t } = useTranslation();
 
   const userError = useNonPersistStore((state) => state.userError);
-  const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
+  const setCurrentUser = useUserStore((state) => state.setCurrentUser);
 
   const handleSuccess = (userData: currentUser, token: string) => {
     setCurrentUser(userData);

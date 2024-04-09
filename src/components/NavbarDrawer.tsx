@@ -18,7 +18,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import SearchBar from "./SearchBar";
 import { useLocation } from "react-router-dom";
 import LanguageSwitch from "./LanguageSwitch";
-import { useCollectionStore } from "../store/store";
+import { useUserStore } from "../store/store";
 import AdminButton from "./buttons/AdminButton";
 import { useTranslation } from "react-i18next";
 import LogOutButton from "./buttons/LogoutButton";
@@ -28,7 +28,7 @@ import MyCollectionsButton from "./buttons/MyCollectionsButton";
 const NavbarDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const firstField = useRef<HTMLInputElement>(null);
 
   const location = useLocation();

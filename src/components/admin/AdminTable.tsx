@@ -9,16 +9,16 @@ import {
 import AdminTableItem from "./AdminTableItem";
 import AdminTools from "./AdminTools";
 import { getAllUsers } from "../../services/user";
-import { useCollectionStore } from "../../store/store";
+import { useUserStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { userInfo } from "../../types/user";
 import { useTranslation } from "react-i18next";
 import useErrorHandler from "../../hooks/useError";
 
 const AdminsTable = () => {
-  const currentUser = useCollectionStore((state) => state.currentUser);
-  const users = useCollectionStore((state) => state.users);
-  const setUsers = useCollectionStore((state) => state.setUsers);
+  const currentUser = useUserStore((state) => state.currentUser);
+  const users = useUserStore((state) => state.users);
+  const setUsers = useUserStore((state) => state.setUsers);
   const { handleFail } = useErrorHandler();
 
   useEffect(() => {

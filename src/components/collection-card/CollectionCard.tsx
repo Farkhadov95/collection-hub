@@ -18,7 +18,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteCollection } from "../../services/collection";
 import { Collection } from "../../types/collections";
@@ -35,7 +35,7 @@ type CollectionsItemProp = {
 const CollectionCard = ({ collection }: CollectionsItemProp) => {
   const collections = useCollectionStore((state) => state.collections);
   const userCollections = useCollectionStore((state) => state.userCollections);
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
 

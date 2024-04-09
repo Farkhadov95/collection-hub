@@ -2,7 +2,7 @@ import { Heading, Image, Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { Collection } from "../../types/collections";
 import placeholderImage from "../../assets/placeholder.jpg";
 import Markdown from "react-markdown";
-import { useCollectionStore } from "../../store/store";
+import { useUserStore } from "../../store/store";
 import EditCollectionCard from "../collection-card/EditCollectionCard";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +11,7 @@ type AboutProp = {
 };
 
 const About = ({ currentCollection }: AboutProp) => {
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const { t } = useTranslation();
   const isAuth =
     currentUser._id === currentCollection?.userID || currentUser.isAdmin;

@@ -1,7 +1,7 @@
 import { Button, HStack, Icon, Select, Text } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { NavLink, useParams } from "react-router-dom";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
 import { useTranslation } from "react-i18next";
 
 type CollectionToolsProps = {
@@ -13,7 +13,7 @@ const CollectionTools = ({ setSort, setFilter }: CollectionToolsProps) => {
   const collectionID = useParams().id;
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections.find((c) => c._id === collectionID);
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const { t } = useTranslation();
 
   const isAuth =

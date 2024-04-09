@@ -14,20 +14,56 @@ const emptyCurrentUser = {
   isAdmin: false,
 }
 
-type CollectionStore = {
+type UserStore = {
   currentUser: currentUser,
+  users: userInfo[],
+  setCurrentUser: (user: currentUser) => void,
+  setUsers: (users: userInfo[]) => void,
+}
+
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      currentUser: emptyCurrentUser,
+      users: [],
+      setCurrentUser: (user: currentUser) => set({ currentUser: user }),
+      setUsers: (users: userInfo[]) => set({ users }),
+    }), {
+      name: 'user-storage',
+    }
+  )
+);
+
+type ItemStore = {
+  items: ItemType[],
+  userItems: ItemType[],
+  setItems: (items: ItemType[]) => void,
+  setUserItems: (userItems: ItemType[]) => void,
+}
+
+export const useItemStore = create<ItemStore>()(
+  persist(
+    (set) => ({
+      items: [],
+      userItems: [],
+      setItems: (items: ItemType[]) => set({ items }),
+      setUserItems: (userItems: ItemType[]) => set({ userItems }),
+    }), {
+      name: 'item-storage',
+    }
+  )
+)
+
+type CollectionStore = {
   collections: Collection[],
   biggestCollections: Collection[],
   items: ItemType[],
-  users: userInfo[],
   userCollections: Collection[],
   userItems: ItemType[],
   comments: Comment[],
-  setCurrentUser: (user: currentUser) => void,
   setCollections: (collections: Collection[]) => void,
   setBiggestCollections: (biggestCollections: Collection[]) => void,
   setItems: (items: ItemType[]) => void,
-  setUsers: (users: userInfo[]) => void,
   setUserCollections: (collections: Collection[]) => void,
   setUserItems: (userItems: ItemType[]) => void,
   setComments: (comments: Comment[]) => void;
@@ -36,19 +72,15 @@ type CollectionStore = {
 export const useCollectionStore = create<CollectionStore>()(
   persist(
     (set) => ({
-      currentUser: emptyCurrentUser,
       collections: [],
       biggestCollections: [],
       items: [],
-      users: [],
       userCollections: [],
       userItems: [],
       comments: [],
-      setCurrentUser: (user: currentUser) => set({ currentUser: user }),
       setCollections: (collections: Collection[]) => set({ collections }),
       setBiggestCollections: (biggestCollections: Collection[]) => set({ biggestCollections }),
       setItems: (items: ItemType[]) => set({ items }),
-      setUsers: (users: userInfo[]) => set({ users }),
       setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
       setUserItems: (userItems: ItemType[]) => set({ userItems }),
       setComments: (comments: Comment[]) => set({ comments }),

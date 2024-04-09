@@ -4,12 +4,12 @@ import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import NavbarDrawer from "./NavbarDrawer";
-import { useCollectionStore } from "../store/store";
+import { useUserStore } from "../store/store";
 import LanguageSwitch from "./LanguageSwitch";
 import AdminButton from "./buttons/AdminButton";
 
 const Navbar = () => {
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   return (
     <>
       <Flex justifyContent={"space-between"} marginBottom={{ base: 2, md: 5 }}>

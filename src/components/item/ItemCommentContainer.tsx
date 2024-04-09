@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { postComment } from "../../services/comment";
 import { useParams } from "react-router-dom";
 import useErrorHandler from "../../hooks/useError";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { newComment } from "../../types/comment";
@@ -16,7 +16,7 @@ const ItemComments = () => {
   const itemID = useParams().id || "";
   const comments = useCollectionStore((state) => state.comments);
   const setComments = useCollectionStore((state) => state.setComments);
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
 
   const form = useForm({
     defaultValues: {

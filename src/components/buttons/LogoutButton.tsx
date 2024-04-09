@@ -1,13 +1,13 @@
 import { Button } from "@chakra-ui/react";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useCollectionStore } from "../../store/store";
+import { useUserStore } from "../../store/store";
 import { useTranslation } from "react-i18next";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const setCurrentUser = useCollectionStore((state) => state.setCurrentUser);
+  const setCurrentUser = useUserStore((state) => state.setCurrentUser);
   return (
     <Button
       variant={"outline"}

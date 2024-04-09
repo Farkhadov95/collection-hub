@@ -16,7 +16,7 @@ import { IoMdAdd } from "react-icons/io";
 import { MdDeleteForever, MdBlockFlipped } from "react-icons/md";
 import { userInfo } from "../../types/user";
 import { deleteUsers, updateUsers } from "../../services/user";
-import { useCollectionStore } from "../../store/store";
+import { useUserStore } from "../../store/store";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
 import { useRef, useState } from "react";
@@ -27,8 +27,8 @@ type AdminToolsProp = {
 };
 
 const AdminTools = ({ selected, setSelected }: AdminToolsProp) => {
-  const users = useCollectionStore((state) => state.users);
-  const setUsers = useCollectionStore((state) => state.setUsers);
+  const users = useUserStore((state) => state.users);
+  const setUsers = useUserStore((state) => state.setUsers);
   const [isLoading, setIsLoading] = useState(false);
   const { handleFail } = useErrorHandler();
   const { isOpen, onOpen, onClose } = useDisclosure();

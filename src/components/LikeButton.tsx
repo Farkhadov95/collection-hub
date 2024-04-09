@@ -2,7 +2,7 @@ import { Button, HStack, Spinner } from "@chakra-ui/react";
 import { BiSolidLike, BiLike } from "react-icons/bi";
 import useErrorHandler from "../hooks/useError";
 import { updateLike } from "../services/item";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore, useUserStore } from "../store/store";
 import { ItemType } from "../types/item";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ type LikeButtonProps = {
 };
 
 const LikeButton = ({ item }: LikeButtonProps) => {
-  const currentUser = useCollectionStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const items = useCollectionStore((state) => state.items);
   const setItems = useCollectionStore((state) => state.setItems);
   const userItems = useCollectionStore((state) => state.userItems);

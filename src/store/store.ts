@@ -1,28 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Collection } from "../types/collections";
-
-import { Comment } from "../types/comment";
-
 import { ItemSearch, CommentSearch, CollectionSearch } from "../types/search";
-import { mountStoreDevtool } from "simple-zustand-devtools";
-
-
-type CommentStore = {
-  comments: Comment[],
-  setComments: (comments: Comment[]) => void;
-}
-
-export  const useCommentStore = create<CommentStore>()(
-  persist(
-    (set) => ({
-      comments: [],
-      setComments: (comments: Comment[]) => set({ comments }),
-    }), {
-      name: 'comment-storage',
-    }
-  )
-)
 
 type CollectionStore = {
   collections: Collection[],
@@ -31,7 +10,6 @@ type CollectionStore = {
   setCollections: (collections: Collection[]) => void,
   setBiggestCollections: (biggestCollections: Collection[]) => void,
   setUserCollections: (collections: Collection[]) => void,
-  
 }
 
 export const useCollectionStore = create<CollectionStore>()(
@@ -82,7 +60,3 @@ export const useNonPersistStore = create<nonPersistStore>((set) => ({
   setSearchedComments: (searchedComments: CommentSearch[]) => set({ searchedComments }),
   setSearchedCollections: (searchedCollections: CollectionSearch[]) => set({ searchedCollections }),
 }))
-
-if (process.env.NODE_ENV === "development") {
-  mountStoreDevtool("CollectionStore", useCollectionStore);
-}

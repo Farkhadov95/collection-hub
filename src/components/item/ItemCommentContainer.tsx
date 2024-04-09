@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { postComment } from "../../services/comment";
 import { useParams } from "react-router-dom";
 import useErrorHandler from "../../hooks/useError";
-import { useCommentStore } from "../../store/store";
+import { useCommentStore } from "../../store/commentStore";
 import { useUserStore } from "../../store/userStore";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";

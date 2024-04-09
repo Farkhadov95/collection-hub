@@ -93,7 +93,7 @@ const SearchResults = () => {
         <Heading fontSize={"large"}>
           ({searchCollections.length}) {t("item.collections")}
         </Heading>
-        {searchedItems.length > 0 && (
+        {searchCollections.length > 0 && (
           <SimpleGrid
             mt={5}
             columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}

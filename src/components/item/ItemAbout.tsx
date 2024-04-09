@@ -14,8 +14,9 @@ import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
-import { useCollectionStore, useUserStore } from "../../store/store";
+import { useCollectionStore } from "../../store/store";
 import { useItemStore } from "../../store/itemStore";
+import { useUserStore } from "../../store/userStore";
 import EditButton from "../buttons/EditButton";
 
 type ItemAboutProp = {

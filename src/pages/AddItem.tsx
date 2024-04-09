@@ -15,8 +15,9 @@ import {
   Checkbox,
   Text,
 } from "@chakra-ui/react";
-import { useCollectionStore, useUserStore } from "../store/store";
+import { useCollectionStore } from "../store/store";
 import { useItemStore } from "../store/itemStore";
+import { useUserStore } from "../store/userStore";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, ChangeEvent, useEffect } from "react";
 import { createItem } from "../services/item";

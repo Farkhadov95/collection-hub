@@ -3,36 +3,9 @@ import { persist } from "zustand/middleware";
 import { Collection } from "../types/collections";
 
 import { Comment } from "../types/comment";
-import { currentUser, userInfo} from "../types/user";
+
 import { ItemSearch, CommentSearch, CollectionSearch } from "../types/search";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-
-const emptyCurrentUser = {
-  _id: "",
-  username: "",
-  email: "",
-  isAdmin: false,
-}
-
-type UserStore = {
-  currentUser: currentUser,
-  users: userInfo[],
-  setCurrentUser: (user: currentUser) => void,
-  setUsers: (users: userInfo[]) => void,
-}
-
-export const useUserStore = create<UserStore>()(
-  persist(
-    (set) => ({
-      currentUser: emptyCurrentUser,
-      users: [],
-      setCurrentUser: (user: currentUser) => set({ currentUser: user }),
-      setUsers: (users: userInfo[]) => set({ users }),
-    }), {
-      name: 'user-storage',
-    }
-  )
-);
 
 
 type CommentStore = {
@@ -50,7 +23,6 @@ export  const useCommentStore = create<CommentStore>()(
     }
   )
 )
-
 
 type CollectionStore = {
   collections: Collection[],

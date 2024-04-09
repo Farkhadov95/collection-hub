@@ -4,6 +4,7 @@ import {
   useCollectionStore,
   useNonPersistStore,
   useItemStore,
+  useCommentStore,
 } from "../store/store";
 import ItemAbout from "../components/item/ItemAbout";
 import ItemComments from "../components/item/ItemCommentContainer";
@@ -16,7 +17,7 @@ const Item = () => {
   const itemID = useParams().id || "";
   const items = useItemStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
-  const setComments = useCollectionStore((state) => state.setComments);
+  const setComments = useCommentStore((state) => state.setComments);
   const commentLoading = useNonPersistStore((state) => state.commentLoading);
   const setCommentLoading = useNonPersistStore(
     (state) => state.setCommentLoading

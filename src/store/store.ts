@@ -54,15 +54,31 @@ export const useItemStore = create<ItemStore>()(
   )
 )
 
+type CommentStore = {
+  comments: Comment[],
+  setComments: (comments: Comment[]) => void;
+}
+
+export  const useCommentStore = create<CommentStore>()(
+  persist(
+    (set) => ({
+      comments: [],
+      setComments: (comments: Comment[]) => set({ comments }),
+    }), {
+      name: 'comment-storage',
+    }
+  )
+)
+
+
 type CollectionStore = {
   collections: Collection[],
   biggestCollections: Collection[],
   userCollections: Collection[],
-  comments: Comment[],
   setCollections: (collections: Collection[]) => void,
   setBiggestCollections: (biggestCollections: Collection[]) => void,
   setUserCollections: (collections: Collection[]) => void,
-  setComments: (comments: Comment[]) => void;
+  
 }
 
 export const useCollectionStore = create<CollectionStore>()(
@@ -71,13 +87,10 @@ export const useCollectionStore = create<CollectionStore>()(
       collections: [],
       biggestCollections: [],
       userCollections: [],
-      comments: [],
       setCollections: (collections: Collection[]) => set({ collections }),
       setBiggestCollections: (biggestCollections: Collection[]) => set({ biggestCollections }),
       setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
-      setComments: (comments: Comment[]) => set({ comments }),
-    }),
-    {
+    }), {
       name: 'collections-storage',
     }
   )

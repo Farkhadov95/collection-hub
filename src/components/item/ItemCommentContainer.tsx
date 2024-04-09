@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { postComment } from "../../services/comment";
 import { useParams } from "react-router-dom";
 import useErrorHandler from "../../hooks/useError";
-import { useCollectionStore, useUserStore } from "../../store/store";
+import { useCommentStore, useUserStore } from "../../store/store";
 import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { newComment } from "../../types/comment";
@@ -14,8 +14,8 @@ const URL = "https://collection-hub-server.adaptable.app/";
 
 const ItemComments = () => {
   const itemID = useParams().id || "";
-  const comments = useCollectionStore((state) => state.comments);
-  const setComments = useCollectionStore((state) => state.setComments);
+  const comments = useCommentStore((state) => state.comments);
+  const setComments = useCommentStore((state) => state.setComments);
   const currentUser = useUserStore((state) => state.currentUser);
 
   const form = useForm({

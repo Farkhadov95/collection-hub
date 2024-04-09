@@ -1,14 +1,4 @@
-import {
-  Stack,
-  Box,
-  Heading,
-  SimpleGrid,
-  HStack,
-  Button,
-  useColorMode,
-  Collapse,
-  Spinner,
-} from "@chakra-ui/react";
+import { Stack, Box, Heading, HStack, Button } from "@chakra-ui/react";
 import {
   getBiggestCollections,
   getCollections,
@@ -17,7 +7,6 @@ import { useCollectionStore } from "../../store/collectionStore";
 import { useItemStore } from "../../store/itemStore";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../../services/item";
-import ItemCard from "../item-cards/ItemCard";
 import useErrorHandler from "../../hooks/useError";
 import { ItemType } from "../../types/item";
 import { useTranslation } from "react-i18next";
@@ -26,6 +15,8 @@ import MainSwiper from "./MainSwiper";
 import SkeletonsGrid from "../skeletons/SkeletonsGrid";
 import { Link } from "react-router-dom";
 import { sortedItems } from "../../utils";
+import { routes } from "../../routing/Routes";
+import MainTags from "./MainTags";
 
 const MainContent = () => {
   const setCollections = useCollectionStore((state) => state.setCollections);
@@ -39,10 +30,7 @@ const MainContent = () => {
   const setItems = useItemStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
-  const { colorMode } = useColorMode();
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
 
@@ -73,24 +61,6 @@ const MainContent = () => {
       });
   }, [handleFail, setBiggestCollections, setCollections, setItems]);
 
-  const handleSelectTag = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
-      return;
-    }
-    setSelectedTags([...selectedTags, tag]);
-  };
-
-  useEffect(() => {
-    const filteredItemsByTag = items.filter((item) => {
-      const itemTags = item.tags.split(" ");
-      return selectedTags.every((tag) => itemTags.includes(tag));
-    });
-    setFilteredItems(filteredItemsByTag);
-  }, [selectedTags, items]);
-
-  const isSelectedTag = selectedTags.length > 0;
-
   return (
     <Stack
       borderRadius={10}
@@ -98,65 +68,7 @@ const MainContent = () => {
       padding={{ base: 0, md: 5 }}
       marginTop={5}
     >
-      <Box
-        bgColor={
-          colorMode === "dark" ? "RGBA(255, 255, 255, 0.36)" : "gray.200"
-        }
-        boxSizing="border-box"
-        padding={{ base: 2, sm: 5 }}
-        borderRadius={10}
-        width={"fit-content"}
-        boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-      >
-        <HStack
-          mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
-          flexDirection={{ base: "column", sm: "row" }}
-          alignItems={{ base: "flex-start", sm: "center" }}
-        >
-          <Heading fontSize={{ base: "medium", md: "large" }}>
-            {t("main.popularTags")}{" "}
-          </Heading>
-          <HStack flexWrap={"wrap"} gap={1}>
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              tags.map((tag: string, index: number) => (
-                <Button
-                  variant={"outline"}
-                  colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
-                  borderRadius={10}
-                  key={index}
-                  fontSize={{ base: "small", md: "medium" }}
-                  height={"fit-content"}
-                  paddingY={1}
-                  onClick={() => handleSelectTag(tag)}
-                >
-                  {tag}
-                </Button>
-              ))
-            )}
-          </HStack>
-        </HStack>
-
-        {filteredItems.length > 0 ? (
-          <Collapse
-            in={isSelectedTag}
-            transition={{ enter: { duration: 0.5 } }}
-          >
-            <SimpleGrid
-              columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
-              spacing={5}
-              mt={{ base: 2, sm: 0 }}
-            >
-              {filteredItems.map((item) => (
-                <ItemCard key={item._id} item={item} />
-              ))}
-            </SimpleGrid>
-          </Collapse>
-        ) : (
-          <Heading>{t("main.noTags")}</Heading>
-        )}
-      </Box>
+      <MainTags isLoading={isLoading} tags={tags} />
       <Box mt={5}>
         <HStack justifyContent={"space-between"} mb={5}>
           <Heading fontSize={{ base: "medium", md: "large" }}>
@@ -164,7 +76,7 @@ const MainContent = () => {
           </Heading>
           <Button
             as={Link}
-            to={"items/all"}
+            to={routes.AllItems}
             variant="link"
             textDecoration={"underline"}
             fontSize={{ base: "small", md: "medium" }}
@@ -187,7 +99,7 @@ const MainContent = () => {
           </Heading>
           <Button
             as={Link}
-            to={"collections/all"}
+            to={routes.AllCollections}
             variant="link"
             textDecoration={"underline"}
             fontSize={{ base: "small", md: "medium" }}

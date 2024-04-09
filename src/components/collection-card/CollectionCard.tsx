@@ -18,11 +18,8 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import {
-  useCollectionStore,
-  useUserStore,
-  useItemStore,
-} from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
+import { useItemStore } from "../../store/itemStore";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteCollection } from "../../services/collection";
 import { Collection } from "../../types/collections";

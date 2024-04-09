@@ -16,7 +16,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCollectionStore, useUserStore, useItemStore } from "../store/store";
+import { useCollectionStore, useUserStore } from "../store/store";
+import { useItemStore } from "../store/itemStore";
 import useErrorHandler from "../hooks/useError";
 import {
   ItemType,

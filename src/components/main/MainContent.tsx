@@ -13,7 +13,8 @@ import {
   getBiggestCollections,
   getCollections,
 } from "../../services/collection";
-import { useCollectionStore, useItemStore } from "../../store/store";
+import { useCollectionStore } from "../../store/store";
+import { useItemStore } from "../../store/itemStore";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../../services/item";
 import ItemCard from "../item-cards/ItemCard";

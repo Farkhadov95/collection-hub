@@ -1,6 +1,6 @@
 import { VStack, Heading, SimpleGrid, HStack, Select } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
-import { useItemStore } from "../store/store";
+import { useItemStore } from "../store/itemStore";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../services/item";

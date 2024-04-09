@@ -21,11 +21,8 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../types/item";
 import { Link } from "react-router-dom";
-import {
-  useCollectionStore,
-  useUserStore,
-  useItemStore,
-} from "../../store/store";
+import { useCollectionStore, useUserStore } from "../../store/store";
+import { useItemStore } from "../../store/itemStore";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import useErrorHandler from "../../hooks/useError";

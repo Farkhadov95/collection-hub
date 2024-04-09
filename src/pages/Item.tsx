@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import {
   useCollectionStore,
   useNonPersistStore,
-  useItemStore,
   useCommentStore,
 } from "../store/store";
+import { useItemStore } from "../store/itemStore";
 import ItemAbout from "../components/item/ItemAbout";
 import ItemComments from "../components/item/ItemCommentContainer";
 import { useEffect } from "react";

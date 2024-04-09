@@ -1,9 +1,6 @@
 import { HStack, Box, Badge, Text } from "@chakra-ui/react";
-import {
-  useCollectionStore,
-  useNonPersistStore,
-  useItemStore,
-} from "../../../store/store";
+import { useCollectionStore, useNonPersistStore } from "../../../store/store";
+import { useItemStore } from "../../../store/itemStore";
 import { deleteCollectionFeature } from "../../../services/collection";
 import { useParams } from "react-router-dom";
 import { FieldType } from "../../../types/collections";

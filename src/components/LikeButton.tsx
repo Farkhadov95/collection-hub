@@ -2,7 +2,8 @@ import { Button, HStack, Spinner } from "@chakra-ui/react";
 import { BiSolidLike, BiLike } from "react-icons/bi";
 import useErrorHandler from "../hooks/useError";
 import { updateLike } from "../services/item";
-import { useItemStore, useUserStore } from "../store/store";
+import { useUserStore } from "../store/store";
+import { useItemStore } from "../store/itemStore";
 import { ItemType } from "../types/item";
 import { useState } from "react";
 

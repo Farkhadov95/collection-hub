@@ -1,13 +1,4 @@
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  HStack,
-  Heading,
-  Input,
-  Box,
-  Text,
-} from "@chakra-ui/react";
+import { Button, HStack, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, user } from "../types/user";
@@ -16,7 +7,9 @@ import { useNonPersistStore } from "../store/utilStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
-import hookForm from "../hookForm";
+import LoginTitle from "../components/login/LoginTitle";
+import EmailInput from "../components/login/EmailInput";
+import PasswordInput from "../components/login/PasswordInput";
 
 const Login = () => {
   const form = useForm<user>();
@@ -71,46 +64,9 @@ const Login = () => {
         borderRadius={10}
         gap={1}
       >
-        <Box marginBottom={5}>
-          <Heading as={"h2"}>{t("nav.logInTitle")}</Heading>
-          <Text
-            paddingX={1}
-            color={"red.300"}
-            mt={2}
-            display={userError !== "" ? "block" : "none"}
-          >
-            {userError}
-          </Text>
-        </Box>
-        <FormControl isRequired>
-          <FormLabel>Email</FormLabel>
-          <Input
-            border={"1px solid"}
-            placeholder="Email"
-            borderColor={errors.email ? "red.300" : "gray.300"}
-            {...register("email", {
-              required: hookForm.required,
-              pattern: hookForm.emailPattern,
-            })}
-          />
-          <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-            {errors.email?.message}
-          </Text>
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel>{t("nav.password")}</FormLabel>
-          <Input
-            border={"1px solid"}
-            placeholder="Password"
-            borderColor={errors.password ? "red.300" : "gray.300"}
-            {...register("password", {
-              required: hookForm.required,
-            })}
-          />
-          <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-            {errors.password?.message}
-          </Text>
-        </FormControl>
+        <LoginTitle userError={userError} />
+        <EmailInput register={register} errors={errors} />
+        <PasswordInput register={register} errors={errors} />
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Button as={NavLink} to={"/signup"} variant={"outline"}>
             {t("nav.orSignUp")}

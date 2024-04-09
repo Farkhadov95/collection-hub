@@ -30,10 +30,6 @@ const Item = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     setCommentLoading(true);
     getComments(itemID)
       .then((data) => {
@@ -46,6 +42,10 @@ const Item = () => {
         setCommentLoading(false);
       });
   }, [handleFail, itemID, setComments, setCommentLoading]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!item || !parentCollectionName) {
     return <Heading>{t("item.noItem")}</Heading>;

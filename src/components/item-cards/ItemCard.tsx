@@ -21,7 +21,11 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ItemType } from "../../types/item";
 import { Link } from "react-router-dom";
-import { useCollectionStore, useUserStore } from "../../store/store";
+import {
+  useCollectionStore,
+  useUserStore,
+  useItemStore,
+} from "../../store/store";
 import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import useErrorHandler from "../../hooks/useError";
@@ -37,10 +41,10 @@ const ItemCard = ({ item }: ItemProps) => {
   const { colorMode } = useColorMode();
   const collections = useCollectionStore((state) => state.collections);
   const currentUser = useUserStore((state) => state.currentUser);
-  const items = useCollectionStore((state) => state.items);
-  const userItems = useCollectionStore((state) => state.userItems);
-  const setItems = useCollectionStore((state) => state.setItems);
-  const setUserItems = useCollectionStore((state) => state.setUserItems);
+  const items = useItemStore((state) => state.items);
+  const userItems = useItemStore((state) => state.userItems);
+  const setItems = useItemStore((state) => state.setItems);
+  const setUserItems = useItemStore((state) => state.setUserItems);
 
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();

@@ -13,7 +13,7 @@ import {
   getBiggestCollections,
   getCollections,
 } from "../../services/collection";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore, useItemStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../../services/item";
 import ItemCard from "../item-cards/ItemCard";
@@ -34,8 +34,8 @@ const MainContent = () => {
   const setBiggestCollections = useCollectionStore(
     (state) => state.setBiggestCollections
   );
-  const items = useCollectionStore((state) => state.items);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const items = useItemStore((state) => state.items);
+  const setItems = useItemStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
   const { colorMode } = useColorMode();

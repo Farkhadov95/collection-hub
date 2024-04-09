@@ -1,6 +1,6 @@
 import { VStack, Heading, SimpleGrid, HStack, Select } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
-import { useCollectionStore } from "../store/store";
+import { useItemStore } from "../store/store";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../services/item";
@@ -9,8 +9,8 @@ import SkeletonsGrid from "../components/skeletons/SkeletonsGrid";
 import { handleSort } from "../utils";
 
 const AllItems = () => {
-  const items = useCollectionStore((state) => state.items);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const items = useItemStore((state) => state.items);
+  const setItems = useItemStore((state) => state.setItems);
   const { t } = useTranslation();
   const { handleFail } = useErrorHandler();
 

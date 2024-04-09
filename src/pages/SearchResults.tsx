@@ -2,14 +2,18 @@ import { VStack, Heading, SimpleGrid, Box } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
 import { CollectionSearch, ItemSearch } from "../types/search";
 import { useTranslation } from "react-i18next";
-import { useCollectionStore, useNonPersistStore } from "../store/store";
+import {
+  useCollectionStore,
+  useNonPersistStore,
+  useItemStore,
+} from "../store/store";
 import ItemComment from "../components/item/ItemComment";
 import { Link } from "react-router-dom";
 import CollectionCard from "../components/collection-card/CollectionCard";
 
 const SearchResults = () => {
   const { t } = useTranslation();
-  const items = useCollectionStore((state) => state.items);
+  const items = useItemStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
   const searchCollections = useNonPersistStore(
     (state) => state.searchedCollections
@@ -82,8 +86,6 @@ const SearchResults = () => {
 
     return foundItems;
   };
-
-  console.log(searchCollections);
 
   return (
     <VStack alignItems={"start"} mt={5} padding={{ base: 0, md: 5 }}>

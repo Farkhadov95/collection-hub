@@ -1,5 +1,9 @@
 import { HStack, Box, Badge, Text } from "@chakra-ui/react";
-import { useCollectionStore, useNonPersistStore } from "../../../store/store";
+import {
+  useCollectionStore,
+  useNonPersistStore,
+  useItemStore,
+} from "../../../store/store";
 import { deleteCollectionFeature } from "../../../services/collection";
 import { useParams } from "react-router-dom";
 import { FieldType } from "../../../types/collections";
@@ -23,8 +27,8 @@ const FeaturesItem = ({ feature }: PropertiesItemProp) => {
   const { handleFail } = useErrorHandler();
   const { t } = useTranslation();
 
-  const items = useCollectionStore((state) => state.items);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const items = useItemStore((state) => state.items);
+  const setItems = useItemStore((state) => state.setItems);
 
   const handleDelete = async (id: string) => {
     if (id !== "" && collectionID && feature._id && currentCollection) {

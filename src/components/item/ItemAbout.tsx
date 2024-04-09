@@ -14,7 +14,11 @@ import LikeButton from "../LikeButton";
 import placeholderImage from "../../assets/placeholder.jpg";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
-import { useCollectionStore, useUserStore } from "../../store/store";
+import {
+  useCollectionStore,
+  useUserStore,
+  useItemStore,
+} from "../../store/store";
 import EditButton from "../buttons/EditButton";
 
 type ItemAboutProp = {
@@ -26,7 +30,7 @@ const ItemAbout = ({ item, parentCollectionName }: ItemAboutProp) => {
   const tagsToArray = item?.tags.split(" ");
   const { t } = useTranslation();
   const itemID = useParams().id;
-  const items = useCollectionStore((state) => state.items);
+  const items = useItemStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
   const currentItem = items?.find((c) => c._id === itemID);
   const currentUser = useUserStore((state) => state.currentUser);

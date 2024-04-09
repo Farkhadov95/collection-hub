@@ -1,7 +1,7 @@
 import { Box, HStack, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import CollectionTools from "../collection/CollectionTools";
 import ItemCard from "./ItemCard";
-import { useCollectionStore } from "../../store/store";
+import { useItemStore } from "../../store/store";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getItems } from "../../services/item";
@@ -12,8 +12,8 @@ import { handleItemFilter, handleSort } from "../../utils";
 
 const ItemContainer = () => {
   const collectionID = useParams().id || "";
-  const userItems = useCollectionStore((state) => state.userItems);
-  const setUserItems = useCollectionStore((state) => state.setUserItems);
+  const userItems = useItemStore((state) => state.userItems);
+  const setUserItems = useItemStore((state) => state.setUserItems);
   const [isLoading, setIsLoading] = useState(false);
   const [sortType, setSortType] = useState("");
   const [filterType, setFilterType] = useState("");

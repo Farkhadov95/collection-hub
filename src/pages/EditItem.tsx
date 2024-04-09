@@ -16,7 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCollectionStore, useUserStore } from "../store/store";
+import { useCollectionStore, useUserStore, useItemStore } from "../store/store";
 import useErrorHandler from "../hooks/useError";
 import {
   ItemType,
@@ -33,10 +33,10 @@ import { useTranslation } from "react-i18next";
 
 const EditItem = () => {
   const itemID = useParams().id;
-  const items = useCollectionStore((state) => state.items);
+  const items = useItemStore((state) => state.items);
   const currentItem = items.find((item) => item._id === itemID);
   const currentUser = useUserStore((state) => state.currentUser);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const setItems = useItemStore((state) => state.setItems);
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections.find(
     (c) => c._id === currentItem?.collectionID

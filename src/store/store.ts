@@ -57,15 +57,11 @@ export const useItemStore = create<ItemStore>()(
 type CollectionStore = {
   collections: Collection[],
   biggestCollections: Collection[],
-  items: ItemType[],
   userCollections: Collection[],
-  userItems: ItemType[],
   comments: Comment[],
   setCollections: (collections: Collection[]) => void,
   setBiggestCollections: (biggestCollections: Collection[]) => void,
-  setItems: (items: ItemType[]) => void,
   setUserCollections: (collections: Collection[]) => void,
-  setUserItems: (userItems: ItemType[]) => void,
   setComments: (comments: Comment[]) => void;
 }
 
@@ -74,15 +70,11 @@ export const useCollectionStore = create<CollectionStore>()(
     (set) => ({
       collections: [],
       biggestCollections: [],
-      items: [],
       userCollections: [],
-      userItems: [],
       comments: [],
       setCollections: (collections: Collection[]) => set({ collections }),
       setBiggestCollections: (biggestCollections: Collection[]) => set({ biggestCollections }),
-      setItems: (items: ItemType[]) => set({ items }),
       setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
-      setUserItems: (userItems: ItemType[]) => set({ userItems }),
       setComments: (comments: Comment[]) => set({ comments }),
     }),
     {

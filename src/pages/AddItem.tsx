@@ -15,7 +15,7 @@ import {
   Checkbox,
   Text,
 } from "@chakra-ui/react";
-import { useCollectionStore, useUserStore } from "../store/store";
+import { useCollectionStore, useUserStore, useItemStore } from "../store/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, ChangeEvent, useEffect } from "react";
 import { createItem } from "../services/item";
@@ -32,8 +32,8 @@ const AddItem = () => {
   const currentCollection = collections.find((c) => c._id === collectionID);
   const currentUser = useUserStore((state) => state.currentUser);
 
-  const items = useCollectionStore((state) => state.items);
-  const setItems = useCollectionStore((state) => state.setItems);
+  const items = useItemStore((state) => state.items);
+  const setItems = useItemStore((state) => state.setItems);
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
   const { t } = useTranslation();

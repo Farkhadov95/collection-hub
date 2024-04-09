@@ -7,7 +7,7 @@ import { useNonPersistStore } from "../store/utilStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
-import LoginTitle from "../components/login/LoginTitle";
+import LoginTitle from "../components/login/PageTitle";
 import EmailInput from "../components/login/EmailInput";
 import PasswordInput from "../components/login/PasswordInput";
 

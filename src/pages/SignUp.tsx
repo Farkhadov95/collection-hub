@@ -1,13 +1,4 @@
-import {
-  HStack,
-  FormLabel,
-  Input,
-  Button,
-  Heading,
-  Box,
-  Text,
-  FormControl,
-} from "@chakra-ui/react";
+import { HStack, Button, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -17,7 +8,11 @@ import { useNonPersistStore } from "../store/utilStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
-import hookForm from "../hookForm";
+import PageTitle from "../components/signup/PageTitle";
+import NameInput from "../components/signup/NameInput";
+import EmailInput from "../components/signup/EmailInput";
+import PasswordInput from "../components/signup/PasswordInput";
+import PasswordConfInput from "../components/signup/PasswordConfInput";
 
 const SignUp = () => {
   const form = useForm<newUserForm>();
@@ -75,94 +70,15 @@ const SignUp = () => {
         borderRadius={10}
         gap={1}
       >
-        <Box marginBottom={5}>
-          <Heading as={"h2"}>{t("nav.signUpTitle")}</Heading>
-          <Text
-            paddingX={1}
-            color={"red.300"}
-            mt={2}
-            display={userError !== "" ? "block" : "none"}
-          >
-            {userError}
-          </Text>
-        </Box>
-        <FormControl isRequired>
-          <FormLabel htmlFor="username">{t("nav.name")}</FormLabel>
-          <Input
-            id="username"
-            type={"text"}
-            border={"1px solid"}
-            borderColor={errors.username ? "red.300" : "gray.300"}
-            placeholder="Name"
-            {...register("username", {
-              required: {
-                value: true,
-                message: "Name is required",
-              },
-            })}
-          />
-          <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-            {errors.username?.message}
-          </Text>
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <Input
-            id="email"
-            type={"email"}
-            border={"1px solid"}
-            borderColor={errors.email ? "red.300" : "gray.300"}
-            placeholder="Email"
-            {...register("email", {
-              required: hookForm.required,
-              pattern: hookForm.emailPattern,
-            })}
-          />
-          <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-            {errors.email?.message}
-          </Text>
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="password">{t("nav.password")}</FormLabel>
-          <Input
-            id="password"
-            type={"password"}
-            border={"1px solid"}
-            borderColor={errors.password ? "red.300" : "gray.300"}
-            placeholder="Password"
-            {...register("password", {
-              required: hookForm.required,
-            })}
-          />
-          <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-            {errors.password?.message}
-          </Text>
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel htmlFor="conf_password">
-            {t("nav.confirmPassword")}
-          </FormLabel>
-          <Input
-            id="conf_password"
-            type={"password"}
-            border={"1px solid"}
-            borderColor={errors.conf_password ? "red.300" : "gray.300"}
-            placeholder="Confirm Password"
-            {...register("conf_password", {
-              required: hookForm.required,
-              validate: (value) => {
-                return (
-                  value === form.getValues("password") ||
-                  "Passwords should be identical"
-                );
-              },
-            })}
-          />
-          <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-            {errors.conf_password?.message}
-          </Text>
-        </FormControl>
-
+        <PageTitle userError={userError} />
+        <NameInput register={register} errors={errors} />
+        <EmailInput register={register} errors={errors} />
+        <PasswordInput register={register} errors={errors} />
+        <PasswordConfInput
+          register={register}
+          errors={errors}
+          passwordValue={form.getValues("password")}
+        />
         <HStack justifyContent={"space-between"} marginTop={5}>
           <Button as={NavLink} to={"/login"} variant={"outline"}>
             {t("nav.orLogIn")}

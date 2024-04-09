@@ -7,6 +7,7 @@ type Props = {
 
 const LoginTitle = ({ userError }: Props) => {
   const { t } = useTranslation();
+
   return (
     <Box marginBottom={5}>
       <Heading as={"h2"}>{t("nav.logInTitle")}</Heading>

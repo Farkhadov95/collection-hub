@@ -23,7 +23,7 @@ import {
 } from "../services/search";
 import { IoMdClose } from "react-icons/io";
 import { useOutsideClick } from "@chakra-ui/react";
-import { useNonPersistStore } from "../store/store";
+import { useSearchStore } from "../store/searchStore";
 import { useTranslation } from "react-i18next";
 
 type SearchBarProps = {
@@ -38,21 +38,16 @@ const SearchBar = ({ onClose }: SearchBarProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
-  const searchedItems = useNonPersistStore((state) => state.searchedItems);
-  const setSearchedItems = useNonPersistStore(
-    (state) => state.setSearchedItems
-  );
-  const searchedComments = useNonPersistStore(
-    (state) => state.searchedComments
-  );
-  const setSearchedComments = useNonPersistStore(
+  const searchedItems = useSearchStore((state) => state.searchedItems);
+  const setSearchedItems = useSearchStore((state) => state.setSearchedItems);
+  const searchedComments = useSearchStore((state) => state.searchedComments);
+  const setSearchedComments = useSearchStore(
     (state) => state.setSearchedComments
   );
-
-  const searchedCollections = useNonPersistStore(
+  const searchedCollections = useSearchStore(
     (state) => state.searchedCollections
   );
-  const setSearchedCollections = useNonPersistStore(
+  const setSearchedCollections = useSearchStore(
     (state) => state.setSearchedCollections
   );
   const { handleFail } = useErrorHandler();

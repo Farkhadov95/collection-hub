@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Collection } from "../types/collections";
-import { ItemSearch, CommentSearch, CollectionSearch } from "../types/search";
 
 type CollectionStore = {
   collections: Collection[],
@@ -27,36 +26,24 @@ export const useCollectionStore = create<CollectionStore>()(
   )
 );
 
-type nonPersistStore = {
+type NonPersistStore = {
   userError: string,
   error: string,
   commentLoading: boolean,
   featuresLoading: boolean,
-  searchedItems: ItemSearch[],
-  searchedComments: CommentSearch[],
-  searchedCollections: CollectionSearch[],
   setUserError: (userError: string) => void,
   setError: (error: string) => void,
   setCommentLoading: (loading: boolean) => void,
   setFeaturesLoading: (loading: boolean) => void,
-  setSearchedItems: (searchedItems: ItemSearch[]) => void,
-  setSearchedComments: (searchedComments: CommentSearch[]) => void,
-  setSearchedCollections: (searchedCollections: CollectionSearch[]) => void,
 }
 
-export const useNonPersistStore = create<nonPersistStore>((set) => ({
+export const useNonPersistStore = create<NonPersistStore>((set) => ({
   userError: "",
   error: "",
   commentLoading: false,
   featuresLoading: false,
-  searchedItems: [],
-  searchedComments: [],
-  searchedCollections: [],
   setUserError: (userError: string) => set({ userError }),
   setError: (error: string) => set({ error }),
   setCommentLoading: (commentLoading: boolean) => set({ commentLoading }),
   setFeaturesLoading: (featuresLoading: boolean) => set({ featuresLoading }),
-  setSearchedItems: (searchedItems: ItemSearch[]) => set({ searchedItems }),
-  setSearchedComments: (searchedComments: CommentSearch[]) => set({ searchedComments }),
-  setSearchedCollections: (searchedCollections: CollectionSearch[]) => set({ searchedCollections }),
 }))

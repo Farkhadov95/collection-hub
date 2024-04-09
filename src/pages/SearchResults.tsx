@@ -2,23 +2,22 @@ import { VStack, Heading, SimpleGrid, Box } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
 import { CollectionSearch, ItemSearch } from "../types/search";
 import { useTranslation } from "react-i18next";
-import { useCollectionStore, useNonPersistStore } from "../store/store";
+import { useCollectionStore } from "../store/store";
 import { useItemStore } from "../store/itemStore";
 import ItemComment from "../components/item/ItemComment";
 import { Link } from "react-router-dom";
 import CollectionCard from "../components/collection-card/CollectionCard";
+import { useSearchStore } from "../store/searchStore";
 
 const SearchResults = () => {
   const { t } = useTranslation();
   const items = useItemStore((state) => state.items);
   const collections = useCollectionStore((state) => state.collections);
-  const searchCollections = useNonPersistStore(
+  const searchCollections = useSearchStore(
     (state) => state.searchedCollections
   );
-  const searchedItems = useNonPersistStore((state) => state.searchedItems);
-  const searchedComments = useNonPersistStore(
-    (state) => state.searchedComments
-  );
+  const searchedItems = useSearchStore((state) => state.searchedItems);
+  const searchedComments = useSearchStore((state) => state.searchedComments);
 
   const getCollectionIDs = (searchedCollections: CollectionSearch[]) => {
     const collectionIDs = searchedCollections.map(

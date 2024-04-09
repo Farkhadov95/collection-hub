@@ -9,7 +9,6 @@ const emptyCurrentUser = {
     isAdmin: false,
   }
 
-
 type UserStore = {
     currentUser: currentUser,
     users: userInfo[],
@@ -29,3 +28,4 @@ type UserStore = {
       }
     )
   );
+  

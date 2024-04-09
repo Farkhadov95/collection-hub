@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { ChangeEvent, useRef, useState } from "react";
 import { updateCollection } from "../../services/collection";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore } from "../../store/collectionStore";
 import useErrorHandler from "../../hooks/useError";
 import { Collection, collectionFormData } from "../../types/collections";
 import { useForm } from "react-hook-form";

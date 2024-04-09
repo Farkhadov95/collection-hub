@@ -13,7 +13,7 @@ import {
   getBiggestCollections,
   getCollections,
 } from "../../services/collection";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore } from "../../store/collectionStore";
 import { useItemStore } from "../../store/itemStore";
 import { useEffect, useState } from "react";
 import { getAllItems } from "../../services/item";

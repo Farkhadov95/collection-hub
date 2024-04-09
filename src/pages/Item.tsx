@@ -1,6 +1,6 @@
 import { Box, Divider, Heading, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore } from "../store/collectionStore";
 import { useCommentStore } from "../store/commentStore";
 import { useItemStore } from "../store/itemStore";
 import ItemAbout from "../components/item/ItemAbout";

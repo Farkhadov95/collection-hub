@@ -1,6 +1,6 @@
 import { VStack, Heading, SimpleGrid, HStack, Select } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore } from "../store/collectionStore";
 import CollectionCard from "../components/collection-card/CollectionCard";
 import { useEffect, useState } from "react";
 import { getCollections } from "../services/collection";

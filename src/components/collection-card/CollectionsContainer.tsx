@@ -3,7 +3,7 @@ import CollectionCard from "./CollectionCard";
 import CollectionsItemCreate from "./AddCollectionCard";
 import { useEffect, useState } from "react";
 import { getUserCollection } from "../../services/collection";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore } from "../../store/collectionStore";
 import { useUserStore } from "../../store/userStore";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";

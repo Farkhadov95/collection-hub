@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { createCollection } from "../../services/collection";
-import { useCollectionStore } from "../../store/store";
+import { useCollectionStore } from "../../store/collectionStore";
 import useErrorHandler from "../../hooks/useError";
 import { collectionFormData } from "../../types/collections";
 import { useForm } from "react-hook-form";

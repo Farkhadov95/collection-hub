@@ -3,7 +3,7 @@ import ItemsContainer from "../components/item-cards/ItemContainer";
 import About from "../components/collection/About";
 import Features from "../components/collection/features/Features";
 import { useParams } from "react-router-dom";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore } from "../store/collectionStore";
 import { useUserStore } from "../store/userStore";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";

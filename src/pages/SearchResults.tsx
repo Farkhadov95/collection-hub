@@ -2,7 +2,7 @@ import { VStack, Heading, SimpleGrid, Box } from "@chakra-ui/react";
 import ItemCard from "../components/item-cards/ItemCard";
 import { CollectionSearch, ItemSearch } from "../types/search";
 import { useTranslation } from "react-i18next";
-import { useCollectionStore } from "../store/store";
+import { useCollectionStore } from "../store/collectionStore";
 import { useItemStore } from "../store/itemStore";
 import ItemComment from "../components/item/ItemComment";
 import { Link } from "react-router-dom";

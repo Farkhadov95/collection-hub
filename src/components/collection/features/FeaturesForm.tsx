@@ -1,7 +1,7 @@
 import { HStack, Select, Input, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { useCollectionStore } from "../../../store/store";
+import { useCollectionStore } from "../../../store/collectionStore";
 import { updateCollection } from "../../../services/collection";
 import { Collection } from "../../../types/collections";
 import useErrorHandler from "../../../hooks/useError";

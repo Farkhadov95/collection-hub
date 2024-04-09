@@ -2,56 +2,47 @@ import {
   Heading,
   Divider,
   Box,
-  Badge,
-  Button,
-  Checkbox,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
   SimpleGrid,
   Stack,
-  Textarea,
   VStack,
-  Text,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCollectionStore } from "../store/collectionStore";
 import { useItemStore } from "../store/itemStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
-import {
-  ItemType,
-  ReqItemData,
-  OptItemData,
-  FieldRenderType,
-} from "../types/item";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ItemType, ReqItemData, OptItemData } from "../types/item";
+import { useEffect, useState } from "react";
 import { updateItem } from "../services/item";
 import { useForm } from "react-hook-form";
-import { convertToBase64 } from "../utils";
-import BackButton from "../components/buttons/BackButton";
 import { useTranslation } from "react-i18next";
-import hookForm from "../hookForm";
+import PageTitle from "../components/edit-item/PageTitle";
+import NameInput from "../components/add-item/NameInput";
+import TagInput from "../components/add-item/TagInput";
+import DescInput from "../components/add-item/DescInput";
+import ImageInput from "../components/add-item/ImageInput";
+import { updateInitialFieldsValue } from "../components/edit-item/utils";
+import { Collection } from "../types/collections";
+import OptionalInputs from "../components/edit-item/OptionalInputs";
 
 const EditItem = () => {
   const itemID = useParams().id;
   const items = useItemStore((state) => state.items);
-  const currentItem = items.find((item) => item._id === itemID);
+  const currentItem = items.find((item) => item._id === itemID) as ItemType;
   const currentUser = useUserStore((state) => state.currentUser);
   const setItems = useItemStore((state) => state.setItems);
   const collections = useCollectionStore((state) => state.collections);
   const currentCollection = collections.find(
     (c) => c._id === currentItem?.collectionID
-  );
+  ) as Collection;
 
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const [optFormData, setOptFormData] = useState<OptItemData>({
+    fields: updateInitialFieldsValue(currentItem, currentCollection) || [],
+  });
 
   const form = useForm<ReqItemData>({
     defaultValues: {
@@ -61,85 +52,13 @@ const EditItem = () => {
     },
   });
 
-  const getInputValue = (collectionFieldID: string) => {
-    const item = currentItem?.fields.find(
-      (field) => field._id === collectionFieldID
-    );
-    return item?.fieldValue || "";
-  };
-
-  const updateInitialFieldsValue = () => {
-    const fields: FieldRenderType[] = [];
-    currentCollection?.itemFields.map((field) => {
-      if (field._id) {
-        fields.push({
-          _id: field._id,
-          fieldName: field.fieldName,
-          fieldType: field.fieldType,
-          fieldValue: getInputValue(field._id),
-        });
-      }
-    });
-    return fields;
-  };
-
-  const [postImage, setPostImage] = useState({ myFile: currentItem?.image });
-  const [postImageError, setPostImageError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [optFormData, setOptFormData] = useState<OptItemData>({
-    fields: updateInitialFieldsValue() || [],
-  });
-
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  const handleInputChange = (
-    event: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value, id, type } = event.target;
-
-    setOptFormData((prevState) => {
-      const existingFieldIndex = prevState.fields.findIndex(
-        (field) => field._id === id
-      );
-
-      if (existingFieldIndex !== -1) {
-        const updatedFields = [...prevState.fields];
-        updatedFields[existingFieldIndex].fieldValue = value;
-        return {
-          ...prevState,
-          fields: updatedFields,
-        };
-      } else {
-        return {
-          ...prevState,
-          fields: [
-            ...prevState.fields,
-            { fieldName: name, fieldType: type, fieldValue: value, _id: id },
-          ],
-        };
-      }
-    });
-  };
-
-  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const fileSize = file.size;
-      const maxSize = 500000; // 500kb
-      if (fileSize > maxSize) {
-        setPostImageError("Image exeeds 500kb");
-        setPostImage({ myFile: "" });
-        return;
-      } else {
-        setPostImageError("");
-      }
-      const base64 = await convertToBase64(file);
-      setPostImage({ myFile: base64 as string });
-    }
-  };
+  const [postImage, setPostImage] = useState({
+    myFile: currentItem?.image || "",
+  });
 
   const createData = (reqData: ReqItemData, OptData: OptItemData) => {
     return {
@@ -166,102 +85,36 @@ const EditItem = () => {
         setItems([...itemsWithout, data]);
         navigate(-1);
         setIsLoading(false);
+        setOptFormData({
+          fields: [],
+        });
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
         setIsLoading(false);
       });
-
-    setOptFormData({
-      fields: [],
-    });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <HStack justifyContent={"space-between"}>
-          <Heading size={{ base: "md", md: "lg" }}>
-            {t("item.editItem")}
-          </Heading>
-          <HStack spacing={3}>
-            <BackButton />
-            <Button
-              isLoading={isLoading}
-              type="submit"
-              variant={"outline"}
-              colorScheme="green"
-            >
-              {t("tools.save")}
-            </Button>
-          </HStack>
-        </HStack>
+        <PageTitle isLoading={isLoading} />
         <Box>
           <Stack spacing={5} mt={5}>
             <Heading fontSize={"large"}>{t("item.requiredFields")}:</Heading>
-
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
               <VStack spacing={2} flexGrow={1} mr={5}>
-                <FormControl isRequired>
-                  <HStack justify={"space-between"}>
-                    <FormLabel>{t("nav.name")}</FormLabel>
-                    <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-                      {errors.name?.message}
-                    </Text>
-                  </HStack>
-                  <Input
-                    {...register("name", {
-                      required: hookForm.required,
-                    })}
-                    type={"text"}
-                    placeholder="Name"
-                    borderColor={errors.name ? "red.300" : "gray.300"}
-                  />
-                </FormControl>
-                <FormControl isRequired>
-                  <HStack justify={"space-between"}>
-                    <FormLabel htmlFor="tags">{t("item.tags")}</FormLabel>
-                    <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-                      {errors.tags?.message}
-                    </Text>
-                  </HStack>
-                  <Input
-                    {...register("tags", {
-                      required: hookForm.required,
-                      pattern: hookForm.tagPattern,
-                    })}
-                    type={"text"}
-                    id="tags"
-                    placeholder="One Two Three"
-                    borderColor={errors.tags ? "red.300" : "gray.300"}
-                  />
-                </FormControl>
+                <NameInput register={register} errors={errors} />
+                <TagInput register={register} errors={errors} />
               </VStack>
 
               <Box flexGrow={1}>
-                <FormControl isRequired>
-                  <HStack justify={"space-between"}>
-                    <FormLabel htmlFor="desc">
-                      {t("collection.description")}
-                    </FormLabel>
-                    <Text fontSize={"small"} paddingX={1} color={"red.300"}>
-                      {errors.description?.message}
-                    </Text>
-                  </HStack>
-                  <Textarea
-                    {...register("description", {
-                      required: hookForm.required,
-                      maxLength: hookForm.maxLength500,
-                    })}
-                    id="desc"
-                    display={"block"}
-                    height={"120px"}
-                    width={"100%"}
-                    verticalAlign={"top"}
-                    borderColor={errors.description ? "red.300" : "gray.300"}
-                  />
-                </FormControl>
+                <DescInput register={register} errors={errors} />
               </Box>
             </SimpleGrid>
           </Stack>
@@ -271,84 +124,11 @@ const EditItem = () => {
           <Stack spacing={5}>
             <Heading fontSize={"large"}>{t("item.optionalFields")}:</Heading>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-              <FormControl
-                border={"1px solid"}
-                padding={2}
-                paddingTop={"5px"}
-                borderRadius={10}
-                alignItems={"center"}
-              >
-                <FormLabel
-                  display={"flex"}
-                  height={"fit-content"}
-                  fontWeight={"bold"}
-                  alignItems={"center"}
-                  marginBottom={1}
-                >
-                  <Badge
-                    colorScheme="green"
-                    fontSize={"2xs"}
-                    marginRight={1}
-                    height={"fit-content"}
-                  >
-                    {t("types.file")}
-                  </Badge>
-                  {t("item.image")}
-                </FormLabel>
-
-                <Input
-                  name="myFile"
-                  type="file"
-                  id="imageUrl"
-                  border={"none"}
-                  paddingX={0}
-                  accept=".jpeg, .png, .jpg, .webp"
-                  onChange={(e) => {
-                    handleFileUpload(e);
-                  }}
-                  height={"fit-content"}
-                />
-
-                {postImageError && (
-                  <Text fontSize={"xs"} color={"red.300"}>
-                    {postImageError}
-                  </Text>
-                )}
-              </FormControl>
-
-              {optFormData.fields.map((field) => {
-                return (
-                  <FormControl key={field._id}>
-                    {field.fieldType === "checkbox" ? (
-                      <Checkbox
-                        id={field._id}
-                        name={field.fieldName}
-                        padding={2}
-                        width={"100%"}
-                      >
-                        {field.fieldName}
-                      </Checkbox>
-                    ) : (
-                      <>
-                        <FormLabel alignItems={"center"}>
-                          <Badge colorScheme="green" fontSize={"2xs"} mr={1}>
-                            {t(`types.${field.fieldType}`)}
-                          </Badge>
-                          {field.fieldName}
-                        </FormLabel>
-                        <Input
-                          id={field._id}
-                          name={field.fieldName}
-                          type={field.fieldType}
-                          placeholder={field.fieldName}
-                          value={field.fieldValue}
-                          onChange={handleInputChange}
-                        />
-                      </>
-                    )}
-                  </FormControl>
-                );
-              })}
+              <ImageInput setPostImage={setPostImage} />
+              <OptionalInputs
+                optFormData={optFormData}
+                setOptFormData={setOptFormData}
+              />
             </SimpleGrid>
           </Stack>
         </Box>

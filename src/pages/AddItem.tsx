@@ -24,16 +24,20 @@ import OptionalInputs from "../components/add-item/OptionalInputs";
 
 const AddItem = () => {
   const collectionID = useParams().id || "";
+
   const currentUser = useUserStore((state) => state.currentUser);
   const items = useItemStore((state) => state.items);
   const setItems = useItemStore((state) => state.setItems);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [postImage, setPostImage] = useState({ myFile: "" });
+  const [optFormData, setOptFormData] = useState<OptItemData>({
+    fields: [],
+  });
+
   const { handleFail } = useErrorHandler();
   const navigate = useNavigate();
   const { t } = useTranslation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const form = useForm<ReqItemData>({
     defaultValues: {
@@ -41,12 +45,6 @@ const AddItem = () => {
       tags: "",
       description: "",
     },
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [postImage, setPostImage] = useState({ myFile: "" });
-  const [optFormData, setOptFormData] = useState<OptItemData>({
-    fields: [],
   });
 
   const { register, handleSubmit, formState } = form;
@@ -74,17 +72,20 @@ const AddItem = () => {
         setItems([...items, data]);
         navigate(-1);
         setIsLoading(false);
+        setOptFormData({
+          fields: [],
+        });
       })
       .catch((err) => {
         const errorMessage = err.message.toString();
         handleFail(errorMessage);
         setIsLoading(false);
       });
-
-    setOptFormData({
-      fields: [],
-    });
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box padding={{ base: 2, md: 5 }} mt={{ base: 2, md: 0 }}>

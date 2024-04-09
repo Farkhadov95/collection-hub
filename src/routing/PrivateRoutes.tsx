@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useUserStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import { routes } from "./Routes";
 
 const PrivateRoutes = () => {

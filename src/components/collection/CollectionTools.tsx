@@ -1,7 +1,8 @@
 import { Button, HStack, Icon, Select, Text } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { NavLink, useParams } from "react-router-dom";
-import { useCollectionStore, useUserStore } from "../../store/store";
+import { useCollectionStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 import { useTranslation } from "react-i18next";
 
 type CollectionToolsProps = {

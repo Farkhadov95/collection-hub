@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 import { useTranslation } from "react-i18next";
 
 const LogoutButton = () => {

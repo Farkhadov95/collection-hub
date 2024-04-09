@@ -18,7 +18,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import SearchBar from "./SearchBar";
 import { useLocation } from "react-router-dom";
 import LanguageSwitch from "./LanguageSwitch";
-import { useUserStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import AdminButton from "./buttons/AdminButton";
 import { useTranslation } from "react-i18next";
 import LogOutButton from "./buttons/LogoutButton";

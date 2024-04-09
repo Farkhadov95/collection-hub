@@ -1,4 +1,4 @@
-import { useUserStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import { Navigate, Outlet } from "react-router-dom";
 import { routes } from "./Routes";
 

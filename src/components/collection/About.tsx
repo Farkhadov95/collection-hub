@@ -2,7 +2,7 @@ import { Heading, Image, Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { Collection } from "../../types/collections";
 import placeholderImage from "../../assets/placeholder.jpg";
 import Markdown from "react-markdown";
-import { useUserStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 import EditCollectionCard from "../collection-card/EditCollectionCard";
 import { useTranslation } from "react-i18next";
 

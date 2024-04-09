@@ -9,7 +9,7 @@ import {
 import AdminTableItem from "./AdminTableItem";
 import AdminTools from "./AdminTools";
 import { getAllUsers } from "../../services/user";
-import { useUserStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 import { useEffect, useState } from "react";
 import { userInfo } from "../../types/user";
 import { useTranslation } from "react-i18next";

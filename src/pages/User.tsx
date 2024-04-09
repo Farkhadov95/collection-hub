@@ -1,6 +1,6 @@
 import { Heading, Box, Badge, HStack, useColorMode } from "@chakra-ui/react";
 import CollectionsContainer from "../components/collection-card/CollectionsContainer";
-import { useUserStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import { useTranslation } from "react-i18next";
 
 const User = () => {

@@ -2,7 +2,7 @@ import { Button, HStack, Icon, Spinner, Tooltip } from "@chakra-ui/react";
 import { BsInfoCircle } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useUserStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import { promoteMe } from "../services/user";
 import useErrorHandler from "../hooks/useError";
 import { useState } from "react";

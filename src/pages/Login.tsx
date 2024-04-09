@@ -12,7 +12,8 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, user } from "../types/user";
 import { loginUser } from "../services/user";
-import { useUserStore, useNonPersistStore } from "../store/store";
+import { useNonPersistStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
 

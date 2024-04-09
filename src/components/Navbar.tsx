@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import NavLinks from "./NavLinks";
 import NavbarDrawer from "./NavbarDrawer";
-import { useUserStore } from "../store/store";
+import { useUserStore } from "../store/userStore";
 import LanguageSwitch from "./LanguageSwitch";
 import AdminButton from "./buttons/AdminButton";
 

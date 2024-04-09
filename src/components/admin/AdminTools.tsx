@@ -16,7 +16,7 @@ import { IoMdAdd } from "react-icons/io";
 import { MdDeleteForever, MdBlockFlipped } from "react-icons/md";
 import { userInfo } from "../../types/user";
 import { deleteUsers, updateUsers } from "../../services/user";
-import { useUserStore } from "../../store/store";
+import { useUserStore } from "../../store/userStore";
 import useErrorHandler from "../../hooks/useError";
 import { useTranslation } from "react-i18next";
 import { useRef, useState } from "react";

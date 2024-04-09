@@ -17,6 +17,7 @@ import { useNonPersistStore } from "../store/utilStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
+import hookForm from "../hookForm";
 
 const SignUp = () => {
   const form = useForm<newUserForm>();
@@ -113,14 +114,8 @@ const SignUp = () => {
             borderColor={errors.email ? "red.300" : "gray.300"}
             placeholder="Email"
             {...register("email", {
-              required: {
-                value: true,
-                message: "Email is required",
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address",
-              },
+              required: hookForm.required,
+              pattern: hookForm.emailPattern,
             })}
           />
           <Text fontSize={"small"} paddingX={1} color={"red.300"}>
@@ -136,10 +131,7 @@ const SignUp = () => {
             borderColor={errors.password ? "red.300" : "gray.300"}
             placeholder="Password"
             {...register("password", {
-              required: {
-                value: true,
-                message: "Password is required",
-              },
+              required: hookForm.required,
             })}
           />
           <Text fontSize={"small"} paddingX={1} color={"red.300"}>
@@ -157,10 +149,7 @@ const SignUp = () => {
             borderColor={errors.conf_password ? "red.300" : "gray.300"}
             placeholder="Confirm Password"
             {...register("conf_password", {
-              required: {
-                value: true,
-                message: "Password confirmation is required",
-              },
+              required: hookForm.required,
               validate: (value) => {
                 return (
                   value === form.getValues("password") ||

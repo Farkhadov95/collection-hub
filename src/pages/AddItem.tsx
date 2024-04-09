@@ -27,6 +27,7 @@ import { useForm } from "react-hook-form";
 import { convertToBase64 } from "../utils";
 import BackButton from "../components/buttons/BackButton";
 import { useTranslation } from "react-i18next";
+import hookForm from "../hookForm";
 
 const AddItem = () => {
   const collectionID = useParams().id || "";
@@ -174,12 +175,8 @@ const AddItem = () => {
                   </HStack>
                   <Input
                     {...register("name", {
-                      required: {
-                        value: true,
-                        message: "Name is required",
-                      },
+                      required: hookForm.required,
                     })}
-                    required={true}
                     type={"text"}
                     placeholder="Name"
                     borderColor={errors.name ? "red.300" : "gray.300"}
@@ -194,17 +191,9 @@ const AddItem = () => {
                   </HStack>
                   <Input
                     {...register("tags", {
-                      required: {
-                        value: true,
-                        message: "Tags are required",
-                      },
-                      pattern: {
-                        value: /^[\w\s-]+$/,
-                        message:
-                          "Tags can only contain letters, numbers, spaces, and hyphens",
-                      },
+                      required: hookForm.required,
+                      pattern: hookForm.tagPattern,
                     })}
-                    required={true}
                     type={"text"}
                     id="tags"
                     placeholder="One Two Three"
@@ -225,17 +214,10 @@ const AddItem = () => {
                   </HStack>
                   <Textarea
                     {...register("description", {
-                      required: {
-                        value: true,
-                        message: "Description is required",
-                      },
-                      maxLength: {
-                        value: 500,
-                        message: "Maximum length - 500 characters",
-                      },
+                      required: hookForm.required,
+                      maxLength: hookForm.maxLength500,
                     })}
                     id="desc"
-                    required={true}
                     display={"block"}
                     height={"120px"}
                     width={"100%"}

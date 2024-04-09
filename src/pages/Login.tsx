@@ -16,6 +16,7 @@ import { useNonPersistStore } from "../store/utilStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
+import hookForm from "../hookForm";
 
 const Login = () => {
   const form = useForm<user>();
@@ -88,14 +89,8 @@ const Login = () => {
             placeholder="Email"
             borderColor={errors.email ? "red.300" : "gray.300"}
             {...register("email", {
-              required: {
-                value: true,
-                message: "Email is required",
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address",
-              },
+              required: hookForm.required,
+              pattern: hookForm.emailPattern,
             })}
           />
           <Text fontSize={"small"} paddingX={1} color={"red.300"}>
@@ -109,10 +104,7 @@ const Login = () => {
             placeholder="Password"
             borderColor={errors.password ? "red.300" : "gray.300"}
             {...register("password", {
-              required: {
-                value: true,
-                message: "Password is required",
-              },
+              required: hookForm.required,
             })}
           />
           <Text fontSize={"small"} paddingX={1} color={"red.300"}>

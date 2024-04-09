@@ -1,29 +1,30 @@
 import { HStack, Heading, Button, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { routes } from "../../routing/Routes";
-import { sortedItems } from "../../utils";
-import MainItemSwiper from "./MainSwiper";
 import SkeletonsGrid from "../skeletons/SkeletonsGrid";
-import { useItemStore } from "../../store/itemStore";
+import MainSwiper from "./MainSwiper";
+import { useCollectionStore } from "../../store/collectionStore";
 import { useTranslation } from "react-i18next";
 
-type MainItemsProps = {
+type MainBigCollectionsProps = {
   isLoading: boolean;
 };
 
-const MainItems = ({ isLoading }: MainItemsProps) => {
-  const items = useItemStore((state) => state.items);
+const MainBigCollections = ({ isLoading }: MainBigCollectionsProps) => {
   const { t } = useTranslation();
+  const biggestCollections = useCollectionStore(
+    (state) => state.biggestCollections
+  );
 
   return (
     <Box mt={5}>
       <HStack justifyContent={"space-between"} mb={5}>
         <Heading fontSize={{ base: "medium", md: "large" }}>
-          {t("main.latest5Items")}
+          {t("main.largest5Collections")}
         </Heading>
         <Button
           as={Link}
-          to={routes.AllItems}
+          to={routes.AllCollections}
           variant="link"
           textDecoration={"underline"}
           fontSize={{ base: "small", md: "medium" }}
@@ -33,13 +34,13 @@ const MainItems = ({ isLoading }: MainItemsProps) => {
       </HStack>
       {isLoading ? (
         <SkeletonsGrid />
-      ) : items.length !== 0 ? (
-        <MainItemSwiper items={sortedItems(items)} />
+      ) : biggestCollections ? (
+        <MainSwiper collections={biggestCollections} />
       ) : (
-        <Heading>{t("main.noItems")}</Heading>
+        <Heading>{t("main.noCollections")}</Heading>
       )}
     </Box>
   );
 };
 
-export default MainItems;
+export default MainBigCollections;

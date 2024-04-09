@@ -1,6 +1,6 @@
 import { Box, Divider, Heading, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useCollectionStore, useNonPersistStore } from "../store/store";
+import { useCollectionStore } from "../store/store";
 import { useCommentStore } from "../store/commentStore";
 import { useItemStore } from "../store/itemStore";
 import ItemAbout from "../components/item/ItemAbout";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { getComments } from "../services/comment";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";
+import { useNonPersistStore } from "../store/utilStore";
 
 const Item = () => {
   const itemID = useParams().id || "";

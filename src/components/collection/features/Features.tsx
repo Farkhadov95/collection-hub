@@ -3,7 +3,7 @@ import PropertiesForm from "../features/FeaturesForm";
 import { Collection } from "../../../types/collections";
 import FeaturesItem from "../features/FeaturesItem";
 import { useTranslation } from "react-i18next";
-import { useNonPersistStore } from "../../../store/store";
+import { useNonPersistStore } from "../../../store/utilStore";
 
 type FeaturesProp = {
   currentCollection: Collection;

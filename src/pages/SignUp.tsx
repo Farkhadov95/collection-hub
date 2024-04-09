@@ -13,7 +13,7 @@ import { DevTool } from "@hookform/devtools";
 import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, newUserForm } from "../types/user";
 import { registerUser } from "../services/user";
-import { useNonPersistStore } from "../store/store";
+import { useNonPersistStore } from "../store/utilStore";
 import { useUserStore } from "../store/userStore";
 import useErrorHandler from "../hooks/useError";
 import { useTranslation } from "react-i18next";

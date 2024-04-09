@@ -1,5 +1,5 @@
 import { Box, Collapse, Text } from "@chakra-ui/react";
-import { useNonPersistStore } from "../store/store";
+import { useNonPersistStore } from "../store/utilStore";
 
 const ErrorMessage = () => {
   const errorMessage = useNonPersistStore((state) => state.error);

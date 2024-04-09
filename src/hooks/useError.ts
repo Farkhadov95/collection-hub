@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useNonPersistStore } from '../store/store';
+import { useNonPersistStore } from '../store/utilStore';
 
 const useErrorHandler = () => {
   const setError = useNonPersistStore((state) => state.setError);

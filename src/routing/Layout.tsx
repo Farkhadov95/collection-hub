@@ -2,7 +2,7 @@ import { Divider, Box } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
-import { useNonPersistStore } from "../store/store";
+import { useNonPersistStore } from "../store/utilStore";
 import Footer from "../components/Footer";
 import { routes } from "./Routes";
 

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { currentUser, userInfo} from "../types/user";
 
 const emptyCurrentUser = {
@@ -25,6 +25,7 @@ type UserStore = {
         setUsers: (users: userInfo[]) => set({ users }),
       }), {
         name: 'user-storage',
+        storage: createJSONStorage(() => sessionStorage),
       }
     )
   );

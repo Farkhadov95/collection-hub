@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { Collection } from "../types/collections";
 
 type CollectionStore = {
@@ -22,6 +22,7 @@ export const useCollectionStore = create<CollectionStore>()(
       setUserCollections: (userCollections: Collection[]) => set({ userCollections }),
     }), {
       name: 'collections-storage',
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

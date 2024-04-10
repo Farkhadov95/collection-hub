@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { ItemType } from "../types/item";
 
 
@@ -19,6 +19,7 @@ type ItemStore = {
         setUserItems: (userItems: ItemType[]) => set({ userItems }),
       }), {
         name: 'item-storage',
+        storage: createJSONStorage(() => sessionStorage),
       }
     )
   )

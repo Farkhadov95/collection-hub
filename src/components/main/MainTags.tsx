@@ -54,50 +54,55 @@ const MainTags = ({ isLoading, tags }: MainTagsProps) => {
       width={"fit-content"}
       boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
     >
-      <HStack
-        mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
-        flexDirection={{ base: "column", sm: "row" }}
-        alignItems={{ base: "flex-start", sm: "center" }}
-      >
-        <Heading fontSize={{ base: "medium", md: "large" }}>
-          {t("main.popularTags")}{" "}
-        </Heading>
-        <HStack flexWrap={"wrap"} gap={1}>
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            tags.map((tag: string, index: number) => (
-              <Button
-                variant={"outline"}
-                colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
-                borderRadius={10}
-                key={index}
-                fontSize={{ base: "small", md: "medium" }}
-                height={"fit-content"}
-                paddingY={1}
-                onClick={() => handleSelectTag(tag)}
-              >
-                {tag}
-              </Button>
-            ))
-          )}
-        </HStack>
-      </HStack>
-
-      {filteredItems.length > 0 ? (
-        <Collapse in={isSelectedTag} transition={{ enter: { duration: 0.5 } }}>
-          <SimpleGrid
-            columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
-            spacing={5}
-            mt={{ base: 2, sm: 0 }}
-          >
-            {filteredItems.map((item) => (
-              <ItemCard key={item._id} item={item} />
-            ))}
-          </SimpleGrid>
-        </Collapse>
+      {isLoading ? (
+        <Spinner />
       ) : (
-        <Heading>{t("main.noTags")}</Heading>
+        <>
+          <HStack
+            mb={isSelectedTag ? { base: 2, md: 5 } : { base: 0 }}
+            flexDirection={{ base: "column", sm: "row" }}
+            alignItems={{ base: "flex-start", sm: "center" }}
+          >
+            <Heading fontSize={{ base: "medium", md: "large" }}>
+              {t("main.popularTags")}{" "}
+            </Heading>
+            <HStack flexWrap={"wrap"} gap={1}>
+              {tags.map((tag: string, index: number) => (
+                <Button
+                  variant={"outline"}
+                  colorScheme={selectedTags.includes(tag) ? "yellow" : "white"}
+                  borderRadius={10}
+                  key={index}
+                  fontSize={{ base: "small", md: "medium" }}
+                  height={"fit-content"}
+                  paddingY={1}
+                  onClick={() => handleSelectTag(tag)}
+                >
+                  {tag}
+                </Button>
+              ))}
+            </HStack>
+          </HStack>
+
+          {filteredItems.length > 0 ? (
+            <Collapse
+              in={isSelectedTag}
+              transition={{ enter: { duration: 0.5 } }}
+            >
+              <SimpleGrid
+                columns={{ base: 1, sm: 2, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+                spacing={5}
+                mt={{ base: 2, sm: 0 }}
+              >
+                {filteredItems.map((item) => (
+                  <ItemCard key={item._id} item={item} />
+                ))}
+              </SimpleGrid>
+            </Collapse>
+          ) : (
+            <Heading>{t("main.noTags")}</Heading>
+          )}
+        </>
       )}
     </Box>
   );

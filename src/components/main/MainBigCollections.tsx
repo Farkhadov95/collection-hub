@@ -34,7 +34,7 @@ const MainBigCollections = ({ isLoading }: MainBigCollectionsProps) => {
       </HStack>
       {isLoading ? (
         <SkeletonsGrid />
-      ) : biggestCollections ? (
+      ) : biggestCollections && !isLoading ? (
         <MainSwiper collections={biggestCollections} />
       ) : (
         <Heading>{t("main.noCollections")}</Heading>

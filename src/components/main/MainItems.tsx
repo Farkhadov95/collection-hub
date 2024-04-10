@@ -33,7 +33,7 @@ const MainItems = ({ isLoading }: MainItemsProps) => {
       </HStack>
       {isLoading ? (
         <SkeletonsGrid />
-      ) : items.length !== 0 ? (
+      ) : items.length !== 0 && !isLoading ? (
         <MainItemSwiper items={sortedItems(items)} />
       ) : (
         <Heading>{t("main.noItems")}</Heading>

@@ -7,6 +7,7 @@ const useErrorHandler = () => {
 
   const handleFail = useCallback((error: string) => {
     setError(error);
+    console.log(error);
     setTimeout(() => {
         setError('');
     }, 3000);

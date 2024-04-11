@@ -150,8 +150,8 @@ const ItemCard = ({ item }: ItemProps) => {
         fontSize={"sm"}
       >
         <Markdown>
-          {item.description.length > 50
-            ? item.description.slice(0, 48).concat("  ...")
+          {item.description.length > 80
+            ? item.description.slice(0, 80).concat("  ...")
             : item.description}
         </Markdown>
       </CardBody>

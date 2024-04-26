@@ -1,6 +1,5 @@
 import { HStack, Button, Box } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import { NavLink, useNavigate } from "react-router-dom";
 import { currentUser, newUserForm } from "../types/user";
 import { registerUser } from "../services/user";
@@ -16,7 +15,7 @@ import PasswordConfInput from "../components/signup/PasswordConfInput";
 
 const SignUp = () => {
   const form = useForm<newUserForm>();
-  const { register, handleSubmit, control, formState } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const navigate = useNavigate();
   const { handleUserFail } = useErrorHandler();
@@ -88,7 +87,6 @@ const SignUp = () => {
           </Button>
         </HStack>
       </Box>
-      <DevTool control={control} />
     </>
   );
 };
